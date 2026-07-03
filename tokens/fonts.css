@@ -1,0 +1,6 @@
+/* Les Petits Moutons — webfonts.
+   NOTE: no font binaries were provided; Google Fonts substitutes are used:
+   - Display: "Cormorant Garamond" (refined French serif — premium, sober)
+   - Body:    "Hanken Grotesk" (warm modern grotesque)
+   Replace with brand fonts + @font-face rules when available. */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');

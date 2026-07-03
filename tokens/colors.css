@@ -1,0 +1,77 @@
+:root {
+  /* ---------- Base palette ---------- */
+  /* Ivoire — warm paper neutrals; matches the cream toile fabric */
+  --lpm-ivory-0:   #FFFEFB;
+  --lpm-ivory-50:  #FAF7F0;
+  --lpm-ivory-100: #F3EEE3;
+  --lpm-ivory-200: #E8E0CF;
+  --lpm-ivory-300: #D6C9B0;
+
+  /* Encre — warm near-black ink for text */
+  --lpm-ink-900: #23211C;
+  --lpm-ink-700: #403C33;
+  --lpm-ink-500: #6E685B;
+  --lpm-ink-300: #A59E8E;
+
+  /* Bleu de Jouy — the brand accent, drawn from the toile print */
+  --lpm-jouy-900: #2C3A5C;
+  --lpm-jouy-700: #3D4E76;
+  --lpm-jouy-500: #5C6E96;
+  --lpm-jouy-300: #9AA9C6;
+  --lpm-jouy-100: #E3E8F1;
+  --lpm-jouy-50:  #F2F4F8;
+
+  /* Laine — ecru & undyed wool tones */
+  --lpm-wool-100: #F2ECDF;
+  --lpm-wool-300: #E4D9C3;
+  --lpm-wool-500: #C6B08C;
+  --lpm-wool-700: #A08A62;
+
+  /* Fanions — the little flags; micro-accents only (badges, details) */
+  --lpm-rose-100: #FBEAEE;
+  --lpm-rose-300: #F2C4CF;
+  --lpm-rose-500: #D98CA0;
+  --lpm-straw-100: #FAF0D7;
+  --lpm-straw-300: #F2DC9E;
+  --lpm-straw-500: #D9B44A;
+  --lpm-sage-100: #EBF0E7;
+  --lpm-sage-300: #C6D4BD;
+  --lpm-sage-500: #8CA37F;
+
+  /* Semantic status — muted, never loud */
+  --lpm-success-500: #5C7A56;
+  --lpm-success-100: #E9EFE5;
+  --lpm-ochre-500: #B98A3C;
+  --lpm-ochre-100: #F4EAD5;
+  --lpm-brick-500: #A9503C;
+  --lpm-brick-100: #F4E2DC;
+
+  /* ---------- Semantic aliases ---------- */
+  --surface-page:    var(--lpm-ivory-50);
+  --surface-card:    var(--lpm-ivory-0);
+  --surface-soft:    var(--lpm-wool-100);
+  --surface-jouy:    var(--lpm-jouy-50);
+  --surface-inverse: var(--lpm-jouy-900);
+
+  --text-body:    var(--lpm-ink-700);
+  --text-heading: var(--lpm-ink-900);
+  --text-muted:   var(--lpm-ink-500);
+  --text-faint:   var(--lpm-ink-300);
+  --text-on-accent: #FFFDF8;
+  --text-link:    var(--lpm-jouy-700);
+
+  --accent:        var(--lpm-jouy-700);
+  --accent-strong: var(--lpm-jouy-900);
+  --accent-soft:   var(--lpm-jouy-100);
+
+  --border-soft:   var(--lpm-ivory-200);
+  --border-strong: var(--lpm-ivory-300);
+  --border-focus:  var(--lpm-jouy-500);
+
+  --status-success: var(--lpm-success-500);
+  --status-success-bg: var(--lpm-success-100);
+  --status-warning: var(--lpm-ochre-500);
+  --status-warning-bg: var(--lpm-ochre-100);
+  --status-error:   var(--lpm-brick-500);
+  --status-error-bg: var(--lpm-brick-100);
+}

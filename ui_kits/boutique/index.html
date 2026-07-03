@@ -1,0 +1,106 @@
+<!-- @dsCard group="Boutique" viewport="1280x760" subtitle="Site e-commerce bilingue FR/EN — accueil, fiche produit, éditorial, panier" name="Boutique Les Petits Moutons" -->
+<!-- @startingPoint section="Boutique" subtitle="Site e-commerce bilingue — accueil + fiche produit + éditorial" viewport="1280x760" -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Les Petits Moutons — Oreillers pour enfants</title>
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<script src="data.js"></script>
+<style>
+  html, body { margin: 0; background: var(--surface-page); }
+  * { box-sizing: border-box; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="Chrome.jsx"></script>
+<script type="text/babel" src="Home.jsx"></script>
+<script type="text/babel" src="Editorial.jsx"></script>
+<script type="text/babel" src="Product.jsx"></script>
+<script type="text/babel">
+const { Toast, Dialog, Button } = window.PetitNuageDesignSystem_f04838;
+
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "heroVariant": "film",
+  "showFanions": true
+}/*EDITMODE-END*/;
+
+function App() {
+  const [tw, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  const [lang, setLang] = React.useState(localStorage.getItem('lpm-lang') || 'fr');
+  const [screen, setScreen] = React.useState({ name: 'home' });
+  const [cart, setCart] = React.useState([]);
+  const [toast, setToast] = React.useState(null);
+  const [cartOpen, setCartOpen] = React.useState(false);
+  const t = window.lpmT[lang];
+
+  const changeLang = (l) => { setLang(l); localStorage.setItem('lpm-lang', l); };
+  const addToCart = (p) => {
+    setCart(c => [...c, p]);
+    setToast(t.added);
+    setTimeout(() => setToast(null), 2400);
+  };
+  const nav = (name, product) => { setScreen({ name, product }); window.scrollTo(0, 0); };
+  const screenLabels = { home: 'Accueil', product: 'Fiche produit', maison: 'La maison', guide: 'Guide du sommeil' };
+
+  return (
+    <div data-screen-label={screenLabels[screen.name]} style={tw.showFanions ? null : { ['--lpm-rose-300']: 'transparent', ['--lpm-straw-300']: 'transparent', ['--lpm-sage-300']: 'transparent' }}>
+      <Header t={t} lang={lang} setLang={changeLang} onNav={nav} active={screen.name === 'home' ? 0 : screen.name === 'maison' ? 1 : screen.name === 'guide' ? 2 : -1} cartCount={cart.length} onCart={() => setCartOpen(true)} />
+      {screen.name === 'home' && <HomeScreen lang={lang} t={t} heroVariant={tw.heroVariant} onOpenProduct={(p) => nav('product', p)} />}
+      {screen.name === 'product' && <ProductScreen product={screen.product} lang={lang} t={t} onBack={() => nav('home')} onAdd={addToCart} />}
+      {screen.name === 'maison' && <MaisonScreen t={t} onOpenCollection={() => nav('home')} />}
+      {screen.name === 'guide' && <GuideSommeilScreen t={t} onOpenCollection={() => nav('home')} />}
+      <Footer t={t} />
+
+      {toast && (
+        <div style={{ position: 'fixed', bottom: 28, left: '50%', transform: 'translateX(-50%)', zIndex: 60 }}>
+          <Toast tone="success">{toast}</Toast>
+        </div>
+      )}
+
+      <Dialog open={cartOpen} title={t.cartLabel} onClose={() => setCartOpen(false)}
+        actions={cart.length > 0 && <>
+          <Button variant="ghost" onClick={() => setCartOpen(false)}>{t.continueShopping}</Button>
+          <Button>{t.checkout}</Button>
+        </>}>
+        {cart.length === 0
+          ? <p style={{ margin: 0, fontSize: 15 }}>{t.cartEmpty}</p>
+          : <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              {cart.map((item, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                  <div style={{ width: 56, height: 44, borderRadius: 8, overflow: 'hidden', border: '1px solid var(--border-soft)', background: '#fff', flexShrink: 0 }}>
+                    <img src={item.img} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontWeight: 600, color: 'var(--text-heading)', fontSize: 14, fontFamily: 'var(--font-body)' }}>{item[lang].name}</div>
+                    <div style={{ fontSize: 12.5, color: 'var(--text-muted)' }}>{item.dims}</div>
+                  </div>
+                  <div style={{ fontWeight: 600, fontSize: 14, color: 'var(--text-heading)' }}>{lang === 'fr' ? item.price : item.priceEn}</div>
+                </div>
+              ))}
+            </div>}
+      </Dialog>
+
+      <TweaksPanel>
+        <TweakSection label="Accueil" />
+        <TweakRadio label="Hero" value={tw.heroVariant}
+          options={[{ value: 'packshot', label: 'Packshot' }, { value: 'lifestyle', label: 'Photo' }, { value: 'film', label: 'Film' }]}
+          onChange={(v) => setTweak('heroVariant', v)} />
+        <TweakSection label="Identité" />
+        <TweakToggle label="Fanions (micro-signature)" value={tw.showFanions} onChange={(v) => setTweak('showFanions', v)} />
+      </TweaksPanel>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
