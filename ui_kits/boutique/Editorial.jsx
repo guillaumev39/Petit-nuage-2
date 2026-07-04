@@ -67,4 +67,35 @@ function GuideSommeilScreen({ t, onOpenCollection }) {
   );
 }
 
-Object.assign(window, { MaisonScreen, GuideSommeilScreen });
+/* Generic numbered info page (Livraison & retours, Entretien) — same skeleton as the sleep guide. */
+function InfoScreen({ data, label, onOpenCollection }) {
+  return (
+    <main data-screen-label={label}>
+      <EditorialHeader eyebrow={data.eyebrow} title={data.title} intro={data.intro} />
+      <section style={{ maxWidth: 760, margin: '48px auto 0', padding: '0 32px', display: 'flex', flexDirection: 'column' }}>
+        {data.articles.map(([h, p], i) => (
+          <article key={i} style={{ padding: '28px 0', borderTop: i > 0 ? '1px solid var(--border-soft)' : 'none', display: 'grid', gridTemplateColumns: '52px 1fr', gap: 20, alignItems: 'start' }}>
+            <span style={{ fontFamily: 'var(--font-display)', fontSize: 34, fontWeight: 500, color: 'var(--lpm-jouy-300)', lineHeight: 1 }}>{String(i + 1).padStart(2, '0')}</span>
+            <div>
+              <h3 style={{ margin: '0 0 8px', fontFamily: 'var(--font-display)', fontSize: 25, fontWeight: 600, color: 'var(--text-heading)' }}>{h}</h3>
+              <p style={{ margin: 0, fontFamily: 'var(--font-body)', fontSize: 15.5, lineHeight: 1.7, maxWidth: 560 }}>{p}</p>
+            </div>
+          </article>
+        ))}
+      </section>
+      <section style={{ maxWidth: 760, margin: '32px auto 0', padding: '0 32px', textAlign: 'center' }}>
+        <Button size="lg" onClick={onOpenCollection}>{data.cta}</Button>
+      </section>
+    </main>
+  );
+}
+
+function LivraisonScreen({ t, onOpenCollection }) {
+  return <InfoScreen data={t.livraison} label="Livraison & retours" onOpenCollection={onOpenCollection} />;
+}
+
+function EntretienScreen({ t, onOpenCollection }) {
+  return <InfoScreen data={t.entretien} label="Entretien" onOpenCollection={onOpenCollection} />;
+}
+
+Object.assign(window, { MaisonScreen, GuideSommeilScreen, LivraisonScreen, EntretienScreen });

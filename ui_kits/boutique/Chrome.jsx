@@ -69,7 +69,7 @@ function ReassuranceBar({ t }) {
   );
 }
 
-function Footer({ t }) {
+function Footer({ t, onNav }) {
   const a = { color: 'rgba(255,253,248,0.62)', textDecoration: 'none', cursor: 'pointer', fontSize: 14 };
   return (
     <footer style={{ background: 'var(--surface-inverse)', marginTop: 88 }}>
@@ -82,7 +82,9 @@ function Footer({ t }) {
         {t.footerCols.map(([title, links]) => (
           <div key={title} style={{ display: 'flex', flexDirection: 'column', gap: 10, fontFamily: 'var(--font-body)' }}>
             <span style={{ fontSize: 12, letterSpacing: 'var(--tracking-wide)', textTransform: 'uppercase', color: 'rgba(255,253,248,0.4)', fontWeight: 600 }}>{title}</span>
-            {links.map(l => <a key={l} style={a}>{l}</a>)}
+            {links.map(l => l.to.startsWith('mailto:')
+              ? <a key={l.label} style={a} href={l.to}>{l.label}</a>
+              : <a key={l.label} style={a} onClick={() => onNav(l.to)}>{l.label}</a>)}
           </div>
         ))}
       </div>
