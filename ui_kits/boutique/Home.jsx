@@ -40,12 +40,16 @@ function HeroHeadline({ t, lang }) {
   );
 }
 
+// Two hero films — one is picked at random on each page load.
+const HERO_FILMS = ['../../assets/lifestyle-enfant.mp4', '../../assets/products/coussin-moutons.mp4'];
+
 function Hero({ t, lang, variant }) {
+  const [filmSrc] = React.useState(() => HERO_FILMS[Math.floor(Math.random() * HERO_FILMS.length)]);
   if (variant === 'lifestyle' || variant === 'film') {
     return (
       <section className="lpm-hero-film" style={{ position: 'relative', minHeight: 600, overflow: 'hidden', display: 'flex', alignItems: 'flex-end' }}>
         {variant === 'film'
-          ? <video src="../../assets/lifestyle-enfant.mp4" poster="../../assets/lifestyle-crib.png" autoPlay muted loop playsInline style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}></video>
+          ? <video key={filmSrc} src={filmSrc} poster="../../assets/lifestyle-crib.png" autoPlay muted loop playsInline style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}></video>
           : <img src="../../assets/lifestyle-crib.png" alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />}
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(35,33,28,0.55), rgba(35,33,28,0) 55%)' }}></div>
         <div className="lpm-hero-film-row" style={{ position: 'relative', width: '100%', maxWidth: 'var(--container-max)', margin: '0 auto', padding: '0 32px 56px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 32 }}>
