@@ -13,7 +13,7 @@
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 <script src="../../_ds_bundle.js"></script>
-<script src="data.js"></script>
+<script src="data.js?v=2"></script>
 <style>
   html, body { margin: 0; background: var(--surface-page); }
   * { box-sizing: border-box; }
@@ -55,7 +55,12 @@ function App() {
     const counts = {};
     cart.forEach(p => { if (p.shopifyVariant) counts[p.shopifyVariant] = (counts[p.shopifyVariant] || 0) + 1; });
     const items = Object.entries(counts).map(([v, q]) => `${v}:${q}`).join(',');
-    if (items) window.location.href = `https://${window.lpmShopifyDomain}/cart/${items}`;
+    if (items) {
+      window.location.href = `https://${window.lpmShopifyDomain}/cart/${items}`;
+    } else if (cart.length > 0) {
+      // Stale cached data.js without Shopify IDs: reload past the cache so the button works on the next try.
+      window.location.href = window.location.pathname + '?refresh=' + Date.now();
+    }
   };
   const screenLabels = { home: 'Accueil', product: 'Fiche produit', maison: 'La maison', guide: 'Guide du sommeil' };
 
