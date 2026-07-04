@@ -1,9 +1,9 @@
 // Shared chrome: Wordmark, Header (with FR/EN toggle), ReassuranceBar, Footer, ProductPhoto.
 const { IconButton, Tooltip } = window.PetitNuageDesignSystem_f04838;
 
-function Wordmark({ size = 17, color = 'var(--lpm-ink-900)', onClick }) {
+function Wordmark({ size = 17, color = 'var(--lpm-ink-900)', onClick, className }) {
   return (
-    <div onClick={onClick} style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: size, letterSpacing: 'var(--tracking-brand)', textTransform: 'uppercase', color, cursor: onClick ? 'pointer' : 'default', lineHeight: 1.2, whiteSpace: 'nowrap' }}>
+    <div onClick={onClick} className={className} style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: size, letterSpacing: 'var(--tracking-brand)', textTransform: 'uppercase', color, cursor: onClick ? 'pointer' : 'default', lineHeight: 1.2, whiteSpace: 'nowrap' }}>
       Les Petits Moutons
     </div>
   );
@@ -34,14 +34,14 @@ function Header({ t, lang, setLang, onNav, active, cartCount, onCart }) {
   const link = (i) => ({ fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 14, color: active === i ? 'var(--text-heading)' : 'var(--text-muted)', textDecoration: 'none', cursor: 'pointer', letterSpacing: '0.01em', borderBottom: active === i ? '1px solid var(--lpm-ink-500)' : '1px solid transparent', paddingBottom: 2 });
   return (
     <header style={{ position: 'sticky', top: 0, zIndex: 20, background: 'rgba(250,247,240,0.94)', backdropFilter: 'blur(6px)', borderBottom: '1px solid var(--border-soft)' }}>
-      <div style={{ maxWidth: 'var(--container-max)', margin: '0 auto', padding: '18px 32px', display: 'grid', gridTemplateColumns: '1fr auto 1fr', alignItems: 'center', gap: 24 }}>
-        <nav style={{ display: 'flex', gap: 26 }}>
+      <div className="lpm-header-inner" style={{ maxWidth: 'var(--container-max)', margin: '0 auto', padding: '18px 32px', display: 'grid', gridTemplateColumns: '1fr auto 1fr', alignItems: 'center', gap: 24 }}>
+        <nav className="lpm-nav" style={{ display: 'flex', gap: 26 }}>
           <a style={link(0)} onClick={() => onNav('home')}>{t.nav[0]}</a>
           <a style={link(1)} onClick={() => onNav('maison')}>{t.nav[1]}</a>
           <a style={link(2)} onClick={() => onNav('guide')}>{t.nav[2]}</a>
         </nav>
-        <Wordmark size={19} onClick={() => onNav('home')} />
-        <div style={{ display: 'flex', alignItems: 'center', gap: 18, justifySelf: 'end' }}>
+        <Wordmark size={19} className="lpm-wordmark" onClick={() => onNav('home')} />
+        <div className="lpm-header-actions" style={{ display: 'flex', alignItems: 'center', gap: 18, justifySelf: 'end' }}>
           <LangToggle lang={lang} onChange={setLang} />
           <div style={{ position: 'relative' }}>
             <Tooltip label={t.cartLabel}>
@@ -60,7 +60,7 @@ function Header({ t, lang, setLang, onNav, active, cartCount, onCart }) {
 function ReassuranceBar({ t }) {
   return (
     <div style={{ borderTop: '1px solid var(--border-soft)', borderBottom: '1px solid var(--border-soft)', background: 'var(--surface-card)' }}>
-      <div style={{ maxWidth: 'var(--container-max)', margin: '0 auto', padding: '0 32px', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
+      <div className="lpm-reassurance" style={{ maxWidth: 'var(--container-max)', margin: '0 auto', padding: '0 32px', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
         {t.reassurance.map((x, i) => (
           <span key={x} style={{ fontFamily: 'var(--font-body)', fontSize: 12.5, fontWeight: 500, letterSpacing: '0.02em', color: 'var(--text-muted)', padding: '14px 18px', textAlign: 'center', borderLeft: i > 0 ? '1px solid var(--border-soft)' : 'none' }}>{x}</span>
         ))}
@@ -73,7 +73,7 @@ function Footer({ t }) {
   const a = { color: 'rgba(255,253,248,0.62)', textDecoration: 'none', cursor: 'pointer', fontSize: 14 };
   return (
     <footer style={{ background: 'var(--surface-inverse)', marginTop: 88 }}>
-      <div style={{ maxWidth: 'var(--container-max)', margin: '0 auto', padding: '56px 32px', display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 32 }}>
+      <div className="lpm-footer-grid" style={{ maxWidth: 'var(--container-max)', margin: '0 auto', padding: '56px 32px', display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 32 }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           <Wordmark size={16} color="#FFFDF8" />
           <p style={{ margin: 0, fontFamily: 'var(--font-body)', fontSize: 14, color: 'rgba(255,253,248,0.62)', maxWidth: 240, lineHeight: 1.6 }}>{t.footerBaseline}</p>

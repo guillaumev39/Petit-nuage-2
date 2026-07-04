@@ -3,11 +3,11 @@ const { Button, Card } = window.PetitNuageDesignSystem_f04838;
 
 function EditorialHeader({ eyebrow, title, intro }) {
   return (
-    <div style={{ maxWidth: 640, margin: '0 auto', textAlign: 'center', display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'center', padding: '72px 32px 0' }}>
+    <div className="lpm-edit-head" style={{ maxWidth: 640, margin: '0 auto', textAlign: 'center', display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'center', padding: '72px 32px 0' }}>
       <span style={{ display: 'inline-flex', alignItems: 'center', gap: 12, fontFamily: 'var(--font-body)', fontSize: 12, letterSpacing: 'var(--tracking-wide)', textTransform: 'uppercase', fontWeight: 600, color: 'var(--text-muted)' }}>
         <Fanions size={8} /> {eyebrow}
       </span>
-      <h1 style={{ margin: 0, fontSize: 52 }}>{title}</h1>
+      <h1 className="lpm-edit-title" style={{ margin: 0, fontSize: 52 }}>{title}</h1>
       <p style={{ margin: 0, fontSize: 17, color: 'var(--text-body)' }}>{intro}</p>
     </div>
   );
@@ -23,7 +23,7 @@ function MaisonScreen({ t, onOpenCollection }) {
           <img src="../../assets/lifestyle-crib.png" alt="" style={{ width: '100%', height: 440, objectFit: 'cover', display: 'block' }} />
         </div>
       </section>
-      <section style={{ maxWidth: 'var(--container-max)', margin: '56px auto 0', padding: '0 32px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 22 }}>
+      <section className="lpm-maison-grid" style={{ maxWidth: 'var(--container-max)', margin: '56px auto 0', padding: '0 32px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 22 }}>
         {m.blocks.map(([h, p], i) => (
           <Card key={i} variant="outline" padding="28px">
             <h3 style={{ margin: '0 0 10px', fontFamily: 'var(--font-display)', fontSize: 24, fontWeight: 600, color: 'var(--text-heading)' }}>{h}</h3>

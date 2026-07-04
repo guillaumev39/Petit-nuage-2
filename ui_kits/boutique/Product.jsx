@@ -11,12 +11,12 @@ function ProductScreen({ product, lang, t, onBack, onAdd }) {
   React.useEffect(() => { setMainImg(p.img); }, [p]);
   const tabContent = { [t.tabs[0]]: loc.desc, [t.tabs[1]]: t.care, [t.tabs[2]]: t.shipping };
   return (
-    <main style={{ maxWidth: 'var(--container-max)', margin: '0 auto', padding: '36px 32px 0' }}>
+    <main className="lpm-product-main" style={{ maxWidth: 'var(--container-max)', margin: '0 auto', padding: '36px 32px 0' }}>
       <a onClick={onBack} style={{ display: 'inline-flex', alignItems: 'center', gap: 7, fontFamily: 'var(--font-body)', fontSize: 13.5, fontWeight: 500, color: 'var(--text-muted)', cursor: 'pointer', marginBottom: 26 }}>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
         {t.back}
       </a>
-      <div style={{ display: 'grid', gridTemplateColumns: '1.15fr 1fr', gap: 56, alignItems: 'start' }}>
+      <div className="lpm-product-grid" style={{ display: 'grid', gridTemplateColumns: '1.15fr 1fr', gap: 56, alignItems: 'start' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           <ProductPhoto src={mainImg} alt={loc.name} height={440} radius="var(--radius-xl)" provisional={p.imgProvisional && mainImg === p.img} provisionalLabel={t.provisional} contain={mainImg === p.img} />
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
@@ -30,7 +30,7 @@ function ProductScreen({ product, lang, t, onBack, onAdd }) {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'flex-start' }}>
             {p.badge && <Badge tone={p.badge.tone}>{p.badge[lang]}</Badge>}
-            <h1 style={{ margin: 0, fontSize: 46 }}>{loc.name}</h1>
+            <h1 className="lpm-product-title" style={{ margin: 0, fontSize: 46 }}>{loc.name}</h1>
             <div style={{ fontFamily: 'var(--font-body)', fontSize: 14.5, color: 'var(--text-muted)' }}>{p.dims} · {loc.age}</div>
           </div>
           <div style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: 26, color: 'var(--text-heading)' }}>{lang === 'fr' ? p.price : p.priceEn}</div>
