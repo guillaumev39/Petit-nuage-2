@@ -50,6 +50,13 @@ function App() {
     setTimeout(() => setToast(null), 2400);
   };
   const nav = (name, product) => { setScreen({ name, product }); window.scrollTo(0, 0); };
+  // Shopify checkout: aggregate the cart into a permalink like /cart/VARIANT:QTY,VARIANT:QTY
+  const checkout = () => {
+    const counts = {};
+    cart.forEach(p => { if (p.shopifyVariant) counts[p.shopifyVariant] = (counts[p.shopifyVariant] || 0) + 1; });
+    const items = Object.entries(counts).map(([v, q]) => `${v}:${q}`).join(',');
+    if (items) window.location.href = `https://${window.lpmShopifyDomain}/cart/${items}`;
+  };
   const screenLabels = { home: 'Accueil', product: 'Fiche produit', maison: 'La maison', guide: 'Guide du sommeil' };
 
   return (
@@ -70,7 +77,7 @@ function App() {
       <Dialog open={cartOpen} title={t.cartLabel} onClose={() => setCartOpen(false)}
         actions={cart.length > 0 && <>
           <Button variant="ghost" onClick={() => setCartOpen(false)}>{t.continueShopping}</Button>
-          <Button>{t.checkout}</Button>
+          <Button onClick={checkout}>{t.checkout}</Button>
         </>}>
         {cart.length === 0
           ? <p style={{ margin: 0, fontSize: 15 }}>{t.cartEmpty}</p>

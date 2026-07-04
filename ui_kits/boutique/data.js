@@ -1,20 +1,23 @@
 // Les Petits Moutons — catalogue + bilingual strings (FR default, EN).
+// Shopify: checkout happens on the Shopify store below via cart permalinks;
+// each product carries the numeric ID of its Shopify variant.
+window.lpmShopifyDomain = 'jv1j5c-7a.myshopify.com';
 window.lpmProducts = [
   {
     id: 'petit', img: '../../assets/products/coussin-mouton.jpg', dims: '30 × 40 cm',
-    price: '25 €', priceEn: '€25',
+    price: '25 €', priceEn: '€25', shopifyVariant: '43175297614033',
     fr: { name: 'Le Petit', age: '2–4 ans', fabric: 'Velours « Mouton rêveur »', desc: "Le premier oreiller. Un garnissage bas et souple qui soutient la nuque sans la contraindre, un velours doux imprimé à l'aquarelle, et nos fanions de coton à mordiller du bout des doigts." },
     en: { name: 'The Small', age: '2–4 years', fabric: '“Dreaming sheep” velvet', desc: 'The very first pillow. A low, supple filling that supports the neck without constraining it, a soft watercolour-printed velvet, and our little cotton flags to fiddle with.' },
   },
   {
     id: 'moyen', img: '../../assets/products/coussin-moyen-toile.jpg', dims: '40 × 60 cm', badge: { tone: 'wool', fr: 'Le plus choisi', en: 'Most chosen' },
-    price: '34 €', priceEn: '€34',
+    price: '34 €', priceEn: '€34', shopifyVariant: '43175297646801',
     fr: { name: 'Le Moyen', age: '5–8 ans', fabric: 'Toile de Jouy « Bergerie »', desc: "L'oreiller des grandes nuits. Notre toile de Jouy « Bergerie », tissée en France, habille un garnissage équilibré qui accompagne les épaules qui grandissent." },
     en: { name: 'The Medium', age: '5–8 years', fabric: '“Bergerie” toile de Jouy', desc: 'The pillow for big nights. Our French-woven “Bergerie” toile de Jouy dresses a balanced filling that keeps up with growing shoulders.' },
   },
   {
     id: 'grand', img: '../../assets/detail-toile.png', imgProvisional: true, dims: '50 × 70 cm',
-    price: '40 €', priceEn: '€40',
+    price: '40 €', priceEn: '€40', shopifyVariant: '43175297679569',
     fr: { name: 'Le Grand', age: '9–12 ans', fabric: 'Toile de Jouy « Bergerie »', desc: "Presque un oreiller de grand — la douceur en plus. Un soutien plus ferme, une housse en lin lavé et toile de Jouy, pour les dernières années de la chambre d'enfant." },
     en: { name: 'The Large', age: '9–12 years', fabric: '“Bergerie” toile de Jouy', desc: 'Almost a grown-up pillow — with the softness kept in. Firmer support and a washed-linen and toile de Jouy cover, for the last years of the children\u2019s bedroom.' },
   },
