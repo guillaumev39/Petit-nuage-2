@@ -37,8 +37,8 @@
         "message": "Raw px value — use a design-system spacing token via var()."
       },
       {
-        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Cormorant Garamond|Hanken Grotesk))/i]",
-        "message": "Font not provided by the design system. Available: Cormorant Garamond, Hanken Grotesk."
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Cormorant Garamond|Hanken Grotesk|Noto Serif JP))/i]",
+        "message": "Font not provided by the design system. Available: Cormorant Garamond, Hanken Grotesk, Noto Serif JP."
       },
       {
         "selector": "JSXOpeningElement[name.name='Badge'] > JSXAttribute > JSXIdentifier[name!=/^(?:tone|children|key|ref|className|style|children)$/]",
@@ -203,6 +203,9 @@
       "--leading-tight",
       "--lpm-brick-100",
       "--lpm-brick-500",
+      "--lpm-gold-300",
+      "--lpm-gold-500",
+      "--lpm-gold-700",
       "--lpm-ink-300",
       "--lpm-ink-500",
       "--lpm-ink-700",
@@ -220,6 +223,9 @@
       "--lpm-jouy-900",
       "--lpm-ochre-100",
       "--lpm-ochre-500",
+      "--lpm-powder-100",
+      "--lpm-powder-300",
+      "--lpm-powder-500",
       "--lpm-rose-100",
       "--lpm-rose-300",
       "--lpm-rose-500",
@@ -302,6 +308,12 @@
       "--lpm-jouy-300": "color",
       "--lpm-jouy-100": "color",
       "--lpm-jouy-50": "color",
+      "--lpm-powder-100": "color",
+      "--lpm-powder-300": "color",
+      "--lpm-powder-500": "color",
+      "--lpm-gold-300": "color",
+      "--lpm-gold-500": "color",
+      "--lpm-gold-700": "color",
       "--lpm-wool-100": "color",
       "--lpm-wool-300": "color",
       "--lpm-wool-500": "color",
@@ -393,7 +405,8 @@
     },
     "fontFamilies": [
       "Cormorant Garamond",
-      "Hanken Grotesk"
+      "Hanken Grotesk",
+      "Noto Serif JP"
     ]
   }
 }

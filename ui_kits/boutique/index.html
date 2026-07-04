@@ -1,4 +1,4 @@
-<!-- @dsCard group="Boutique" viewport="1280x760" subtitle="Site e-commerce bilingue FR/EN — accueil, fiche produit, éditorial, panier" name="Boutique Les Petits Moutons" -->
+<!-- @dsCard group="Boutique" viewport="1280x760" subtitle="Site e-commerce bilingue FR/EN — accueil, fiche produit, éditorial, panier" name="Boutique Yume" -->
 <!-- @startingPoint section="Boutique" subtitle="Site e-commerce bilingue — accueil + fiche produit + éditorial" viewport="1280x760" -->
 <!DOCTYPE html>
 <html lang="fr">
@@ -6,13 +6,13 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Les Petits Moutons — Oreillers pour enfants</title>
-<meta name="description" content="Oreillers premium pour enfants, de 2 à 12 ans. Toile de Jouy, coton bio certifié OEKO-TEX, trois tailles pensées pour la croissance. 30 nuits d'essai, retours offerts.">
+<title>Maison Yume — Coussins pour enfants</title>
+<meta name="description" content="Coussins pour enfants en fibre de bambou, doux et lavables en machine. Trois tailles, des nouveau-nés aux grands. Toile de Jouy dessinée en France. Livraison offerte dès 50 €.">
 <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Les Petits Moutons — Oreillers pour enfants">
-<meta property="og:description" content="Trois oreillers, trois âges. Toile de Jouy, coton bio et velours tendre. 30 nuits d'essai, retours offerts.">
-<meta property="og:image" content="https://guillaumev39.github.io/Petit-nuage-2/assets/lifestyle-crib.png">
+<meta property="og:title" content="Maison Yume — Coussins pour enfants">
+<meta property="og:description" content="Coussins en fibre de bambou pour enfants. Trois tailles, des nouveau-nés aux grands. Livraison offerte dès 50 €.">
+<meta property="og:image" content="https://guillaumev39.github.io/Petit-nuage-2/assets/hero-lifestyle.jpg">
 <meta property="og:url" content="https://guillaumev39.github.io/Petit-nuage-2/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="../../styles.css">
@@ -21,7 +21,7 @@
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 <script src="../../_ds_bundle.js"></script>
-<script src="data.js?v=3"></script>
+<script src="data.js?v=4"></script>
 <style>
   html, body { margin: 0; background: var(--surface-page); }
   * { box-sizing: border-box; }
@@ -73,17 +73,17 @@ function App() {
       window.location.href = window.location.pathname + '?refresh=' + Date.now();
     }
   };
-  const screenLabels = { home: 'Accueil', product: 'Fiche produit', maison: 'La maison', guide: 'Guide du sommeil', livraison: 'Livraison & retours', entretien: 'Entretien' };
+  const screenLabels = { home: 'Accueil', product: 'Fiche produit', maison: 'La maison', guide: 'Guide du sommeil', faq: 'Vos questions' };
 
   return (
     <div data-screen-label={screenLabels[screen.name]} style={tw.showFanions ? null : { ['--lpm-rose-300']: 'transparent', ['--lpm-straw-300']: 'transparent', ['--lpm-sage-300']: 'transparent' }}>
+      <AnnounceBar t={t} />
       <Header t={t} lang={lang} setLang={changeLang} onNav={nav} active={screen.name === 'home' ? 0 : screen.name === 'maison' ? 1 : screen.name === 'guide' ? 2 : -1} cartCount={cart.length} onCart={() => setCartOpen(true)} />
       {screen.name === 'home' && <HomeScreen lang={lang} t={t} heroVariant={tw.heroVariant} onOpenProduct={(p) => nav('product', p)} />}
       {screen.name === 'product' && <ProductScreen product={screen.product} lang={lang} t={t} onBack={() => nav('home')} onAdd={addToCart} />}
       {screen.name === 'maison' && <MaisonScreen t={t} onOpenCollection={() => nav('home')} />}
       {screen.name === 'guide' && <GuideSommeilScreen t={t} onOpenCollection={() => nav('home')} />}
-      {screen.name === 'livraison' && <LivraisonScreen t={t} onOpenCollection={() => nav('home')} />}
-      {screen.name === 'entretien' && <EntretienScreen t={t} onOpenCollection={() => nav('home')} />}
+      {screen.name === 'faq' && <FaqScreen t={t} />}
       <Footer t={t} onNav={nav} />
 
       {toast && (

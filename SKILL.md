@@ -1,6 +1,6 @@
 ---
-name: les-petits-moutons-design
-description: Use this skill to generate well-branded interfaces and assets for Les Petits Moutons (French premium kids-pillow maison), either for production or throwaway prototypes/mocks/etc. Contains essential design guidelines, colors, type, fonts, assets, and UI kit components for prototyping.
+name: yume-design
+description: Use this skill to generate well-branded interfaces and assets for Maison Yume (French premium kids-pillow maison — sheep pillows in bamboo fibre, brand name means "dream" in Japanese), either for production or throwaway prototypes/mocks/etc. Contains essential design guidelines, colors, type, fonts, assets, and UI kit components for prototyping.
 user-invocable: true
 ---
 

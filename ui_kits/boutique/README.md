@@ -1,4 +1,4 @@
-# UI kit — Boutique Les Petits Moutons
+# UI kit — Boutique Maison Yume
 
 Bilingual (FR/EN) e-commerce site: home (hero ×3 variants via Tweaks, 3 pillows, lifestyle band, size guide, story band), product detail, « La maison » story page, « Le guide du sommeil » editorial page, cart dialog + toast. Language toggle in the header, persisted in localStorage. Motion: near-static by choice (discreet hovers only).
 

@@ -1,10 +1,12 @@
 // Shared chrome: Wordmark, Header (with FR/EN toggle), ReassuranceBar, Footer, ProductPhoto.
 const { IconButton, Tooltip } = window.PetitNuageDesignSystem_f04838;
 
-function Wordmark({ size = 17, color = 'var(--lpm-ink-900)', onClick, className }) {
+/* Yume lockup — tiny « MAISON » eyebrow over YUME in letterspaced serif caps. */
+function Wordmark({ size = 17, color = 'var(--lpm-ink-900)', maison = true, onClick, className }) {
   return (
-    <div onClick={onClick} className={className} style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: size, letterSpacing: 'var(--tracking-brand)', textTransform: 'uppercase', color, cursor: onClick ? 'pointer' : 'default', lineHeight: 1.2, whiteSpace: 'nowrap' }}>
-      Les Petits Moutons
+    <div onClick={onClick} className={className} style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', gap: size * 0.14, cursor: onClick ? 'pointer' : 'default' }}>
+      {maison && <span style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: Math.max(7, size * 0.4), letterSpacing: '0.52em', paddingLeft: '0.52em', textTransform: 'uppercase', color, opacity: 0.55, lineHeight: 1 }}>Maison</span>}
+      <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: size * 1.18, letterSpacing: '0.3em', paddingLeft: '0.3em', textTransform: 'uppercase', color, lineHeight: 1, whiteSpace: 'nowrap' }}>Yume</span>
     </div>
   );
 }
@@ -27,6 +29,29 @@ function LangToggle({ lang, onChange }) {
       <span style={{ color: 'var(--border-strong)', fontSize: 11 }}>·</span>
       <button style={b('en')} onClick={() => onChange('en')}>EN</button>
     </div>
+  );
+}
+
+/* One-line announcement bar — jouy-900, star glyph, calm copy. */
+function AnnounceBar({ t }) {
+  return (
+    <div style={{ background: 'var(--lpm-jouy-900)', color: 'rgba(255,253,248,0.9)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 9, padding: '8px 16px' }}>
+      <img src="../../assets/decor-star.svg" alt="" style={{ width: 11, height: 11, display: 'block', opacity: 0.9 }} />
+      <span style={{ fontFamily: 'var(--font-body)', fontSize: 12.5, letterSpacing: '0.06em', fontWeight: 500 }}>{t.announce}</span>
+    </div>
+  );
+}
+
+/* 夢 (« yume », rêve) — discreet brand seal. Use sparingly: once per page at most. */
+function YumeSeal({ size = 26, tone = 'jouy', style }) {
+  const tones = {
+    jouy: { border: '1px solid var(--lpm-jouy-500)', color: 'var(--lpm-jouy-700)' },
+    inverse: { border: '1px solid rgba(255,253,248,0.45)', color: '#FFFDF8' },
+    gold: { border: '1px solid var(--lpm-gold-700)', color: 'var(--lpm-gold-700)' },
+  };
+  const c = tones[tone] || tones.jouy;
+  return (
+    <span aria-label="yume — rêve" style={{ width: size, height: size, borderRadius: Math.round(size * 0.19), border: c.border, color: c.color, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Noto Serif JP', serif", fontWeight: 500, fontSize: Math.round(size * 0.56), lineHeight: 1, flexShrink: 0, ...style }}>夢</span>
   );
 }
 
@@ -71,24 +96,30 @@ function ReassuranceBar({ t }) {
 
 function Footer({ t, onNav }) {
   const a = { color: 'rgba(255,253,248,0.62)', textDecoration: 'none', cursor: 'pointer', fontSize: 14 };
+  const footerRoutes = [['home'], ['faq', 'faq', 'mailto:guillaumev39@gmail.com'], ['maison', 'guide']];
   return (
     <footer style={{ background: 'var(--surface-inverse)', marginTop: 88 }}>
       <div className="lpm-footer-grid" style={{ maxWidth: 'var(--container-max)', margin: '0 auto', padding: '56px 32px', display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 32 }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'flex-start' }}>
           <Wordmark size={16} color="#FFFDF8" />
           <p style={{ margin: 0, fontFamily: 'var(--font-body)', fontSize: 14, color: 'rgba(255,253,248,0.62)', maxWidth: 240, lineHeight: 1.6 }}>{t.footerBaseline}</p>
           <Fanions size={8} style={{ marginTop: 2, opacity: 0.85 }} />
         </div>
-        {t.footerCols.map(([title, links]) => (
+        {t.footerCols.map(([title, links], ci) => (
           <div key={title} style={{ display: 'flex', flexDirection: 'column', gap: 10, fontFamily: 'var(--font-body)' }}>
             <span style={{ fontSize: 12, letterSpacing: 'var(--tracking-wide)', textTransform: 'uppercase', color: 'rgba(255,253,248,0.4)', fontWeight: 600 }}>{title}</span>
-            {links.map(l => l.to.startsWith('mailto:')
-              ? <a key={l.label} style={a} href={l.to}>{l.label}</a>
-              : <a key={l.label} style={a} onClick={() => onNav(l.to)}>{l.label}</a>)}
+            {links.map((l, li) => {
+              const route = footerRoutes[ci] && footerRoutes[ci][li];
+              if (route && route.startsWith('mailto:')) return <a key={l} style={a} href={route}>{l}</a>;
+              return <a key={l} style={a} onClick={onNav && route ? () => onNav(route) : undefined}>{l}</a>;
+            })}
           </div>
         ))}
       </div>
-      <div style={{ borderTop: '1px solid rgba(255,253,248,0.14)', padding: '18px 32px', textAlign: 'center', fontFamily: 'var(--font-body)', fontSize: 12, color: 'rgba(255,253,248,0.45)' }}>{t.legal}</div>
+      <div style={{ borderTop: '1px solid rgba(255,253,248,0.14)', padding: '20px 32px 22px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, fontFamily: 'var(--font-body)', fontSize: 12, color: 'rgba(255,253,248,0.45)' }}>
+        <YumeSeal size={20} tone="inverse" style={{ opacity: 0.65 }} />
+        {t.legal}
+      </div>
     </footer>
   );
 }
@@ -117,4 +148,4 @@ function Fanions({ size = 9, style }) {
   );
 }
 
-Object.assign(window, { Wordmark, Header, ReassuranceBar, Footer, ProductPhoto, CartIcon, LangToggle, Fanions });
+Object.assign(window, { Wordmark, Header, ReassuranceBar, Footer, ProductPhoto, CartIcon, LangToggle, Fanions, AnnounceBar, YumeSeal });

@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"PetitNuageDesignSystem_f04838","components":[{"name":"Badge","sourcePath":"components/display/Badge.jsx"},{"name":"Card","sourcePath":"components/display/Card.jsx"},{"name":"Tabs","sourcePath":"components/display/Tabs.jsx"},{"name":"Tag","sourcePath":"components/display/Tag.jsx"},{"name":"Dialog","sourcePath":"components/feedback/Dialog.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"Tooltip","sourcePath":"components/feedback/Tooltip.jsx"},{"name":"Button","sourcePath":"components/forms/Button.jsx"},{"name":"Checkbox","sourcePath":"components/forms/Checkbox.jsx"},{"name":"IconButton","sourcePath":"components/forms/IconButton.jsx"},{"name":"Input","sourcePath":"components/forms/Input.jsx"},{"name":"Radio","sourcePath":"components/forms/Radio.jsx"},{"name":"Select","sourcePath":"components/forms/Select.jsx"},{"name":"Switch","sourcePath":"components/forms/Switch.jsx"}],"sourceHashes":{"components/display/Badge.jsx":"bae24f342dcb","components/display/Card.jsx":"021ce105977f","components/display/Tabs.jsx":"31e1049328b3","components/display/Tag.jsx":"6dd7b0cb3af0","components/feedback/Dialog.jsx":"dd0c9553584c","components/feedback/Toast.jsx":"5d5f73e77530","components/feedback/Tooltip.jsx":"d7fa4d55ec06","components/forms/Button.jsx":"02b293ea7af7","components/forms/Checkbox.jsx":"fe0c9245dfa8","components/forms/IconButton.jsx":"2d55c64c8df0","components/forms/Input.jsx":"9ce617f67fd0","components/forms/Radio.jsx":"9f0392002ce4","components/forms/Select.jsx":"5faafd8d0a0e","components/forms/Switch.jsx":"0bb6f6780c89","ui_kits/boutique/Chrome.jsx":"a095ff08cdf5","ui_kits/boutique/Editorial.jsx":"6252c30b6fd9","ui_kits/boutique/Home.jsx":"bfc720668bc6","ui_kits/boutique/Product.jsx":"c6e24f42fd19","ui_kits/boutique/data.js":"d4be8d923808","ui_kits/boutique/tweaks-panel.jsx":"6591467622ed"},"inlinedExternals":[],"unexposedExports":[]} */
+/* @ds-bundle: {"format":4,"namespace":"PetitNuageDesignSystem_f04838","components":[{"name":"Badge","sourcePath":"components/display/Badge.jsx"},{"name":"Card","sourcePath":"components/display/Card.jsx"},{"name":"Tabs","sourcePath":"components/display/Tabs.jsx"},{"name":"Tag","sourcePath":"components/display/Tag.jsx"},{"name":"Dialog","sourcePath":"components/feedback/Dialog.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"Tooltip","sourcePath":"components/feedback/Tooltip.jsx"},{"name":"Button","sourcePath":"components/forms/Button.jsx"},{"name":"Checkbox","sourcePath":"components/forms/Checkbox.jsx"},{"name":"IconButton","sourcePath":"components/forms/IconButton.jsx"},{"name":"Input","sourcePath":"components/forms/Input.jsx"},{"name":"Radio","sourcePath":"components/forms/Radio.jsx"},{"name":"Select","sourcePath":"components/forms/Select.jsx"},{"name":"Switch","sourcePath":"components/forms/Switch.jsx"}],"sourceHashes":{"components/display/Badge.jsx":"bae24f342dcb","components/display/Card.jsx":"021ce105977f","components/display/Tabs.jsx":"31e1049328b3","components/display/Tag.jsx":"6dd7b0cb3af0","components/feedback/Dialog.jsx":"dd0c9553584c","components/feedback/Toast.jsx":"5d5f73e77530","components/feedback/Tooltip.jsx":"d7fa4d55ec06","components/forms/Button.jsx":"02b293ea7af7","components/forms/Checkbox.jsx":"fe0c9245dfa8","components/forms/IconButton.jsx":"2d55c64c8df0","components/forms/Input.jsx":"9ce617f67fd0","components/forms/Radio.jsx":"9f0392002ce4","components/forms/Select.jsx":"5faafd8d0a0e","components/forms/Switch.jsx":"0bb6f6780c89","ui_kits/boutique/Chrome.jsx":"eabc5130c370","ui_kits/boutique/Editorial.jsx":"3dc7d6fee920","ui_kits/boutique/Home.jsx":"801542dddb91","ui_kits/boutique/Product.jsx":"c6e24f42fd19","ui_kits/boutique/data.js":"758bdcc6f05d","ui_kits/boutique/tweaks-panel.jsx":"6591467622ed"},"inlinedExternals":[],"unexposedExports":[]} */
 
 (() => {
 
@@ -906,25 +906,48 @@ const {
   IconButton,
   Tooltip
 } = window.PetitNuageDesignSystem_f04838;
+
+/* Yume lockup — tiny « MAISON » eyebrow over YUME in letterspaced serif caps. */
 function Wordmark({
   size = 17,
   color = 'var(--lpm-ink-900)',
+  maison = true,
   onClick
 }) {
   return /*#__PURE__*/React.createElement("div", {
     onClick: onClick,
     style: {
-      fontFamily: 'var(--font-display)',
+      display: 'inline-flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: size * 0.14,
+      cursor: onClick ? 'pointer' : 'default'
+    }
+  }, maison && /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: 'var(--font-body)',
       fontWeight: 600,
-      fontSize: size,
-      letterSpacing: 'var(--tracking-brand)',
+      fontSize: Math.max(7, size * 0.4),
+      letterSpacing: '0.52em',
+      paddingLeft: '0.52em',
       textTransform: 'uppercase',
       color,
-      cursor: onClick ? 'pointer' : 'default',
-      lineHeight: 1.2,
+      opacity: 0.55,
+      lineHeight: 1
+    }
+  }, "Maison"), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: 'var(--font-display)',
+      fontWeight: 600,
+      fontSize: size * 1.18,
+      letterSpacing: '0.3em',
+      paddingLeft: '0.3em',
+      textTransform: 'uppercase',
+      color,
+      lineHeight: 1,
       whiteSpace: 'nowrap'
     }
-  }, "Les Petits Moutons");
+  }, "Yume"));
 }
 function CartIcon() {
   return /*#__PURE__*/React.createElement("svg", {
@@ -979,6 +1002,81 @@ function LangToggle({
     style: b('en'),
     onClick: () => onChange('en')
   }, "EN"));
+}
+
+/* One-line announcement bar — jouy-900, star glyph, calm copy. */
+function AnnounceBar({
+  t
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: 'var(--lpm-jouy-900)',
+      color: 'rgba(255,253,248,0.9)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: 9,
+      padding: '8px 16px'
+    }
+  }, /*#__PURE__*/React.createElement("img", {
+    src: "../../assets/decor-star.svg",
+    alt: "",
+    style: {
+      width: 11,
+      height: 11,
+      display: 'block',
+      opacity: 0.9
+    }
+  }), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: 'var(--font-body)',
+      fontSize: 12.5,
+      letterSpacing: '0.06em',
+      fontWeight: 500
+    }
+  }, t.announce));
+}
+
+/* 夢 (« yume », rêve) — discreet brand seal. Use sparingly: once per page at most. */
+function YumeSeal({
+  size = 26,
+  tone = 'jouy',
+  style
+}) {
+  const tones = {
+    jouy: {
+      border: '1px solid var(--lpm-jouy-500)',
+      color: 'var(--lpm-jouy-700)'
+    },
+    inverse: {
+      border: '1px solid rgba(255,253,248,0.45)',
+      color: '#FFFDF8'
+    },
+    gold: {
+      border: '1px solid var(--lpm-gold-700)',
+      color: 'var(--lpm-gold-700)'
+    }
+  };
+  const c = tones[tone] || tones.jouy;
+  return /*#__PURE__*/React.createElement("span", {
+    "aria-label": "yume \u2014 r\xEAve",
+    style: {
+      width: size,
+      height: size,
+      borderRadius: Math.round(size * 0.19),
+      border: c.border,
+      color: c.color,
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      fontFamily: "'Noto Serif JP', serif",
+      fontWeight: 500,
+      fontSize: Math.round(size * 0.56),
+      lineHeight: 1,
+      flexShrink: 0,
+      ...style
+    }
+  }, "\u5922");
 }
 function Header({
   t,
@@ -1108,7 +1206,8 @@ function ReassuranceBar({
   }, x))));
 }
 function Footer({
-  t
+  t,
+  onNav
 }) {
   const a = {
     color: 'rgba(255,253,248,0.62)',
@@ -1116,6 +1215,7 @@ function Footer({
     cursor: 'pointer',
     fontSize: 14
   };
+  const footerRoutes = [['home'], ['faq', 'faq', 'faq'], ['maison', 'guide']];
   return /*#__PURE__*/React.createElement("footer", {
     style: {
       background: 'var(--surface-inverse)',
@@ -1134,7 +1234,8 @@ function Footer({
     style: {
       display: 'flex',
       flexDirection: 'column',
-      gap: 12
+      gap: 12,
+      alignItems: 'flex-start'
     }
   }, /*#__PURE__*/React.createElement(Wordmark, {
     size: 16,
@@ -1154,7 +1255,7 @@ function Footer({
       marginTop: 2,
       opacity: 0.85
     }
-  })), t.footerCols.map(([title, links]) => /*#__PURE__*/React.createElement("div", {
+  })), t.footerCols.map(([title, links], ci) => /*#__PURE__*/React.createElement("div", {
     key: title,
     style: {
       display: 'flex',
@@ -1170,19 +1271,29 @@ function Footer({
       color: 'rgba(255,253,248,0.4)',
       fontWeight: 600
     }
-  }, title), links.map(l => /*#__PURE__*/React.createElement("a", {
+  }, title), links.map((l, li) => /*#__PURE__*/React.createElement("a", {
     key: l,
-    style: a
+    style: a,
+    onClick: onNav && footerRoutes[ci] && footerRoutes[ci][li] ? () => onNav(footerRoutes[ci][li]) : undefined
   }, l))))), /*#__PURE__*/React.createElement("div", {
     style: {
       borderTop: '1px solid rgba(255,253,248,0.14)',
-      padding: '18px 32px',
-      textAlign: 'center',
+      padding: '20px 32px 22px',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: 8,
       fontFamily: 'var(--font-body)',
       fontSize: 12,
       color: 'rgba(255,253,248,0.45)'
     }
-  }, t.legal));
+  }, /*#__PURE__*/React.createElement(YumeSeal, {
+    size: 20,
+    tone: "inverse",
+    style: {
+      opacity: 0.65
+    }
+  }), t.legal));
 }
 
 /* Product packshot on a white ground (photos are white-background packshots). */
@@ -1272,7 +1383,9 @@ Object.assign(window, {
   ProductPhoto,
   CartIcon,
   LangToggle,
-  Fanions
+  Fanions,
+  AnnounceBar,
+  YumeSeal
 });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/boutique/Chrome.jsx", error: String((e && e.message) || e) }); }
 
@@ -1395,6 +1508,14 @@ function MaisonScreen({
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
+      display: 'flex',
+      justifyContent: 'center',
+      marginBottom: 18
+    }
+  }, /*#__PURE__*/React.createElement(YumeSeal, {
+    size: 28
+  })), /*#__PURE__*/React.createElement("div", {
+    style: {
       fontFamily: 'var(--font-display)',
       fontStyle: 'italic',
       fontSize: 28,
@@ -1489,9 +1610,127 @@ function GuideSommeilScreen({
     onClick: onOpenCollection
   }, g.cta))));
 }
+function FaqItem({
+  q,
+  a,
+  open,
+  onToggle
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      borderBottom: '1px solid var(--border-soft)'
+    }
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: onToggle,
+    style: {
+      width: '100%',
+      background: 'none',
+      border: 'none',
+      padding: '18px 4px',
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'baseline',
+      gap: 16,
+      cursor: 'pointer',
+      textAlign: 'left'
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: 'var(--font-display)',
+      fontSize: 21,
+      fontWeight: 500,
+      color: 'var(--text-heading)'
+    }
+  }, q), /*#__PURE__*/React.createElement("span", {
+    "aria-hidden": "true",
+    style: {
+      fontFamily: 'var(--font-body)',
+      fontSize: 17,
+      color: 'var(--text-faint)',
+      flexShrink: 0
+    }
+  }, open ? '−' : '+')), open && /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: '0 0 20px',
+      padding: '0 4px',
+      fontFamily: 'var(--font-body)',
+      fontSize: 15,
+      lineHeight: 1.7,
+      maxWidth: 560,
+      color: 'var(--text-body)'
+    }
+  }, a));
+}
+function FaqScreen({
+  t
+}) {
+  const f = t.faq;
+  const [openId, setOpenId] = React.useState('0-0');
+  return /*#__PURE__*/React.createElement("main", {
+    "data-screen-label": "Vos questions"
+  }, /*#__PURE__*/React.createElement(EditorialHeader, {
+    eyebrow: f.eyebrow,
+    title: f.title,
+    intro: f.intro
+  }), /*#__PURE__*/React.createElement("section", {
+    style: {
+      maxWidth: 760,
+      margin: '40px auto 0',
+      padding: '0 32px',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 44
+    }
+  }, f.groups.map(([g, items], gi) => /*#__PURE__*/React.createElement("div", {
+    key: g
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: 'var(--font-body)',
+      fontSize: 11.5,
+      letterSpacing: 'var(--tracking-wide)',
+      textTransform: 'uppercase',
+      fontWeight: 600,
+      color: 'var(--text-muted)',
+      paddingBottom: 10,
+      borderBottom: '1px solid var(--lpm-ink-900)'
+    }
+  }, g), items.map(([q, a], qi) => {
+    const id = gi + '-' + qi;
+    return /*#__PURE__*/React.createElement(FaqItem, {
+      key: id,
+      q: q,
+      a: a,
+      open: openId === id,
+      onToggle: () => setOpenId(openId === id ? null : id)
+    });
+  })))), /*#__PURE__*/React.createElement("section", {
+    style: {
+      maxWidth: 760,
+      margin: '48px auto 0',
+      padding: '0 32px'
+    }
+  }, /*#__PURE__*/React.createElement(Card, {
+    variant: "soft",
+    padding: "22px 26px",
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 16
+    }
+  }, /*#__PURE__*/React.createElement(YumeSeal, {
+    size: 30
+  }), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: 'var(--font-body)',
+      fontSize: 14.5,
+      lineHeight: 1.6
+    }
+  }, f.contact))));
+}
 Object.assign(window, {
   MaisonScreen,
-  GuideSommeilScreen
+  GuideSommeilScreen,
+  FaqScreen
 });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/boutique/Editorial.jsx", error: String((e && e.message) || e) }); }
 
@@ -1623,7 +1862,7 @@ function HeroHeadline({
   lang
 }) {
   // Italic accent on the last words — editorial, not template-like.
-  const parts = lang === 'fr' ? ['De belles nuits,', 'dès ce soir'] : ['Beautiful nights,', 'starting tonight'];
+  const parts = [t.heroTitle1, t.heroTitle2];
   return /*#__PURE__*/React.createElement("h1", {
     style: {
       margin: 0,
@@ -1697,11 +1936,20 @@ function Hero({
       }
     }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
       style: {
-        ...eyebrowStyle,
-        color: 'rgba(255,253,248,0.75)',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 10,
         marginBottom: 14
       }
-    }, t.heroEyebrow), /*#__PURE__*/React.createElement("h1", {
+    }, /*#__PURE__*/React.createElement(YumeSeal, {
+      size: 22,
+      tone: "inverse"
+    }), /*#__PURE__*/React.createElement("span", {
+      style: {
+        ...eyebrowStyle,
+        color: 'rgba(255,253,248,0.75)'
+      }
+    }, t.heroEyebrow)), /*#__PURE__*/React.createElement("h1", {
       style: {
         margin: 0,
         fontSize: 'clamp(48px, 6vw, 80px)',
@@ -1830,7 +2078,7 @@ function Hero({
       marginTop: 10,
       textAlign: 'right'
     }
-  }, lang === 'fr' ? 'Le Moyen — toile « Bergerie »' : 'The Medium — “Bergerie” toile')))));
+  }, t.heroCaption)))));
 }
 function HomeScreen({
   lang,
@@ -2029,39 +2277,71 @@ function HomeScreen({
     }
   }, "\u2192"))))), /*#__PURE__*/React.createElement("section", {
     style: {
-      background: 'var(--surface-inverse)',
+      background: 'var(--lpm-sage-100)',
       marginTop: 96
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
-      maxWidth: 820,
+      maxWidth: 'var(--container-max)',
       margin: '0 auto',
-      padding: '88px 32px',
+      padding: '72px 32px 78px'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
       display: 'flex',
-      flexDirection: 'column',
-      gap: 20
+      alignItems: 'center',
+      gap: 12,
+      marginBottom: 14
     }
-  }, /*#__PURE__*/React.createElement("span", {
+  }, /*#__PURE__*/React.createElement(YumeSeal, {
+    size: 24
+  }), /*#__PURE__*/React.createElement("span", {
+    style: eyebrowStyle
+  }, t.nightEyebrow)), /*#__PURE__*/React.createElement("h2", {
     style: {
-      ...eyebrowStyle,
-      color: 'rgba(255,253,248,0.5)'
-    }
-  }, t.storyEyebrow), /*#__PURE__*/React.createElement("h2", {
-    style: {
-      margin: 0,
-      fontSize: 44,
+      margin: '0 0 44px',
+      fontSize: 40,
       fontWeight: 500,
-      color: '#FFFDF8',
-      lineHeight: 1.1
+      maxWidth: 540
     }
-  }, t.storyTitle), /*#__PURE__*/React.createElement("p", {
+  }, t.nightTitle), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(3, 1fr)',
+      gap: 28
+    }
+  }, t.nightValues.map(([h, p], i) => /*#__PURE__*/React.createElement("div", {
+    key: h,
+    style: {
+      borderTop: '1px solid var(--lpm-ink-900)',
+      paddingTop: 16
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: 'var(--font-body)',
+      fontSize: 11,
+      fontWeight: 600,
+      color: 'var(--lpm-ink-500)',
+      letterSpacing: '0.14em',
+      marginBottom: 8
+    }
+  }, String(i + 1).padStart(2, '0')), /*#__PURE__*/React.createElement("h3", {
+    style: {
+      margin: '0 0 8px',
+      fontFamily: 'var(--font-display)',
+      fontSize: 23,
+      fontWeight: 600,
+      color: 'var(--text-heading)'
+    }
+  }, h), /*#__PURE__*/React.createElement("p", {
     style: {
       margin: 0,
-      fontSize: 16,
-      color: 'rgba(255,253,248,0.72)',
-      maxWidth: 560
+      fontFamily: 'var(--font-body)',
+      fontSize: 14.5,
+      lineHeight: 1.7,
+      maxWidth: 320
     }
-  }, t.storyText))));
+  }, p)))))));
 }
 window.HomeScreen = HomeScreen;
 })(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/boutique/Home.jsx", error: String((e && e.message) || e) }); }
@@ -2303,178 +2583,220 @@ window.ProductScreen = ProductScreen;
 
 // ui_kits/boutique/data.js
 try { (() => {
-// Les Petits Moutons — catalogue + bilingual strings (FR default, EN).
+// Maison Yume — catalogue + bilingual strings (FR default, EN).
+// Real product data from the production site (petit-nuage local folder / Shopify-ready).
 window.lpmProducts = [{
   id: 'petit',
   img: '../../assets/products/coussin-mouton.jpg',
-  dims: '30 × 40 cm',
-  price: '25 €',
-  priceEn: '€25',
+  dims: '13 × 30 cm',
+  price: '32 €',
+  priceEn: '€32',
   fr: {
     name: 'Le Petit',
-    age: '2–4 ans',
+    age: 'Nouveau-nés · 0–1 an',
     fabric: 'Velours « Mouton rêveur »',
-    desc: "Le premier oreiller. Un garnissage bas et souple qui soutient la nuque sans la contraindre, un velours doux imprimé à l'aquarelle, et nos fanions de coton à mordiller du bout des doigts."
+    desc: "Le plus petit format, idéal pour les nouveau-nés. Un doux mouton aquarelle endormi sur son nuage, avec ses petits fanions colorés sur le côté. Fibre de bambou naturellement douce, lavable en machine."
   },
   en: {
     name: 'The Small',
-    age: '2–4 years',
+    age: 'Newborns · 0–1 year',
     fabric: '“Dreaming sheep” velvet',
-    desc: 'The very first pillow. A low, supple filling that supports the neck without constraining it, a soft watercolour-printed velvet, and our little cotton flags to fiddle with.'
+    desc: 'Our smallest size, ideal for newborns. A soft watercolour sheep asleep on its cloud, with little colourful bunting on the side. Naturally soft bamboo fibre, machine washable.'
   }
 }, {
   id: 'moyen',
   img: '../../assets/products/coussin-moyen-toile.jpg',
-  dims: '40 × 60 cm',
+  dims: '18 × 38 cm',
   badge: {
     tone: 'wool',
-    fr: 'Le plus choisi',
-    en: 'Most chosen'
+    fr: 'Le plus aimé',
+    en: 'Most loved'
   },
-  price: '34 €',
-  priceEn: '€34',
+  price: '42 €',
+  priceEn: '€42',
   fr: {
     name: 'Le Moyen',
-    age: '5–8 ans',
+    age: 'Tout-petits · 1–3 ans',
     fabric: 'Toile de Jouy « Bergerie »',
-    desc: "L'oreiller des grandes nuits. Notre toile de Jouy « Bergerie », tissée en France, habille un garnissage équilibré qui accompagne les épaules qui grandissent."
+    desc: "Notre format le plus aimé, parfait pour les tout-petits. Le même mouton rêveur sur son nuage étoilé, à câliner pour les histoires du soir. Fibre de bambou naturellement douce, lavable en machine."
   },
   en: {
     name: 'The Medium',
-    age: '5–8 years',
+    age: 'Toddlers · 1–3 years',
     fabric: '“Bergerie” toile de Jouy',
-    desc: 'The pillow for big nights. Our French-woven “Bergerie” toile de Jouy dresses a balanced filling that keeps up with growing shoulders.'
+    desc: 'Our most-loved size, perfect for toddlers. The same dreamy sheep on its starry cloud, made for bedtime stories and cuddles. Naturally soft bamboo fibre, machine washable.'
   }
 }, {
   id: 'grand',
-  img: '../../assets/detail-toile.png',
-  imgProvisional: true,
-  dims: '50 × 70 cm',
-  price: '40 €',
-  priceEn: '€40',
+  img: '../../assets/products/coussin-mouton.jpg',
+  dims: '23 × 53 cm',
+  price: '54 €',
+  priceEn: '€54',
   fr: {
     name: 'Le Grand',
-    age: '9–12 ans',
-    fabric: 'Toile de Jouy « Bergerie »',
-    desc: "Presque un oreiller de grand — la douceur en plus. Un soutien plus ferme, une housse en lin lavé et toile de Jouy, pour les dernières années de la chambre d'enfant."
+    age: 'Enfants · dès 3 ans',
+    fabric: 'Velours « Mouton rêveur »',
+    desc: "Le grand format à serrer dans les bras, pour les enfants à partir de 3 ans. Le mouton et son nuage, en grand, pour le lit comme pour le canapé. Fibre de bambou naturellement douce, lavable en machine."
   },
   en: {
     name: 'The Large',
-    age: '9–12 years',
-    fabric: '“Bergerie” toile de Jouy',
-    desc: 'Almost a grown-up pillow — with the softness kept in. Firmer support and a washed-linen and toile de Jouy cover, for the last years of the children\u2019s bedroom.'
+    age: 'Children · 3 years and up',
+    fabric: '“Dreaming sheep” velvet',
+    desc: 'The big huggable size, for children from 3 years. The sheep and its cloud, supersized, for beds and sofas alike. Naturally soft bamboo fibre, machine washable.'
   }
 }];
 window.lpmT = {
   fr: {
-    nav: ['Les oreillers', 'La maison', 'Le guide du sommeil'],
+    announce: 'Livraison offerte dès 50 €',
+    nav: ['Les coussins', 'La maison', 'Le guide du sommeil'],
     cartLabel: 'Votre panier',
     langOther: 'EN',
-    reassurance: ['Toile de Jouy tissée en France', 'Coton bio certifié OEKO-TEX', 'Façonné à la main', '30 nuits d’essai · retours offerts'],
-    heroEyebrow: 'Maison française · depuis 2026',
-    heroTitle: 'De belles nuits, dès ce soir',
-    heroSub: 'Trois oreillers, trois âges. Toile de Jouy, coton bio et velours tendre — façonnés dans nos ateliers français.',
-    heroCta: 'Découvrir les oreillers',
+    reassurance: ['Fibre de bambou naturelle', 'Doux pour la peau', 'Lavable en machine', 'Livraison offerte dès 50 €'],
+    heroEyebrow: 'Fibre de bambou · maison française',
+    heroTitle1: 'De doux rêves,',
+    heroTitle2: 'petits moutons',
+    heroSub: 'Un tendre coussin mouton endormi sur son nuage, en trois tailles, du nouveau-né au grand enfant. En fibre de bambou, naturellement douce et respirante.',
+    heroCta: 'Découvrir les coussins',
     heroCta2: 'Le guide des tailles',
-    collTitle: 'Trois tailles, une douceur',
-    collSub: 'Un oreiller pensé pour chaque âge, de la première sieste aux grandes nuits.',
+    heroCaption: 'Le Moyen — toile de Jouy « Bergerie »',
+    heroTitle: 'De doux rêves, petits moutons',
     lifestyleEyebrow: 'Dans leurs chambres',
     lifestyleTitle: 'Dessiné pour être le plus beau du lit',
-    lifestyleText: 'Notre toile « Bergerie » reprend les codes de la toile de Jouy du XVIIIᵉ — bergers, moutons et clochers — dans une écriture douce qui apaise les soirs.',
-    guideTitle: 'Quelle taille pour votre enfant ?',
-    guideRows: [['Le Petit', '30 × 40 cm', '2–4 ans', 'Premier oreiller, soutien très souple'], ['Le Moyen', '40 × 60 cm', '5–8 ans', 'Soutien équilibré, le choix des parents'], ['Le Grand', '50 × 70 cm', '9–12 ans', 'Soutien affirmé, presque comme les grands']],
-    guideCols: ['Modèle', 'Dimensions', 'Âge', 'Soutien'],
+    lifestyleText: 'Notre mouton rêveur dort sur son nuage, sous une lune dorée — un dessin tendre qui apaise les soirs.',
     storyEyebrow: 'La maison',
-    storyTitle: 'La toile de Jouy, retissée pour l\u2019enfance',
-    storyText: 'Chaque oreiller est coupé, cousu et garni à la main dans nos ateliers. Les matières sont choisies pour durer toutes les années de la chambre d\u2019enfant — et se laver, souvent.',
-    storyCta: 'Découvrir la maison',
+    storyTitle: 'Pensé pour les petits, fait pour durer',
+    storyText: 'Chaque coussin est pensé en France : fibre de bambou naturellement douce, coutures soignées, housse lavable. Un compagnon conçu pour durer toutes les années de la chambre d’enfant.',
+    collTitle: 'Un mouton, trois tailles',
+    collSub: 'Le même tendre compagnon, à la bonne taille pour chaque âge.',
+    filmEyebrow: 'En mouvement',
+    filmTitle: 'Voyez-les prendre vie',
+    nightEyebrow: 'Notre promesse',
+    nightTitle: 'Pensé pour les petits, fait pour durer',
+    nightValues: [['Fibre de bambou', 'Une fibre naturelle, soyeuse et respirante — douce pour la peau délicate des tout-petits.'], ['Lavable en machine', 'Coutures soignées, housse qui passe en machine. La vie avec un enfant, on connaît.'], ['Fait pour durer', 'Un compagnon conçu pour traverser plusieurs enfances, du berceau au grand lit.']],
+    guideTitle: 'Quelle taille pour votre enfant ?',
+    guideRows: [['Le Petit', '13 × 30 cm', '0–1 an', 'Le format berceau, tout en douceur'], ['Le Moyen', '18 × 38 cm', '1–3 ans', 'Le plus aimé — histoires du soir et câlins'], ['Le Grand', '23 × 53 cm', 'dès 3 ans', 'Le grand format à serrer dans les bras']],
+    guideCols: ['Modèle', 'Dimensions', 'Âge', ''],
+    clubEyebrow: 'Le club Yume',
+    clubTitle: 'Restons en contact',
+    clubText: 'Nouveautés, petites séries et jolies attentions — directement dans votre boîte mail.',
+    clubPlaceholder: 'Votre adresse e-mail',
+    clubCta: 'S’inscrire',
+    clubNote: 'Pas de spam, promis.',
+    clubDone: 'Merci ! À très vite.',
     addToCart: 'Ajouter au panier',
     qty: 'Quantité',
     size: 'Dimensions',
     fabricLabel: 'La matière',
     added: 'Ajouté au panier',
-    productReassurance: ['Expédié sous 48 h — livraison offerte dès 80 €', '30 nuits d’essai, retours offerts', 'Coton bio certifié OEKO-TEX Standard 100'],
+    productReassurance: ['Livraison offerte dès 50 € — expédié sous 48 h', 'Fibre de bambou, naturellement douce et respirante', 'Housse lavable en machine à 30 °C'],
+    back: 'Retour aux coussins',
+    tabs: ['Description', 'Entretien', 'Livraison'],
+    care: 'Housse lavable en machine à 30 °C. Séchage à l’air libre — le garnissage retrouve son gonflant en quelques heures.',
+    shipping: 'Expédition sous 48 h. Livraison offerte dès 50 €, retours possibles pendant 30 jours.',
+    review: '« Le Moyen ne quitte plus le lit d’Anna. On aurait dû commencer par là. » — Claire, maman d’Anna, 2 ans',
+    cartEmpty: 'Votre panier est vide, pour l’instant.',
+    continueShopping: 'Poursuivre la visite',
+    checkout: 'Passer commande',
+    footerBaseline: 'Coussins moutons pour enfants, pensés en France avec tendresse.',
+    footerCols: [['La boutique', ['Les coussins', 'Cartes cadeaux']], ['L’aide', ['Livraison & retours', 'Entretien', 'Nous écrire']], ['La maison', ['Notre histoire', 'Le guide du sommeil', 'Presse']]],
+    legal: '© 2026 Maison Yume — fait avec soin',
     maison: {
       eyebrow: 'La maison',
       title: 'Une maison française, née d’une chambre d’enfant',
-      intro: 'Les Petits Moutons est née d’un constat simple : il n’existait pas de bel oreiller pour enfants. Trop mous, trop synthétiques, trop criards. Nous avons voulu un objet juste — sain, durable, et beau dans la chambre.',
-      blocks: [['La toile « Bergerie »', 'Notre toile de Jouy est dessinée à la main puis tissée en France. Bergers, moutons et clochers — une scène du XVIIIᵉ revisitée pour l’enfance.'], ['Les ateliers', 'Chaque oreiller est coupé, cousu et garni à la main. Les fanions de coton sont posés un à un, comme une signature.'], ['La promesse', 'Des matières certifiées, un soutien pensé par âge, et un objet qui traverse toutes les années de la chambre d’enfant.']],
-      quote: '« Un bel objet pour de belles nuits — rien de plus, rien de moins. »'
+      intro: 'Yume — « rêve » en japonais — est née d’un constat simple : il n’existait pas de beau coussin pour enfants. Trop synthétiques, trop criards. Nous avons voulu un objet juste — sain, durable, et beau dans la chambre.',
+      blocks: [['Le mouton rêveur', 'Notre mouton aquarelle dort sur son nuage, sous une lune dorée. Un dessin tendre, jamais criard, qui apaise les soirs.'], ['La fibre de bambou', 'Naturellement douce, respirante et thermorégulante — elle reste fraîche et soyeuse contre la peau délicate des petits.'], ['Les fanions', 'Les petits fanions de coton colorés, posés un à un sur le côté, sont notre signature. À mordiller du bout des doigts.']],
+      quote: '« Un bel objet pour de doux rêves — rien de plus, rien de moins. »'
     },
     guideSommeil: {
       eyebrow: 'Le guide du sommeil',
       title: 'Bien dormir, ça s’apprend doucement',
       intro: 'Quelques repères simples pour accompagner le sommeil de votre enfant — sans dogme, sans angoisse.',
-      articles: [['À quel âge le premier oreiller ?', 'Avant 2 ans, pas d’oreiller — c’est la recommandation pédiatrique. Vers 2–3 ans, au passage au grand lit, un oreiller bas et souple comme Le Petit accompagne la transition.'], ['Choisir la bonne hauteur', 'Un bon oreiller comble l’espace entre la nuque et le matelas, sans casser l’alignement du dos. Nos trois tailles suivent la croissance — du soutien très souple au soutien affirmé.'], ['Le rituel du soir', 'Une heure régulière, une lumière chaude, une histoire. Les enfants dorment mieux dans la répétition — et dans une chambre qu’ils aiment.'], ['L’entretien, sans y penser', 'Housse lavée à 30 °C une fois par mois, garnissage aéré à chaque changement de draps. C’est tout.']],
+      articles: [['Chaque âge a son format', 'Du berceau au grand lit, le bon coussin est celui qui suit l’enfant : tout doux et discret pour les premiers mois, plus enveloppant quand viennent les histoires du soir. Suivez toujours les recommandations de votre pédiatre.'], ['La bonne matière', 'La fibre de bambou respire et régule la température — l’enfant reste au frais l’été, au chaud l’hiver. Et elle se lave, souvent.'], ['Le rituel du soir', 'Une heure régulière, une lumière chaude, une histoire. Les enfants dorment mieux dans la répétition — et avec un compagnon qu’ils aiment.'], ['L’entretien, sans y penser', 'Housse lavée à 30 °C une fois par mois, garnissage aéré à chaque changement de draps. C’est tout.']],
       cta: 'Découvrir les trois tailles'
     },
-    back: 'Retour aux oreillers',
-    tabs: ['Description', 'Entretien', 'Livraison'],
-    care: 'Housse déhoussable, lavable en machine à 30 °C. Séchage à l\u2019air libre — le garnissage retrouve son gonflant en quelques heures.',
-    shipping: 'Expédition sous 48 h depuis nos ateliers. Livraison offerte dès 80 €, retours offerts pendant 30 jours.',
-    review: '« Le Moyen a remplacé trois oreillers achetés en grande surface. On aurait dû commencer par là. » — Claire, maman d\u2019Anna, 6 ans',
-    cartEmpty: 'Votre panier est vide, pour l\u2019instant.',
-    continueShopping: 'Poursuivre la visite',
-    checkout: 'Passer commande',
-    provisional: 'visuel provisoire',
-    footerBaseline: 'Oreillers pour enfants, façonnés en France.',
-    footerCols: [['La boutique', ['Les oreillers', 'Cartes cadeaux']], ['L\u2019aide', ['Livraison & retours', 'Entretien', 'Nous écrire']], ['La maison', ['Notre histoire', 'Nos ateliers', 'Presse']]],
-    legal: '© 2026 Les Petits Moutons — façonné avec soin en France'
+    faq: {
+      eyebrow: 'Vos questions',
+      title: 'On vous répond',
+      intro: 'Les réponses aux questions qu’on nous pose le plus souvent. Il en manque une ? Écrivez-nous, on répond vite.',
+      groups: [['Général', [['Où sont fabriqués vos coussins ?', 'Ils sont dessinés en France. La toile de Jouy « Bergerie » est tissée en France ; la fibre de bambou est certifiée OEKO-TEX Standard 100.'], ['La livraison', 'Expédition sous 48 h depuis nos ateliers. Livraison offerte dès 50 €, en France métropolitaine.'], ['Les retours', 'Vous avez 30 jours pour changer d’avis. Les retours sont offerts — le coussin doit simplement nous revenir propre et complet.']]], ['Les coussins', [['Pourquoi la fibre de bambou ?', 'Parce qu’elle est naturellement douce, respirante et thermorégulante : fraîche l’été, chaude l’hiver. Idéale contre la peau délicate des petits — et c’est la matière de nos housses.'], ['Quelle taille choisir ?', 'Le Petit (13 × 30 cm) pour les 0–1 an, Le Moyen (18 × 38 cm) pour les 1–3 ans, Le Grand (23 × 53 cm) dès 3 ans. Le guide du sommeil détaille chaque âge.'], ['À partir de quel âge ?', 'Chaque enfant est différent : suivez toujours les recommandations de votre pédiatre, en particulier avant 2 ans où le coussin accompagne les moments d’éveil, pas la nuit.'], ['Comment l’entretenir ?', 'Housse lavable en machine à 30 °C, séchage à l’air libre. Le garnissage retrouve son gonflant en quelques heures.']]], ['Votre commande', [['Puis-je l’offrir ?', 'Bien sûr. Chaque commande peut partir en emballage cadeau, avec un petit mot manuscrit si vous nous le confiez.'], ['Ma commande n’est pas arrivée', 'Écrivez-nous avec votre numéro de commande : nous répondons sous 24 h ouvrées et nous ne vous laissons jamais sans solution.']]]],
+      contact: 'Une autre question ? Écrivez-nous à bonjour@maisonyume.fr — nous répondons sous 24 h.'
+    }
   },
   en: {
+    announce: 'Free delivery over €50',
     nav: ['The pillows', 'The house', 'The sleep guide'],
     cartLabel: 'Your bag',
     langOther: 'FR',
-    reassurance: ['Toile de Jouy woven in France', 'OEKO-TEX certified organic cotton', 'Hand-finished', '30-night trial · free returns'],
-    heroEyebrow: 'French maison · since 2026',
-    heroTitle: 'Beautiful nights, starting tonight',
-    heroSub: 'Three pillows, three ages. Toile de Jouy, organic cotton and tender velvet — made in our French workshops.',
+    reassurance: ['Natural bamboo fibre', 'Gentle on skin', 'Machine washable', 'Free delivery over €50'],
+    heroEyebrow: 'Bamboo fibre · French maison',
+    heroTitle1: 'Sweet dreams,',
+    heroTitle2: 'little sheep',
+    heroSub: 'A tender sheep pillow asleep on its cloud, in three sizes, from newborn to big kid. In bamboo fibre, naturally soft and breathable.',
     heroCta: 'Discover the pillows',
     heroCta2: 'Size guide',
-    collTitle: 'Three sizes, one softness',
-    collSub: 'A pillow designed for every age, from first naps to big nights.',
+    heroCaption: 'The Medium — “Bergerie” toile de Jouy',
+    heroTitle: 'Sweet dreams, little sheep',
     lifestyleEyebrow: 'In their bedrooms',
     lifestyleTitle: 'Designed to be the prettiest thing on the bed',
-    lifestyleText: 'Our “Bergerie” print revisits 18th-century toile de Jouy — shepherds, sheep and steeples — in a gentle hand that soothes the evenings.',
-    guideTitle: 'Which size for your child?',
-    guideRows: [['The Small', '30 × 40 cm', '2–4 years', 'First pillow, very supple support'], ['The Medium', '40 × 60 cm', '5–8 years', 'Balanced support, the parents\u2019 choice'], ['The Large', '50 × 70 cm', '9–12 years', 'Firmer support, almost grown-up']],
-    guideCols: ['Model', 'Dimensions', 'Age', 'Support'],
+    lifestyleText: 'Our dreaming sheep sleeps on its cloud, under a golden moon — a tender drawing that soothes the evenings.',
     storyEyebrow: 'The house',
-    storyTitle: 'Toile de Jouy, rewoven for childhood',
-    storyText: 'Every pillow is cut, sewn and filled by hand in our workshops. Materials are chosen to last all the years of the children\u2019s bedroom — and to be washed, often.',
-    storyCta: 'Discover the house',
+    storyTitle: 'Designed for little ones, made to last',
+    storyText: 'Every pillow is designed in France: naturally soft bamboo fibre, careful seams, a washable cover. A companion made to last all the years of the children’s bedroom.',
+    collTitle: 'One sheep, three sizes',
+    collSub: 'The same tender companion, at the right size for every age.',
+    filmEyebrow: 'In motion',
+    filmTitle: 'See them come to life',
+    nightEyebrow: 'Our promise',
+    nightTitle: 'Designed for little ones, made to last',
+    nightValues: [['Bamboo fibre', 'A natural fibre, silky and breathable — gentle on the delicate skin of little ones.'], ['Machine washable', 'Careful seams, a cover that goes in the machine. Life with a child — we know.'], ['Made to last', 'A companion built to cross several childhoods, from cradle to big bed.']],
+    guideTitle: 'Which size for your child?',
+    guideRows: [['The Small', '13 × 30 cm', '0–1 year', 'The cradle size, all softness'], ['The Medium', '18 × 38 cm', '1–3 years', 'Most loved — bedtime stories and cuddles'], ['The Large', '23 × 53 cm', '3 and up', 'The big huggable size']],
+    guideCols: ['Model', 'Dimensions', 'Age', ''],
+    clubEyebrow: 'The Yume club',
+    clubTitle: 'Let’s stay in touch',
+    clubText: 'New arrivals, small series and lovely attentions — straight to your inbox.',
+    clubPlaceholder: 'Your email address',
+    clubCta: 'Sign up',
+    clubNote: 'No spam, promise.',
+    clubDone: 'Thank you! See you soon.',
     addToCart: 'Add to bag',
     qty: 'Quantity',
     size: 'Dimensions',
     fabricLabel: 'The fabric',
     added: 'Added to your bag',
-    productReassurance: ['Ships within 48 h — free delivery over €80', '30-night trial, free returns', 'OEKO-TEX Standard 100 certified organic cotton'],
+    productReassurance: ['Free delivery over €50 — ships within 48 h', 'Bamboo fibre, naturally soft and breathable', 'Cover machine-washable at 30 °C'],
+    back: 'Back to the pillows',
+    tabs: ['Description', 'Care', 'Delivery'],
+    care: 'Cover machine-washable at 30 °C. Air-dry — the filling regains its loft within hours.',
+    shipping: 'Ships within 48 h. Free delivery over €50, returns within 30 days.',
+    review: '“The Medium never leaves Anna’s bed anymore. We should have started here.” — Claire, mother of Anna, 2',
+    cartEmpty: 'Your bag is empty, for now.',
+    continueShopping: 'Keep browsing',
+    checkout: 'Checkout',
+    footerBaseline: 'Sheep pillows for children, designed in France with tenderness.',
+    footerCols: [['The shop', ['The pillows', 'Gift cards']], ['Help', ['Delivery & returns', 'Care', 'Write to us']], ['The house', ['Our story', 'The sleep guide', 'Press']]],
+    legal: '© 2026 Maison Yume — made with care',
     maison: {
       eyebrow: 'The house',
       title: 'A French maison, born in a child’s bedroom',
-      intro: 'Les Petits Moutons was born of a simple observation: there was no beautiful pillow for children. Too soft, too synthetic, too loud. We wanted a just object — healthy, durable, and beautiful in the room.',
-      blocks: [['The “Bergerie” toile', 'Our toile de Jouy is drawn by hand, then woven in France. Shepherds, sheep and steeples — an 18th-century scene revisited for childhood.'], ['The workshops', 'Every pillow is cut, sewn and filled by hand. The little cotton flags are set one by one, like a signature.'], ['The promise', 'Certified materials, age-specific support, and an object made to last all the years of the children’s bedroom.']],
-      quote: '“A beautiful object for beautiful nights — nothing more, nothing less.”'
+      intro: 'Yume — “dream” in Japanese — was born of a simple observation: there was no beautiful pillow for children. Too synthetic, too loud. We wanted a just object — healthy, durable, and beautiful in the room.',
+      blocks: [['The dreaming sheep', 'Our watercolour sheep sleeps on its cloud, under a golden moon. A tender drawing, never loud, that soothes the evenings.'], ['Bamboo fibre', 'Naturally soft, breathable and temperature-regulating — it stays cool and silky against delicate skin.'], ['The bunting', 'The little cotton flags, set one by one along the side, are our signature. For small fingers to fiddle with.']],
+      quote: '“A beautiful object for sweet dreams — nothing more, nothing less.”'
     },
     guideSommeil: {
       eyebrow: 'The sleep guide',
       title: 'Sleeping well is learned gently',
       intro: 'A few simple landmarks to accompany your child’s sleep — no dogma, no anxiety.',
-      articles: [['At what age, the first pillow?', 'Before age 2, no pillow — that is the paediatric recommendation. Around 2–3, with the move to a big bed, a low and supple pillow like The Small eases the transition.'], ['Choosing the right height', 'A good pillow fills the space between neck and mattress without breaking the alignment of the back. Our three sizes follow growth — from very supple to firmer support.'], ['The evening ritual', 'A regular hour, a warm light, a story. Children sleep better in repetition — and in a room they love.'], ['Care, without thinking about it', 'Cover washed at 30 °C once a month, filling aired at every change of sheets. That’s all.']],
+      articles: [['Every age has its size', 'From cradle to big bed, the right pillow follows the child: soft and discreet for the first months, more enveloping when bedtime stories begin. Always follow your paediatrician’s advice.'], ['The right material', 'Bamboo fibre breathes and regulates temperature — cool in summer, warm in winter. And it washes, often.'], ['The evening ritual', 'A regular hour, a warm light, a story. Children sleep better in repetition — and with a companion they love.'], ['Care, without thinking about it', 'Cover washed at 30 °C once a month, filling aired at every change of sheets. That’s all.']],
       cta: 'Discover the three sizes'
     },
-    back: 'Back to the pillows',
-    tabs: ['Description', 'Care', 'Delivery'],
-    care: 'Removable cover, machine-washable at 30 °C. Air-dry — the filling regains its loft within hours.',
-    shipping: 'Ships within 48 h from our workshops. Free delivery over €80, free returns for 30 days.',
-    review: '“The Medium replaced three supermarket pillows. We should have started here.” — Claire, mother of Anna, 6',
-    cartEmpty: 'Your bag is empty, for now.',
-    continueShopping: 'Keep browsing',
-    checkout: 'Checkout',
-    provisional: 'provisional visual',
-    footerBaseline: 'Children\u2019s pillows, made in France.',
-    footerCols: [['The shop', ['The pillows', 'Gift cards']], ['Help', ['Delivery & returns', 'Care', 'Write to us']], ['The house', ['Our story', 'Our workshops', 'Press']]],
-    legal: '© 2026 Les Petits Moutons — made with care in France'
+    faq: {
+      eyebrow: 'Your questions',
+      title: 'We answer',
+      intro: 'Answers to the questions we hear most often. Missing one? Write to us — we reply quickly.',
+      groups: [['General', [['Where are your pillows made?', 'They are designed in France. The “Bergerie” toile de Jouy is woven in France; the bamboo fibre is OEKO-TEX Standard 100 certified.'], ['Delivery', 'Ships within 48 h from our workshops. Free delivery over €50 in mainland France.'], ['Returns', 'You have 30 days to change your mind. Returns are free — the pillow simply needs to come back clean and complete.']]], ['The pillows', [['Why bamboo fibre?', 'Because it is naturally soft, breathable and temperature-regulating: cool in summer, warm in winter. Ideal against the delicate skin of little ones — and it is the fabric of our covers.'], ['Which size should I choose?', 'The Small (13 × 30 cm) for 0–1 year, The Medium (18 × 38 cm) for 1–3 years, The Large (23 × 53 cm) from age 3. The sleep guide details every age.'], ['From what age?', 'Every child is different: always follow your paediatrician’s advice — especially before age 2, when the pillow is for waking moments, not the night.'], ['How do I care for it?', 'Cover machine-washable at 30 °C, air-dry. The filling regains its loft within hours.']]], ['Your order', [['Can I gift it?', 'Of course. Every order can leave gift-wrapped, with a handwritten note if you share one with us.'], ['My order hasn’t arrived', 'Write to us with your order number: we reply within 24 working hours and never leave you without a solution.']]]],
+      contact: 'Another question? Write to us at bonjour@maisonyume.fr — we reply within 24 h.'
+    }
   }
 };
 })(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/boutique/data.js", error: String((e && e.message) || e) }); }

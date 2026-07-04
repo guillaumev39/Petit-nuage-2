@@ -68,6 +68,7 @@
 
   /* ---- Story band ---- */
   .lpm-story-inner { padding: 52px 20px !important; }
+  .lpm-night-grid { grid-template-columns: 1fr !important; gap: 20px !important; }
 
   /* ---- Footer: brand block full width, link columns 2-up ---- */
   .lpm-footer-grid { grid-template-columns: 1fr 1fr !important; padding: 40px 20px !important; gap: 28px !important; }

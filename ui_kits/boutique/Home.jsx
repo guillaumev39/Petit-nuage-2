@@ -31,7 +31,7 @@ function ProductFigure({ p, i, lang, t, onOpen }) {
 
 function HeroHeadline({ t, lang }) {
   // Italic accent on the last words — editorial, not template-like.
-  const parts = lang === 'fr' ? ['De belles nuits,', 'dès ce soir'] : ['Beautiful nights,', 'starting tonight'];
+  const parts = [t.heroTitle1, t.heroTitle2];
   return (
     <h1 className="lpm-hero-headline" style={{ margin: 0, fontSize: 'clamp(56px, 7vw, 92px)', fontWeight: 500, lineHeight: 1.02, letterSpacing: '-0.01em' }}>
       {parts[0]}<br />
@@ -54,7 +54,10 @@ function Hero({ t, lang, variant }) {
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(35,33,28,0.55), rgba(35,33,28,0) 55%)' }}></div>
         <div className="lpm-hero-film-row" style={{ position: 'relative', width: '100%', maxWidth: 'var(--container-max)', margin: '0 auto', padding: '0 32px 56px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 32 }}>
           <div>
-            <div style={{ ...eyebrowStyle, color: 'rgba(255,253,248,0.75)', marginBottom: 14 }}>{t.heroEyebrow}</div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
+              <YumeSeal size={22} tone="inverse" />
+              <span style={{ ...eyebrowStyle, color: 'rgba(255,253,248,0.75)' }}>{t.heroEyebrow}</span>
+            </div>
             <h1 className="lpm-hero-title" style={{ margin: 0, fontSize: 'clamp(48px, 6vw, 80px)', fontWeight: 500, lineHeight: 1.04, color: '#FFFDF8' }}>{t.heroTitle}</h1>
           </div>
           <Button size="lg" style={{ flexShrink: 0 }} onClick={() => window.scroll({ top: document.getElementById('collection').offsetTop - 100, behavior: 'smooth' })}>{t.heroCta}</Button>
@@ -85,7 +88,7 @@ function Hero({ t, lang, variant }) {
             <div className="lpm-hero-pack-photo" style={{ background: '#fff', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', height: 480 }}>
               <img src={window.lpmProducts[1].img} alt="" style={{ width: '92%', height: '92%', objectFit: 'contain' }} />
             </div>
-            <div style={{ ...eyebrowStyle, marginTop: 10, textAlign: 'right' }}>{lang === 'fr' ? 'Le Moyen — toile « Bergerie »' : 'The Medium — “Bergerie” toile'}</div>
+            <div style={{ ...eyebrowStyle, marginTop: 10, textAlign: 'right' }}>{t.heroCaption}</div>
           </div>
         </div>
       </div>
@@ -146,12 +149,23 @@ function HomeScreen({ lang, t, heroVariant = 'packshot', onOpenProduct }) {
         </div>
       </section>
 
-      {/* Story band */}
-      <section style={{ background: 'var(--surface-inverse)', marginTop: 96 }}>
-        <div className="lpm-story-inner" style={{ maxWidth: 820, margin: '0 auto', padding: '88px 32px', display: 'flex', flexDirection: 'column', gap: 20 }}>
-          <span style={{ ...eyebrowStyle, color: 'rgba(255,253,248,0.5)' }}>{t.storyEyebrow}</span>
-          <h2 className="lpm-h2" style={{ margin: 0, fontSize: 44, fontWeight: 500, color: '#FFFDF8', lineHeight: 1.1 }}>{t.storyTitle}</h2>
-          <p style={{ margin: 0, fontSize: 16, color: 'rgba(255,253,248,0.72)', maxWidth: 560 }}>{t.storyText}</p>
+      {/* La matière — the bamboo story on a celadon band (the only Asian-leaning surface, no imagery) */}
+      <section style={{ background: 'var(--lpm-sage-100)', marginTop: 96 }}>
+        <div className="lpm-story-inner" style={{ maxWidth: 'var(--container-max)', margin: '0 auto', padding: '72px 32px 78px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 14 }}>
+            <YumeSeal size={24} />
+            <span style={eyebrowStyle}>{t.nightEyebrow}</span>
+          </div>
+          <h2 className="lpm-h2" style={{ margin: '0 0 44px', fontSize: 40, fontWeight: 500, maxWidth: 540 }}>{t.nightTitle}</h2>
+          <div className="lpm-night-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 28 }}>
+            {t.nightValues.map(([h, p], i) => (
+              <div key={h} style={{ borderTop: '1px solid var(--lpm-ink-900)', paddingTop: 16 }}>
+                <div style={{ fontFamily: 'var(--font-body)', fontSize: 11, fontWeight: 600, color: 'var(--lpm-ink-500)', letterSpacing: '0.14em', marginBottom: 8 }}>{String(i + 1).padStart(2, '0')}</div>
+                <h3 style={{ margin: '0 0 8px', fontFamily: 'var(--font-display)', fontSize: 23, fontWeight: 600, color: 'var(--text-heading)' }}>{h}</h3>
+                <p style={{ margin: 0, fontFamily: 'var(--font-body)', fontSize: 14.5, lineHeight: 1.7, maxWidth: 320 }}>{p}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
     </main>

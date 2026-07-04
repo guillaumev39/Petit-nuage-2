@@ -32,6 +32,7 @@ function MaisonScreen({ t, onOpenCollection }) {
         ))}
       </section>
       <section style={{ maxWidth: 720, margin: '72px auto 0', padding: '0 32px', textAlign: 'center' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 18 }}><YumeSeal size={28} /></div>
         <div style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic', fontSize: 28, lineHeight: 1.4, color: 'var(--text-heading)' }}>{m.quote}</div>
         <div style={{ marginTop: 28 }}>
           <Button size="lg" onClick={onOpenCollection}>{t.heroCta}</Button>
@@ -67,35 +68,43 @@ function GuideSommeilScreen({ t, onOpenCollection }) {
   );
 }
 
-/* Generic numbered info page (Livraison & retours, Entretien) — same skeleton as the sleep guide. */
-function InfoScreen({ data, label, onOpenCollection }) {
+function FaqItem({ q, a, open, onToggle }) {
   return (
-    <main data-screen-label={label}>
-      <EditorialHeader eyebrow={data.eyebrow} title={data.title} intro={data.intro} />
-      <section style={{ maxWidth: 760, margin: '48px auto 0', padding: '0 32px', display: 'flex', flexDirection: 'column' }}>
-        {data.articles.map(([h, p], i) => (
-          <article key={i} style={{ padding: '28px 0', borderTop: i > 0 ? '1px solid var(--border-soft)' : 'none', display: 'grid', gridTemplateColumns: '52px 1fr', gap: 20, alignItems: 'start' }}>
-            <span style={{ fontFamily: 'var(--font-display)', fontSize: 34, fontWeight: 500, color: 'var(--lpm-jouy-300)', lineHeight: 1 }}>{String(i + 1).padStart(2, '0')}</span>
-            <div>
-              <h3 style={{ margin: '0 0 8px', fontFamily: 'var(--font-display)', fontSize: 25, fontWeight: 600, color: 'var(--text-heading)' }}>{h}</h3>
-              <p style={{ margin: 0, fontFamily: 'var(--font-body)', fontSize: 15.5, lineHeight: 1.7, maxWidth: 560 }}>{p}</p>
-            </div>
-          </article>
+    <div style={{ borderBottom: '1px solid var(--border-soft)' }}>
+      <button onClick={onToggle} style={{ width: '100%', background: 'none', border: 'none', padding: '18px 4px', display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 16, cursor: 'pointer', textAlign: 'left' }}>
+        <span style={{ fontFamily: 'var(--font-display)', fontSize: 21, fontWeight: 500, color: 'var(--text-heading)' }}>{q}</span>
+        <span aria-hidden="true" style={{ fontFamily: 'var(--font-body)', fontSize: 17, color: 'var(--text-faint)', flexShrink: 0 }}>{open ? '−' : '+'}</span>
+      </button>
+      {open && <p style={{ margin: '0 0 20px', padding: '0 4px', fontFamily: 'var(--font-body)', fontSize: 15, lineHeight: 1.7, maxWidth: 560, color: 'var(--text-body)' }}>{a}</p>}
+    </div>
+  );
+}
+
+function FaqScreen({ t }) {
+  const f = t.faq;
+  const [openId, setOpenId] = React.useState('0-0');
+  return (
+    <main data-screen-label="Vos questions">
+      <EditorialHeader eyebrow={f.eyebrow} title={f.title} intro={f.intro} />
+      <section style={{ maxWidth: 760, margin: '40px auto 0', padding: '0 32px', display: 'flex', flexDirection: 'column', gap: 44 }}>
+        {f.groups.map(([g, items], gi) => (
+          <div key={g}>
+            <div style={{ fontFamily: 'var(--font-body)', fontSize: 11.5, letterSpacing: 'var(--tracking-wide)', textTransform: 'uppercase', fontWeight: 600, color: 'var(--text-muted)', paddingBottom: 10, borderBottom: '1px solid var(--lpm-ink-900)' }}>{g}</div>
+            {items.map(([q, a], qi) => {
+              const id = gi + '-' + qi;
+              return <FaqItem key={id} q={q} a={a} open={openId === id} onToggle={() => setOpenId(openId === id ? null : id)} />;
+            })}
+          </div>
         ))}
       </section>
-      <section style={{ maxWidth: 760, margin: '32px auto 0', padding: '0 32px', textAlign: 'center' }}>
-        <Button size="lg" onClick={onOpenCollection}>{data.cta}</Button>
+      <section style={{ maxWidth: 760, margin: '48px auto 0', padding: '0 32px' }}>
+        <Card variant="soft" padding="22px 26px" style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+          <YumeSeal size={30} />
+          <span style={{ fontFamily: 'var(--font-body)', fontSize: 14.5, lineHeight: 1.6 }}>{f.contact}</span>
+        </Card>
       </section>
     </main>
   );
 }
 
-function LivraisonScreen({ t, onOpenCollection }) {
-  return <InfoScreen data={t.livraison} label="Livraison & retours" onOpenCollection={onOpenCollection} />;
-}
-
-function EntretienScreen({ t, onOpenCollection }) {
-  return <InfoScreen data={t.entretien} label="Entretien" onOpenCollection={onOpenCollection} />;
-}
-
-Object.assign(window, { MaisonScreen, GuideSommeilScreen, LivraisonScreen, EntretienScreen });
+Object.assign(window, { MaisonScreen, GuideSommeilScreen, FaqScreen });

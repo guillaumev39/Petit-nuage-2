@@ -1,13 +1,14 @@
-# Les Petits Moutons — Design System
+# Maison Yume — Design System
 
-**Les Petits Moutons** is a French maison of pillows for children (2–12 ans): three sizes — Le Petit, Le Moyen, Le Grand — in toile de Jouy and tender velvet, made in France. The positioning is **sober, premium, contemporary**, speaking to CSP+ parents. Sold in France, site is bilingual **FR (default) / EN**.
+**Yume** (夢, « rêve » en japonais) is a French maison of sheep pillows for children: three sizes — Le Petit (13×30, 0–1 an, 32 €), Le Moyen (18×38, 1–3 ans, 42 €), Le Grand (23×53, dès 3 ans, 54 €) — in bamboo-fibre velvet and toile de Jouy, designed in France. The positioning is **sober, premium, gently kid-friendly**, speaking to CSP+ parents. Sold in France, site is bilingual **FR (default) / EN**.
 
 ## Sources & provenance
 
 - GitHub repo provided: https://github.com/guillaumev39/Petit-nuage-2 — **empty at build time**. Explore it if content has since been pushed.
 - Real assets provided by the user: two product packshots (`assets/products/coussin-mouton.jpg`, `assets/products/coussin-moyen-toile.jpg`) and a 10s brand film (`assets/products/coussin-moutons.mp4`), from which two stills were extracted (`assets/lifestyle-crib.png` — used on the home page, `assets/detail-toile.png`).
 - Everything else (palette, type, tone, components, boutique) was **created from scratch** to the user's brief: "sobre mais très premium", modern color code for CSP+ parents.
-- The brand was previously "Petit Nuage" — renamed by the user to **Les Petits Moutons**. (Component namespace still reads PetitNuageDesignSystem_f04838; cosmetic only.)
+- The brand was "Petit Nuage", then "Les Petits Moutons", renamed by the user to **Yume / Maison Yume**. (Component namespace still reads PetitNuageDesignSystem_f04838; token prefix --lpm-; both cosmetic only.)
+- Logo: no drawn logo — the wordmark is a typographic lockup (tiny « MAISON » eyebrow over letterspaced YUME serif caps). Six alternative logo directions live in `explorations/Logos Maison Yume.html` (1a–1f).
 - No logo provided, none invented — wordmark is the brand name in type. No brand fonts — Google substitutes **Cormorant Garamond** (display) + **Hanken Grotesk** (body), flagged for replacement.
 
 ## Products represented
@@ -26,6 +27,7 @@
   - Reassurance: « Toile de Jouy tissée en France · Coton bio certifié · Façonné à la main · Retours offerts 30 jours »
   - Toast: « Ajouté au panier » (calm, no !)
   - Empty cart: « Votre panier est vide, pour l'instant. »
+  - FAQ (Mezamé-inspired: grouped themes Général / Les coussins / Votre commande; answers 1–3 sentences, warm and concrete): « Il en manque une ? Écrivez-nous, on répond vite. »
 
 ## VISUAL FOUNDATIONS
 
@@ -42,6 +44,8 @@
 - **Transparency/blur**: header only (`rgba(250,247,240,0.94)` + 6px blur). Dialog scrim `rgba(35,33,28,0.4)`, no blur.
 - **Imagery**: real packshots on white, warm natural-light lifestyle stills from the film (cream/blue nursery). Never cool, never high-contrast. Provisional visuals are labelled « visuel provisoire ».
 - **Cards**: `--surface-card` (#FFFEFB), radius 12px, hairline border or `--shadow-card`, padding 18–24px.
+- **Subtle Asian & bamboo cues** (whisper-quiet, per the brand's bamboo fibre and Japanese name): the **夢 seal** — hairline rounded-square stamp of the kanji for « dream » (Noto Serif JP, single-glyph subset) — used **once per page at most** (footer legal bar, above editorial quotes, FAQ contact card, home hero eyebrow). The home « matière » band sits on celadon (sage-100) — the bamboo green without drawing bamboo. Bamboo is otherwise told through copy and the materials story; sage/wool stay micro-accents. **Never** chinoiserie patterns, bamboo illustrations, themed borders or pagoda motifs.
+- **Announcement bar**: one calm line on jouy-900 with the star glyph (« Livraison offerte dès 50 € ») — never stacked promos.
 
 ## ICONOGRAPHY
 

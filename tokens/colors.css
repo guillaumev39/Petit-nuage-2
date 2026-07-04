@@ -21,6 +21,16 @@
   --lpm-jouy-100: #E3E8F1;
   --lpm-jouy-50:  #F2F4F8;
 
+  /* Poudre — the powder blue of the velvet pillow */
+  --lpm-powder-100: #EAF1F7;
+  --lpm-powder-300: #C9DCEC;
+  --lpm-powder-500: #A9C5E8;
+
+  /* Or doux — the gold of the printed moon & stars; micro-details only */
+  --lpm-gold-300: #F2D9A0;
+  --lpm-gold-500: #E7B54E;
+  --lpm-gold-700: #CF9A34;
+
   /* Laine — ecru & undyed wool tones */
   --lpm-wool-100: #F2ECDF;
   --lpm-wool-300: #E4D9C3;
