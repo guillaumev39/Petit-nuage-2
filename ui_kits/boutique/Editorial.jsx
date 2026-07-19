@@ -32,7 +32,7 @@ function MaisonScreen({ t, onOpenCollection }) {
         ))}
       </section>
       <section style={{ maxWidth: 720, margin: '72px auto 0', padding: '0 32px', textAlign: 'center' }}>
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 18 }}><YumeSeal size={28} /></div>
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 18 }}><Fanions size={9} /></div>
         <div style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic', fontSize: 28, lineHeight: 1.4, color: 'var(--text-heading)' }}>{m.quote}</div>
         <div style={{ marginTop: 28 }}>
           <Button size="lg" onClick={onOpenCollection}>{t.heroCta}</Button>
@@ -99,7 +99,7 @@ function FaqScreen({ t }) {
       </section>
       <section style={{ maxWidth: 760, margin: '48px auto 0', padding: '0 32px' }}>
         <Card variant="soft" padding="22px 26px" style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <YumeSeal size={30} />
+          <Fanions size={9} style={{ flexShrink: 0 }} />
           <span style={{ fontFamily: 'var(--font-body)', fontSize: 14.5, lineHeight: 1.6 }}>{f.contact}</span>
         </Card>
       </section>

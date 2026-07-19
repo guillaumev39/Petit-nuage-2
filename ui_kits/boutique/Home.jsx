@@ -55,7 +55,6 @@ function Hero({ t, lang, variant }) {
         <div className="lpm-hero-film-row" style={{ position: 'relative', width: '100%', maxWidth: 'var(--container-max)', margin: '0 auto', padding: '0 32px 56px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 32 }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
-              <YumeSeal size={22} tone="inverse" />
               <span style={{ ...eyebrowStyle, color: 'rgba(255,253,248,0.75)' }}>{t.heroEyebrow}</span>
             </div>
             <h1 className="lpm-hero-title" style={{ margin: 0, fontSize: 'clamp(48px, 6vw, 80px)', fontWeight: 500, lineHeight: 1.04, color: '#FFFDF8' }}>{t.heroTitle}</h1>
@@ -153,7 +152,7 @@ function HomeScreen({ lang, t, heroVariant = 'packshot', onOpenProduct }) {
       <section style={{ background: 'var(--lpm-sage-100)', marginTop: 96 }}>
         <div className="lpm-story-inner" style={{ maxWidth: 'var(--container-max)', margin: '0 auto', padding: '72px 32px 78px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 14 }}>
-            <YumeSeal size={24} />
+            <Fanions size={8} />
             <span style={eyebrowStyle}>{t.nightEyebrow}</span>
           </div>
           <h2 className="lpm-h2" style={{ margin: '0 0 44px', fontSize: 40, fontWeight: 500, maxWidth: 540 }}>{t.nightTitle}</h2>

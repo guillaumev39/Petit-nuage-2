@@ -1,12 +1,11 @@
 // Shared chrome: Wordmark, Header (with FR/EN toggle), ReassuranceBar, Footer, ProductPhoto.
 const { IconButton, Tooltip } = window.PetitNuageDesignSystem_f04838;
 
-/* Yume lockup — tiny « MAISON » eyebrow over YUME in letterspaced serif caps. */
-function Wordmark({ size = 17, color = 'var(--lpm-ink-900)', maison = true, onClick, className }) {
+/* Koyumé lockup — the word alone, letterspaced serif caps. */
+function Wordmark({ size = 17, color = 'var(--lpm-ink-900)', onClick, className }) {
   return (
-    <div onClick={onClick} className={className} style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', gap: size * 0.14, cursor: onClick ? 'pointer' : 'default' }}>
-      {maison && <span style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: Math.max(7, size * 0.4), letterSpacing: '0.52em', paddingLeft: '0.52em', textTransform: 'uppercase', color, opacity: 0.55, lineHeight: 1 }}>Maison</span>}
-      <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: size * 1.18, letterSpacing: '0.3em', paddingLeft: '0.3em', textTransform: 'uppercase', color, lineHeight: 1, whiteSpace: 'nowrap' }}>Yume</span>
+    <div onClick={onClick} className={className} style={{ display: 'inline-flex', alignItems: 'center', cursor: onClick ? 'pointer' : 'default' }}>
+      <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: size * 1.18, letterSpacing: '0.26em', paddingLeft: '0.26em', textTransform: 'uppercase', color, lineHeight: 1, whiteSpace: 'nowrap' }}>Koyumé</span>
     </div>
   );
 }
@@ -39,19 +38,6 @@ function AnnounceBar({ t }) {
       <img src="../../assets/decor-star.svg" alt="" style={{ width: 11, height: 11, display: 'block', opacity: 0.9 }} />
       <span style={{ fontFamily: 'var(--font-body)', fontSize: 12.5, letterSpacing: '0.06em', fontWeight: 500 }}>{t.announce}</span>
     </div>
-  );
-}
-
-/* 夢 (« yume », rêve) — discreet brand seal. Use sparingly: once per page at most. */
-function YumeSeal({ size = 26, tone = 'jouy', style }) {
-  const tones = {
-    jouy: { border: '1px solid var(--lpm-jouy-500)', color: 'var(--lpm-jouy-700)' },
-    inverse: { border: '1px solid rgba(255,253,248,0.45)', color: '#FFFDF8' },
-    gold: { border: '1px solid var(--lpm-gold-700)', color: 'var(--lpm-gold-700)' },
-  };
-  const c = tones[tone] || tones.jouy;
-  return (
-    <span aria-label="yume — rêve" style={{ width: size, height: size, borderRadius: Math.round(size * 0.19), border: c.border, color: c.color, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Noto Serif JP', serif", fontWeight: 500, fontSize: Math.round(size * 0.56), lineHeight: 1, flexShrink: 0, ...style }}>夢</span>
   );
 }
 
@@ -117,7 +103,6 @@ function Footer({ t, onNav }) {
         ))}
       </div>
       <div style={{ borderTop: '1px solid rgba(255,253,248,0.14)', padding: '20px 32px 22px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, fontFamily: 'var(--font-body)', fontSize: 12, color: 'rgba(255,253,248,0.45)' }}>
-        <YumeSeal size={20} tone="inverse" style={{ opacity: 0.65 }} />
         {t.legal}
       </div>
     </footer>
@@ -148,4 +133,4 @@ function Fanions({ size = 9, style }) {
   );
 }
 
-Object.assign(window, { Wordmark, Header, ReassuranceBar, Footer, ProductPhoto, CartIcon, LangToggle, Fanions, AnnounceBar, YumeSeal });
+Object.assign(window, { Wordmark, Header, ReassuranceBar, Footer, ProductPhoto, CartIcon, LangToggle, Fanions, AnnounceBar });

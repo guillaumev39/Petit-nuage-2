@@ -1,4 +1,4 @@
-// Maison Yume — catalogue + bilingual strings (FR default, EN).
+// Koyumé — catalogue + bilingual strings (FR default, EN).
 // Real product data from the production site (petit-nuage local folder / Shopify-ready).
 // Shopify: checkout happens on the Shopify store below via cart permalinks;
 // each product carries the numeric ID of its Shopify variant.
@@ -52,7 +52,7 @@ window.lpmT = {
     guideTitle: 'Quelle taille pour votre enfant ?',
     guideRows: [['Le Petit', '13 × 30 cm', '0–1 an', 'Le format berceau, tout en douceur'], ['Le Moyen', '18 × 38 cm', '1–3 ans', 'Le plus aimé — histoires du soir et câlins'], ['Le Grand', '23 × 53 cm', 'dès 3 ans', 'Le grand format à serrer dans les bras']],
     guideCols: ['Modèle', 'Dimensions', 'Âge', ''],
-    clubEyebrow: 'Le club Yume',
+    clubEyebrow: 'Le club Koyumé',
     clubTitle: 'Restons en contact',
     clubText: 'Nouveautés, petites séries et jolies attentions — directement dans votre boîte mail.',
     clubPlaceholder: 'Votre adresse e-mail', clubCta: 'S’inscrire', clubNote: 'Pas de spam, promis.',
@@ -70,11 +70,11 @@ window.lpmT = {
     subtotal: 'Sous-total', freeShipHint: 'Livraison offerte dès 50 €',
     footerBaseline: 'Coussins moutons pour enfants, pensés en France avec tendresse.',
     footerCols: [['La boutique', ['Les coussins']], ['L’aide', ['Livraison & retours', 'Entretien', 'Nous écrire']], ['La maison', ['Notre histoire', 'Le guide du sommeil']]],
-    legal: '© 2026 Maison Yume — fait avec soin',
+    legal: '© 2026 Koyumé — fait avec soin',
     maison: {
       eyebrow: 'La maison',
       title: 'Une maison française, née d’une chambre d’enfant',
-      intro: 'Yume — « rêve » en japonais — est née d’un constat simple : il n’existait pas de beau coussin pour enfants. Trop synthétiques, trop criards. Nous avons voulu un objet juste — sain, durable, et beau dans la chambre.',
+      intro: 'Koyumé — « petit rêve » en japonais — est née d’un constat simple : il n’existait pas de beau coussin pour enfants. Trop synthétiques, trop criards. Nous avons voulu un objet juste — sain, durable, et beau dans la chambre.',
       blocks: [
         ['Le mouton rêveur', 'Notre mouton aquarelle dort sur son nuage, sous une lune dorée. Un dessin tendre, jamais criard, qui apaise les soirs.'],
         ['La fibre de bambou', 'Naturellement douce, respirante et thermorégulante — elle reste fraîche et soyeuse contre la peau délicate des petits.'],
@@ -115,7 +115,7 @@ window.lpmT = {
           ['Ma commande n’est pas arrivée', 'Écrivez-nous avec votre numéro de commande : nous répondons sous 24 h ouvrées et nous ne vous laissons jamais sans solution.'],
         ]],
       ],
-      contact: 'Une autre question ? Écrivez-nous à bonjour@maisonyume.fr — nous répondons sous 24 h.',
+      contact: 'Une autre question ? Écrivez-nous à guillaumev39@gmail.com — nous répondons sous 24 h.',
     },
   },
   en: {
@@ -145,7 +145,7 @@ window.lpmT = {
     guideTitle: 'Which size for your child?',
     guideRows: [['The Small', '13 × 30 cm', '0–1 year', 'The cradle size, all softness'], ['The Medium', '18 × 38 cm', '1–3 years', 'Most loved — bedtime stories and cuddles'], ['The Large', '23 × 53 cm', '3 and up', 'The big huggable size']],
     guideCols: ['Model', 'Dimensions', 'Age', ''],
-    clubEyebrow: 'The Yume club',
+    clubEyebrow: 'The Koyumé club',
     clubTitle: 'Let’s stay in touch',
     clubText: 'New arrivals, small series and lovely attentions — straight to your inbox.',
     clubPlaceholder: 'Your email address', clubCta: 'Sign up', clubNote: 'No spam, promise.',
@@ -163,11 +163,11 @@ window.lpmT = {
     subtotal: 'Subtotal', freeShipHint: 'Free delivery over €50',
     footerBaseline: 'Sheep pillows for children, designed in France with tenderness.',
     footerCols: [['The shop', ['The pillows']], ['Help', ['Delivery & returns', 'Care', 'Write to us']], ['The house', ['Our story', 'The sleep guide']]],
-    legal: '© 2026 Maison Yume — made with care',
+    legal: '© 2026 Koyumé — made with care',
     maison: {
       eyebrow: 'The house',
       title: 'A French maison, born in a child’s bedroom',
-      intro: 'Yume — “dream” in Japanese — was born of a simple observation: there was no beautiful pillow for children. Too synthetic, too loud. We wanted a just object — healthy, durable, and beautiful in the room.',
+      intro: 'Koyumé — “little dream” in Japanese — was born of a simple observation: there was no beautiful pillow for children. Too synthetic, too loud. We wanted a just object — healthy, durable, and beautiful in the room.',
       blocks: [
         ['The dreaming sheep', 'Our watercolour sheep sleeps on its cloud, under a golden moon. A tender drawing, never loud, that soothes the evenings.'],
         ['Bamboo fibre', 'Naturally soft, breathable and temperature-regulating — it stays cool and silky against delicate skin.'],
@@ -208,7 +208,7 @@ window.lpmT = {
           ['My order hasn’t arrived', 'Write to us with your order number: we reply within 24 working hours and never leave you without a solution.'],
         ]],
       ],
-      contact: 'Another question? Write to us at bonjour@maisonyume.fr — we reply within 24 h.',
+      contact: 'Another question? Write to us at guillaumev39@gmail.com — we reply within 24 h.',
     },
   },
 };
