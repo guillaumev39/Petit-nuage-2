@@ -49,7 +49,6 @@ function Header({ t, lang, setLang, onNav, active, cartCount, onCart }) {
         <nav className="lpm-nav" style={{ display: 'flex', gap: 26 }}>
           <a style={link(0)} onClick={() => onNav('home')}>{t.nav[0]}</a>
           <a style={link(1)} onClick={() => onNav('maison')}>{t.nav[1]}</a>
-          <a style={link(2)} onClick={() => onNav('guide')}>{t.nav[2]}</a>
         </nav>
         <Wordmark size={19} className="lpm-wordmark" onClick={() => onNav('home')} />
         <div className="lpm-header-actions" style={{ display: 'flex', alignItems: 'center', gap: 18, justifySelf: 'end' }}>
@@ -82,7 +81,7 @@ function ReassuranceBar({ t }) {
 
 function Footer({ t, onNav }) {
   const a = { color: 'rgba(255,253,248,0.62)', textDecoration: 'none', cursor: 'pointer', fontSize: 14 };
-  const footerRoutes = [['home'], ['faq', 'faq', 'mailto:guillaumev39@gmail.com'], ['maison', 'guide']];
+  const footerRoutes = [['home'], ['faq', 'faq', 'mailto:guillaumev39@gmail.com'], ['maison']];
   return (
     <footer style={{ background: 'var(--surface-inverse)', marginTop: 88 }}>
       <div className="lpm-footer-grid" style={{ maxWidth: 'var(--container-max)', margin: '0 auto', padding: '56px 32px', display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 32 }}>

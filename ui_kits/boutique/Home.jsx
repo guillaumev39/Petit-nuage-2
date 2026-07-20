@@ -156,7 +156,7 @@ function HomeScreen({ lang, t, heroVariant = 'packshot', onOpenProduct }) {
             <span style={eyebrowStyle}>{t.nightEyebrow}</span>
           </div>
           <h2 className="lpm-h2" style={{ margin: '0 0 44px', fontSize: 40, fontWeight: 500, maxWidth: 540 }}>{t.nightTitle}</h2>
-          <div className="lpm-night-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 28 }}>
+          <div className="lpm-night-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 24 }}>
             {t.nightValues.map(([h, p], i) => (
               <div key={h} style={{ borderTop: '1px solid var(--lpm-ink-900)', paddingTop: 16 }}>
                 <div style={{ fontFamily: 'var(--font-body)', fontSize: 11, fontWeight: 600, color: 'var(--lpm-ink-500)', letterSpacing: '0.14em', marginBottom: 8 }}>{String(i + 1).padStart(2, '0')}</div>

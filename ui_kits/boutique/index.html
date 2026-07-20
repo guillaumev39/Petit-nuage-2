@@ -21,7 +21,7 @@
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 <script src="../../_ds_bundle.js"></script>
-<script src="data.js?v=7"></script>
+<script src="data.js?v=8"></script>
 <style>
   html, body { margin: 0; background: var(--surface-page); }
   * { box-sizing: border-box; }
@@ -73,12 +73,12 @@ function App() {
       window.location.href = window.location.pathname + '?refresh=' + Date.now();
     }
   };
-  const screenLabels = { home: 'Accueil', product: 'Fiche produit', maison: 'La maison', guide: 'Guide du sommeil', faq: 'Vos questions' };
+  const screenLabels = { home: 'Accueil', product: 'Fiche produit', maison: 'Qui sommes-nous', guide: 'Guide du sommeil', faq: 'Vos questions' };
 
   return (
     <div data-screen-label={screenLabels[screen.name]} style={tw.showFanions ? null : { ['--lpm-rose-300']: 'transparent', ['--lpm-straw-300']: 'transparent', ['--lpm-sage-300']: 'transparent' }}>
       <AnnounceBar t={t} />
-      <Header t={t} lang={lang} setLang={changeLang} onNav={nav} active={screen.name === 'home' ? 0 : screen.name === 'maison' ? 1 : screen.name === 'guide' ? 2 : -1} cartCount={cart.length} onCart={() => setCartOpen(true)} />
+      <Header t={t} lang={lang} setLang={changeLang} onNav={nav} active={screen.name === 'home' ? 0 : screen.name === 'maison' ? 1 : -1} cartCount={cart.length} onCart={() => setCartOpen(true)} />
       {screen.name === 'home' && <HomeScreen lang={lang} t={t} heroVariant={tw.heroVariant} onOpenProduct={(p) => nav('product', p)} />}
       {screen.name === 'product' && <ProductScreen product={screen.product} lang={lang} t={t} onBack={() => nav('home')} onAdd={addToCart} />}
       {screen.name === 'maison' && <MaisonScreen t={t} onOpenCollection={() => nav('home')} />}
