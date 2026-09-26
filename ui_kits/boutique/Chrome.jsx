@@ -1,12 +1,13 @@
 // Shared chrome: Wordmark, Header (with FR/EN toggle), ReassuranceBar, Footer, ProductPhoto.
 const { IconButton, Tooltip } = window.PetitNuageDesignSystem_f04838;
 
-/* Koyumé lockup — the word alone, letterspaced serif caps. */
-function Wordmark({ size = 17, color = 'var(--lpm-ink-900)', onClick, className }) {
+/* Koyumé lockup — the word alone, letterspaced serif caps. A link when given an href. */
+function Wordmark({ size = 17, color = 'var(--lpm-ink-900)', href, className }) {
+  const Tag = href ? 'a' : 'div';
   return (
-    <div onClick={onClick} className={className} style={{ display: 'inline-flex', alignItems: 'center', cursor: onClick ? 'pointer' : 'default' }}>
+    <Tag href={href} onClick={href ? () => window.scrollTo(0, 0) : undefined} className={className} style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'none' }}>
       <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: size * 1.18, letterSpacing: '0.26em', paddingLeft: '0.26em', textTransform: 'uppercase', color, lineHeight: 1, whiteSpace: 'nowrap' }}>Koyumé</span>
-    </div>
+    </Tag>
   );
 }
 
@@ -41,16 +42,16 @@ function AnnounceBar({ t }) {
   );
 }
 
-function Header({ t, lang, setLang, onNav, active, cartCount, onCart }) {
+function Header({ t, lang, setLang, active, cartCount, onCart }) {
   const link = (i) => ({ fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 14, color: active === i ? 'var(--text-heading)' : 'var(--text-muted)', textDecoration: 'none', cursor: 'pointer', letterSpacing: '0.01em', borderBottom: active === i ? '1px solid var(--lpm-ink-500)' : '1px solid transparent', paddingBottom: 2 });
   return (
     <header style={{ position: 'sticky', top: 0, zIndex: 20, background: 'rgba(250,247,240,0.94)', backdropFilter: 'blur(6px)', borderBottom: '1px solid var(--border-soft)' }}>
       <div className="lpm-header-inner" style={{ maxWidth: 'var(--container-max)', margin: '0 auto', padding: '18px 32px', display: 'grid', gridTemplateColumns: '1fr auto 1fr', alignItems: 'center', gap: 24 }}>
         <nav className="lpm-nav" style={{ display: 'flex', gap: 26 }}>
-          <a style={link(0)} onClick={() => onNav('home')}>{t.nav[0]}</a>
-          <a style={link(1)} onClick={() => onNav('maison')}>{t.nav[1]}</a>
+          <a style={link(0)} href="#/" onClick={() => window.scrollTo(0, 0)}>{t.nav[0]}</a>
+          <a style={link(1)} href="#/qui-sommes-nous" onClick={() => window.scrollTo(0, 0)}>{t.nav[1]}</a>
         </nav>
-        <Wordmark size={19} className="lpm-wordmark" onClick={() => onNav('home')} />
+        <Wordmark size={19} className="lpm-wordmark" href="#/" />
         <div className="lpm-header-actions" style={{ display: 'flex', alignItems: 'center', gap: 18, justifySelf: 'end' }}>
           <LangToggle lang={lang} onChange={setLang} />
           <div style={{ position: 'relative' }}>
@@ -79,9 +80,10 @@ function ReassuranceBar({ t }) {
   );
 }
 
-function Footer({ t, onNav }) {
+function Footer({ t }) {
   const a = { color: 'rgba(255,253,248,0.62)', textDecoration: 'none', cursor: 'pointer', fontSize: 14 };
-  const footerRoutes = [['home'], ['faq', 'faq', 'mailto:contact@koyume.fr'], ['maison']];
+  // One address per link, column by column (same order as t.footerCols).
+  const footerLinks = [['#/'], ['#/questions/livraison', '#/questions/entretien', 'mailto:contact@koyume.fr'], ['#/qui-sommes-nous']];
   return (
     <footer style={{ background: 'var(--surface-inverse)', marginTop: 88 }}>
       <div className="lpm-footer-grid" style={{ maxWidth: 'var(--container-max)', margin: '0 auto', padding: '56px 32px', display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 32 }}>
@@ -93,11 +95,7 @@ function Footer({ t, onNav }) {
         {t.footerCols.map(([title, links], ci) => (
           <div key={title} style={{ display: 'flex', flexDirection: 'column', gap: 10, fontFamily: 'var(--font-body)' }}>
             <span style={{ fontSize: 12, letterSpacing: 'var(--tracking-wide)', textTransform: 'uppercase', color: 'rgba(255,253,248,0.4)', fontWeight: 600 }}>{title}</span>
-            {links.map((l, li) => {
-              const route = footerRoutes[ci] && footerRoutes[ci][li];
-              if (route && route.startsWith('mailto:')) return <a key={l} style={a} href={route}>{l}</a>;
-              return <a key={l} style={a} onClick={onNav && route ? () => onNav(route) : undefined}>{l}</a>;
-            })}
+            {links.map((l, li) => <a key={l} style={a} href={footerLinks[ci][li]}>{l}</a>)}
           </div>
         ))}
       </div>
@@ -109,9 +107,9 @@ function Footer({ t, onNav }) {
 }
 
 /* Product packshot on a white ground (photos are white-background packshots). */
-function ProductPhoto({ src, alt, height = 300, radius = 'var(--radius-lg)', provisional, provisionalLabel, contain = true, style }) {
+function ProductPhoto({ src, alt, height = 300, radius = 'var(--radius-lg)', provisional, provisionalLabel, contain = true, className, style }) {
   return (
-    <div style={{ height, borderRadius: radius, background: '#FFFFFF', border: '1px solid var(--border-soft)', position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', ...style }}>
+    <div className={className} style={{ height, borderRadius: radius, background: '#FFFFFF', border: '1px solid var(--border-soft)', position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', ...style }}>
       <img src={src} alt={alt} style={{ width: '100%', height: '100%', objectFit: contain ? 'contain' : 'cover', display: 'block' }} />
       {provisional && (
         <span style={{ position: 'absolute', bottom: 10, right: 12, fontFamily: 'var(--font-body)', fontSize: 10, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-faint)', background: 'rgba(255,255,255,0.85)', padding: '3px 8px', borderRadius: 4 }}>{provisionalLabel}</span>

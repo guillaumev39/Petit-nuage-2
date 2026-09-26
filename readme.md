@@ -1,3 +1,5 @@
+> **Document d'origine (Claude Design, juillet 2026), en partie obsolète.** La marque s'appelle désormais **Koyumé**. La gamme, les âges, les prix, les textes et les règles d'allégations sont dans `CLAUDE.md` et `ui_kits/boutique/data.js`, qui font foi. Les exemples de copy ci-dessous (« Tissé en France », « Coton bio certifié », « Façonné à la main »…) ne correspondent pas au produit réel : ne pas les réutiliser. Ce fichier reste la référence pour la charte visuelle (couleurs, typographie, espacements, iconographie).
+
 # Maison Yume — Design System
 
 **Yume** (夢, « rêve » en japonais) is a French maison of sheep pillows for children: three sizes — Le Petit (13×30, 0–1 an, 32 €), Le Moyen (18×38, 1–3 ans, 42 €), Le Grand (23×53, dès 3 ans, 54 €) — in bamboo-fibre velvet and toile de Jouy, designed in France. The positioning is **sober, premium, gently kid-friendly**, speaking to CSP+ parents. Sold in France, site is bilingual **FR (default) / EN**.
@@ -5,7 +7,7 @@
 ## Sources & provenance
 
 - GitHub repo provided: https://github.com/guillaumev39/Petit-nuage-2 — **empty at build time**. Explore it if content has since been pushed.
-- Real assets provided by the user: two product packshots (`assets/products/coussin-mouton.jpg`, `assets/products/coussin-moyen-toile.jpg`) and a 10s brand film (`assets/products/coussin-moutons.mp4`), from which two stills were extracted (`assets/lifestyle-crib.png` — used on the home page, `assets/detail-toile.png`).
+- Real assets provided by the user: two product packshots (`assets/products/coussin-mouton.jpg`, `assets/products/coussin-moyen-toile.jpg`) and a 10s brand film (`assets/products/coussin-moutons.mp4`), from which two stills were extracted (`assets/lifestyle-crib.jpg` — used on the home page, `assets/detail-toile.jpg`).
 - Everything else (palette, type, tone, components, boutique) was **created from scratch** to the user's brief: "sobre mais très premium", modern color code for CSP+ parents.
 - The brand was "Petit Nuage", then "Les Petits Moutons", renamed by the user to **Yume / Maison Yume**. (Component namespace still reads PetitNuageDesignSystem_f04838; token prefix --lpm-; both cosmetic only.)
 - Logo: no drawn logo — the wordmark is a typographic lockup (tiny « MAISON » eyebrow over letterspaced YUME serif caps). Six alternative logo directions live in `explorations/Logos Maison Yume.html` (1a–1f).

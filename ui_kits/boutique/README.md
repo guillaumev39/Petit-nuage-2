@@ -1,16 +1,11 @@
-# UI kit — Boutique Maison Yume
+# Boutique Koyumé
 
-Bilingual (FR/EN) e-commerce site: home (hero ×3 variants via Tweaks, 3 pillows, lifestyle band, size guide, story band), product detail, « La maison » story page, « Le guide du sommeil » editorial page, cart dialog + toast. Language toggle in the header, persisted in localStorage. Motion: near-static by choice (discreet hovers only).
+Site bilingue FR/EN (SPA React, sans build) : accueil (hero vidéo, 3 oreillers, guide des tailles, promesse), fiche produit, Qui sommes-nous, FAQ, panier relié au checkout Shopify. Chaque écran a son adresse dans le hash (`#/oreiller/moyen`, `#/qui-sommes-nous`, `#/questions/livraison`).
 
-Products (real photos in `assets/products/`):
-- **Le Petit / The Small** — 30 × 40 cm, 2–4 ans, 25 € — velours « Mouton rêveur » (`coussin-mouton.jpg`)
-- **Le Moyen / The Medium** — 40 × 60 cm, 5–8 ans, 34 € — toile de Jouy « Bergerie » (`coussin-moyen-toile.jpg`)
-- **Le Grand / The Large** — 50 × 70 cm, 9–12 ans, 40 € — **no dedicated photo yet**; uses a film close-up flagged "visuel provisoire"
+- `index.html` — point d'entrée : routes, langue, panier (conservé dans `localStorage`), lien vers Shopify.
+- `data.js` — produits (prix en chiffres, âges, galeries, variantes Shopify) et tous les textes FR/EN. La typographie française (espaces insécables) y est appliquée automatiquement.
+- `Chrome.jsx` — logo, en-tête, bandeaux, pied de page, photo produit.
+- `Home.jsx`, `Product.jsx`, `Editorial.jsx` — accueil, fiche produit, Qui sommes-nous + FAQ.
+- `responsive.css` — adaptations mobile (≤ 760 px).
 
-`assets/lifestyle-crib.png` (still from `coussin-moutons.mp4`) illustrates the home lifestyle band.
-
-- `index.html` — entry, lang + routing + cart + Tweaks (hero variant, fanions)
-- `Chrome.jsx` — Wordmark, Header (FR/EN, nav), ReassuranceBar, Footer, ProductPhoto, Fanions
-- `Home.jsx`, `Product.jsx`, `Editorial.jsx` — screens
-- `data.js` — catalogue + all FR/EN strings
-- `tweaks-panel.jsx` — Tweaks shell (starter component)
+La gamme, les âges, les prix et les règles de copy font foi dans `CLAUDE.md` à la racine du dépôt.

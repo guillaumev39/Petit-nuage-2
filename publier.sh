@@ -6,6 +6,8 @@
 # Le vrai site se développe sur main ; ce script ne touche jamais à main.
 # L'adresse secrète n'est écrite nulle part dans main : c'est le nom du dossier
 # (16 caractères hexadécimaux) publié dans gh-pages, réutilisé d'une publication à l'autre.
+# Le vrai site y est publié sans Babel : son JSX est converti à l'avance (outils/precompiler.cjs),
+# ce qui demande node et npm. Seuls les fichiers du site sont publiés, pas la documentation.
 set -e
 mode=${1:-prive}
 case "$mode" in prive|bientot|nouveau-lien) ;; *) echo "usage : ./publier.sh [bientot|nouveau-lien]" >&2; exit 1 ;; esac
@@ -21,9 +23,14 @@ if [ "$mode" != bientot ] && [ -z "$secret" ]; then
   secret=$(od -An -N8 -tx1 /dev/urandom | tr -d ' \n')
 fi
 
+if [ -n "$secret" ] && ! { command -v node && command -v npm; } >/dev/null; then
+  echo "publier.sh : node et npm sont nécessaires pour publier le vrai site" >&2; exit 1
+fi
+
 wt=$(mktemp -d)
+tools=$(mktemp -d)
 git worktree add -q --detach "$wt" origin/main
-cleanup() { cd "$root"; git worktree remove --force "$wt" 2>/dev/null || true; git branch -D publication >/dev/null 2>&1 || true; }
+cleanup() { cd "$root"; git worktree remove --force "$wt" 2>/dev/null || true; git branch -D publication >/dev/null 2>&1 || true; rm -rf "$tools"; }
 trap cleanup EXIT
 
 cd "$wt"
@@ -33,8 +40,12 @@ find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
 git -C "$root" archive origin/main bientot | tar -x --strip-components=1
 if [ -n "$secret" ]; then
   mkdir "$secret"
-  git -C "$root" archive origin/main | tar -x -C "$secret"
-  rm -rf "$secret/bientot" "$secret/CLAUDE.md" "$secret/publier.sh" "$secret/CNAME" "$secret/.nojekyll"
+  git -C "$root" archive origin/main index.html _ds_bundle.js styles.css tokens assets ui_kits/boutique | tar -x -C "$secret"
+  rm -f "$secret/ui_kits/boutique/README.md"
+  # JSX converti à l'avance : le site s'affiche sans télécharger ni exécuter Babel.
+  (cd "$tools" && npm pack --silent @babel/standalone@7.29.0 >/dev/null && tar -xzf ./*.tgz)
+  git -C "$root" show origin/main:outils/precompiler.cjs > "$tools/precompiler.cjs"
+  node "$tools/precompiler.cjs" "$tools/package/babel.min.js" "$secret/ui_kits/boutique"
   # Jamais référencé par les moteurs de recherche.
   for f in "$secret/index.html" "$secret/ui_kits/boutique/index.html"; do
     awk '{ print } /<head>/ && !done { print "<meta name=\"robots\" content=\"noindex, nofollow\">"; done = 1 }' "$f" > "$f.tmp" && mv "$f.tmp" "$f"

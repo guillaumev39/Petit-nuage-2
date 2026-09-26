@@ -3,13 +3,14 @@ const { Button, Badge, Card } = window.PetitNuageDesignSystem_f04838;
 
 const eyebrowStyle = { fontFamily: 'var(--font-body)', fontSize: 11.5, letterSpacing: 'var(--tracking-wide)', textTransform: 'uppercase', fontWeight: 600, color: 'var(--text-muted)' };
 
-/* Product as an editorial figure — no card box, photo + hairline + caption. */
-function ProductFigure({ p, i, lang, t, onOpen }) {
+/* Product as an editorial figure — no card box, photo + hairline + caption. The whole figure is a link. */
+function ProductFigure({ p, i, lang, t }) {
   const loc = p[lang];
   const [hover, setHover] = React.useState(false);
   return (
-    <figure onClick={() => onOpen(p)} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}
-      style={{ margin: 0, cursor: 'pointer' }}>
+    <a href={`#/oreiller/${p.id}`} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}
+      onFocus={() => setHover(true)} onBlur={() => setHover(false)} style={{ display: 'block', color: 'inherit', textDecoration: 'none' }}>
+    <figure style={{ margin: 0 }}>
       <div style={{ position: 'relative', background: '#fff', overflow: 'hidden', aspectRatio: '4 / 4.6', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <img src={p.img} alt={loc.name} style={{ width: '88%', height: '88%', objectFit: 'contain', transition: 'transform 700ms var(--ease-drift)', transform: hover ? 'scale(1.035)' : 'none' }} />
         {p.badge && <span style={{ position: 'absolute', top: 16, left: 16, ...eyebrowStyle, color: 'var(--lpm-wool-700)' }}>{p.badge[lang]}</span>}
@@ -21,11 +22,12 @@ function ProductFigure({ p, i, lang, t, onOpen }) {
             <span style={{ fontFamily: 'var(--font-body)', fontSize: 11, fontWeight: 600, color: 'var(--text-faint)', verticalAlign: 'super', marginRight: 8, fontStyle: 'normal' }}>{String(i + 1).padStart(2, '0')}</span>
             {loc.name}
           </span>
-          <span style={{ fontFamily: 'var(--font-body)', fontSize: 15, fontWeight: 500, color: 'var(--text-heading)' }}>{lang === 'fr' ? p.price : p.priceEn}</span>
+          <span style={{ fontFamily: 'var(--font-body)', fontSize: 15, fontWeight: 500, color: 'var(--text-heading)' }}>{window.lpmPrice(p.price, lang)}</span>
         </div>
         <div style={{ fontFamily: 'var(--font-body)', fontSize: 13, color: 'var(--text-muted)', marginTop: 3 }}>{p.dims} · {loc.age} · {loc.fabric}</div>
       </figcaption>
     </figure>
+    </a>
   );
 }
 
@@ -49,8 +51,8 @@ function Hero({ t, lang, variant }) {
     return (
       <section className="lpm-hero-film" style={{ position: 'relative', minHeight: 600, overflow: 'hidden', display: 'flex', alignItems: 'flex-end' }}>
         {variant === 'film'
-          ? <video key={filmSrc} src={filmSrc} poster="../../assets/lifestyle-crib.png" autoPlay muted loop playsInline style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}></video>
-          : <img src="../../assets/lifestyle-crib.png" alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />}
+          ? <video key={filmSrc} src={filmSrc} poster="../../assets/lifestyle-crib.jpg" autoPlay muted loop playsInline style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}></video>
+          : <img src="../../assets/lifestyle-crib.jpg" alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />}
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(35,33,28,0.62), rgba(35,33,28,0) 68%)' }}></div>
         <div className="lpm-hero-film-row" style={{ position: 'relative', width: '100%', maxWidth: 'var(--container-max)', margin: '0 auto', padding: '0 32px 56px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 32 }}>
           <div>
@@ -81,8 +83,8 @@ function Hero({ t, lang, variant }) {
             <p style={{ margin: 0, fontSize: 17, maxWidth: 360, color: 'var(--text-body)' }}>{t.heroSub}</p>
             <div style={{ display: 'flex', gap: 22, alignItems: 'center' }}>
               <Button size="lg" onClick={() => window.scroll({ top: document.getElementById('collection').offsetTop - 100, behavior: 'smooth' })}>{t.heroCta}</Button>
-              <a onClick={() => window.scroll({ top: document.getElementById('guide').offsetTop - 100, behavior: 'smooth' })}
-                 style={{ fontFamily: 'var(--font-body)', fontSize: 14, fontWeight: 600, color: 'var(--text-heading)', cursor: 'pointer', borderBottom: '1px solid var(--lpm-ink-900)', paddingBottom: 2 }}>{t.heroCta2}</a>
+              <button type="button" onClick={() => window.scroll({ top: document.getElementById('guide').offsetTop - 100, behavior: 'smooth' })}
+                 style={{ fontFamily: 'var(--font-body)', fontSize: 14, fontWeight: 600, color: 'var(--text-heading)', cursor: 'pointer', background: 'none', border: 'none', borderBottom: '1px solid var(--lpm-ink-900)', padding: '0 0 2px' }}>{t.heroCta2}</button>
             </div>
           </div>
           <div className="lpm-hero-pack-img" style={{ marginTop: -72, position: 'relative', zIndex: 1 }}>
@@ -97,7 +99,7 @@ function Hero({ t, lang, variant }) {
   );
 }
 
-function HomeScreen({ lang, t, heroVariant = 'packshot', onOpenProduct }) {
+function HomeScreen({ lang, t, heroVariant = 'packshot' }) {
   return (
     <main>
       <Hero t={t} lang={lang} variant={heroVariant} />
@@ -110,21 +112,21 @@ function HomeScreen({ lang, t, heroVariant = 'packshot', onOpenProduct }) {
           <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: 15, maxWidth: 300, textAlign: 'right' }}>{t.collSub}</p>
         </div>
         <div className="lpm-collection-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 28 }}>
-          {window.lpmProducts.map((p, i) => <ProductFigure key={p.id} p={p} i={i} lang={lang} t={t} onOpen={onOpenProduct} />)}
+          {window.lpmProducts.map((p, i) => <ProductFigure key={p.id} p={p} i={i} lang={lang} t={t} />)}
         </div>
       </section>
 
       {/* Lifestyle — full-bleed, text overlaid (hidden when hero already shows it) */}
       {heroVariant === 'packshot' && (
         <section style={{ position: 'relative', marginTop: 96, minHeight: 520, display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
-          <img src="../../assets/lifestyle-crib.png" alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+          <img src="../../assets/lifestyle-crib.jpg" alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(35,33,28,0.5), rgba(35,33,28,0.05) 60%)' }}></div>
           <div className="lpm-life-inner" style={{ position: 'relative', maxWidth: 'var(--container-max)', margin: '0 auto', padding: '64px 32px', width: '100%' }}>
             <div style={{ maxWidth: 440, display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'flex-start' }}>
               <span style={{ ...eyebrowStyle, color: 'rgba(255,253,248,0.7)' }}>{t.lifestyleEyebrow}</span>
               <h2 className="lpm-h2" style={{ margin: 0, fontSize: 40, fontWeight: 500, color: '#FFFDF8', lineHeight: 1.08 }}>{t.lifestyleTitle}</h2>
               <p style={{ margin: 0, fontSize: 15.5, color: 'rgba(255,253,248,0.85)' }}>{t.lifestyleText}</p>
-              <a onClick={() => onOpenProduct(window.lpmProducts[1])} style={{ fontFamily: 'var(--font-body)', fontSize: 14, fontWeight: 600, color: '#FFFDF8', cursor: 'pointer', borderBottom: '1px solid rgba(255,253,248,0.7)', paddingBottom: 2, marginTop: 6 }}>
+              <a href="#/oreiller/moyen" style={{ fontFamily: 'var(--font-body)', fontSize: 14, fontWeight: 600, color: '#FFFDF8', cursor: 'pointer', textDecoration: 'none', borderBottom: '1px solid rgba(255,253,248,0.7)', paddingBottom: 2, marginTop: 6 }}>
                 {lang === 'fr' ? 'Voir Le Moyen' : 'See The Medium'}
               </a>
             </div>
@@ -138,14 +140,14 @@ function HomeScreen({ lang, t, heroVariant = 'packshot', onOpenProduct }) {
         <h2 className="lpm-h2" style={{ margin: '0 0 36px', fontSize: 40, fontWeight: 500, textAlign: 'center' }}>{t.guideTitle}</h2>
         <div style={{ borderTop: '1px solid var(--lpm-ink-900)' }}>
           {t.guideRows.map((row, i) => (
-            <div key={i} onClick={() => onOpenProduct(window.lpmProducts[i])} className="lpm-guide-row"
-              style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr 0.8fr 1.6fr auto', gap: 18, alignItems: 'baseline', padding: '20px 4px', borderBottom: '1px solid var(--border-soft)', cursor: 'pointer' }}>
+            <a key={i} href={`#/oreiller/${window.lpmProducts[i].id}`} className="lpm-guide-row"
+              style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr 0.8fr 1.6fr auto', gap: 18, alignItems: 'baseline', padding: '20px 4px', borderBottom: '1px solid var(--border-soft)', cursor: 'pointer', color: 'inherit', textDecoration: 'none' }}>
               <span style={{ fontFamily: 'var(--font-display)', fontSize: 24, fontWeight: 500, color: 'var(--text-heading)' }}>{row[0]}</span>
               <span style={{ fontFamily: 'var(--font-body)', fontSize: 14, color: 'var(--text-body)' }}>{row[1]}</span>
               <span style={{ fontFamily: 'var(--font-body)', fontSize: 14, color: 'var(--text-body)' }}>{row[2]}</span>
               <span style={{ fontFamily: 'var(--font-body)', fontSize: 14, color: 'var(--text-muted)' }}>{row[3]}</span>
               <span aria-hidden="true" style={{ fontFamily: 'var(--font-body)', fontSize: 14, color: 'var(--text-faint)' }}>→</span>
-            </div>
+            </a>
           ))}
         </div>
       </section>

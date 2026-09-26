@@ -1,4 +1,4 @@
-// Editorial pages: La maison (story) + Le guide du sommeil.
+// Editorial pages: Qui sommes-nous (story) + FAQ.
 const { Button, Card } = window.PetitNuageDesignSystem_f04838;
 
 function EditorialHeader({ eyebrow, title, intro }) {
@@ -20,7 +20,7 @@ function MaisonScreen({ t, onOpenCollection }) {
       <EditorialHeader eyebrow={m.eyebrow} title={m.title} intro={m.intro} />
       <section style={{ maxWidth: 'var(--container-max)', margin: '56px auto 0', padding: '0 32px' }}>
         <div style={{ borderRadius: 'var(--radius-xl)', overflow: 'hidden', border: '1px solid var(--border-soft)' }}>
-          <img src="../../assets/lifestyle-crib.png" alt="" style={{ width: '100%', height: 440, objectFit: 'cover', display: 'block' }} />
+          <img src="../../assets/lifestyle-crib.jpg" alt="" style={{ width: '100%', height: 440, objectFit: 'cover', display: 'block' }} />
         </div>
       </section>
       <section className="lpm-maison-grid" style={{ maxWidth: 'var(--container-max)', margin: '56px auto 0', padding: '0 32px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 22 }}>
@@ -42,36 +42,10 @@ function MaisonScreen({ t, onOpenCollection }) {
   );
 }
 
-function GuideSommeilScreen({ t, onOpenCollection }) {
-  const g = t.guideSommeil;
+function FaqItem({ id, q, a, open, onToggle }) {
   return (
-    <main data-screen-label="Guide du sommeil">
-      <EditorialHeader eyebrow={g.eyebrow} title={g.title} intro={g.intro} />
-      <section style={{ maxWidth: 760, margin: '48px auto 0', padding: '0 32px', display: 'flex', flexDirection: 'column' }}>
-        {g.articles.map(([h, p], i) => (
-          <article key={i} style={{ padding: '28px 0', borderTop: i > 0 ? '1px solid var(--border-soft)' : 'none', display: 'grid', gridTemplateColumns: '52px 1fr', gap: 20, alignItems: 'start' }}>
-            <span style={{ fontFamily: 'var(--font-display)', fontSize: 34, fontWeight: 500, color: 'var(--lpm-jouy-300)', lineHeight: 1 }}>{String(i + 1).padStart(2, '0')}</span>
-            <div>
-              <h3 style={{ margin: '0 0 8px', fontFamily: 'var(--font-display)', fontSize: 25, fontWeight: 600, color: 'var(--text-heading)' }}>{h}</h3>
-              <p style={{ margin: 0, fontFamily: 'var(--font-body)', fontSize: 15.5, lineHeight: 1.7, maxWidth: 560 }}>{p}</p>
-            </div>
-          </article>
-        ))}
-      </section>
-      <section style={{ maxWidth: 760, margin: '32px auto 0', padding: '0 32px', textAlign: 'center' }}>
-        <Card variant="soft" padding="32px" style={{ display: 'flex', flexDirection: 'column', gap: 14, alignItems: 'center' }}>
-          <span style={{ fontFamily: 'var(--font-display)', fontSize: 24, color: 'var(--text-heading)' }}>{t.guideTitle}</span>
-          <Button onClick={onOpenCollection}>{g.cta}</Button>
-        </Card>
-      </section>
-    </main>
-  );
-}
-
-function FaqItem({ q, a, open, onToggle }) {
-  return (
-    <div style={{ borderBottom: '1px solid var(--border-soft)' }}>
-      <button onClick={onToggle} style={{ width: '100%', background: 'none', border: 'none', padding: '18px 4px', display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 16, cursor: 'pointer', textAlign: 'left' }}>
+    <div id={`faq-${id}`} style={{ borderBottom: '1px solid var(--border-soft)', scrollMarginTop: 140 }}>
+      <button onClick={onToggle} aria-expanded={open} style={{ width: '100%', background: 'none', border: 'none', padding: '18px 4px', display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 16, cursor: 'pointer', textAlign: 'left' }}>
         <span style={{ fontFamily: 'var(--font-display)', fontSize: 21, fontWeight: 500, color: 'var(--text-heading)' }}>{q}</span>
         <span aria-hidden="true" style={{ fontFamily: 'var(--font-body)', fontSize: 17, color: 'var(--text-faint)', flexShrink: 0 }}>{open ? '−' : '+'}</span>
       </button>
@@ -80,9 +54,16 @@ function FaqItem({ q, a, open, onToggle }) {
   );
 }
 
-function FaqScreen({ t }) {
+function FaqScreen({ t, question }) {
   const f = t.faq;
-  const [openId, setOpenId] = React.useState('0-0');
+  // A question named in the address (#/questions/livraison) opens first; otherwise the first one.
+  const [openId, setOpenId] = React.useState(question || '0-0');
+  React.useEffect(() => {
+    if (!question) return;
+    setOpenId(question);
+    const el = document.getElementById(`faq-${question}`);
+    if (el) el.scrollIntoView({ block: 'start' });
+  }, [question]);
   return (
     <main data-screen-label="Vos questions">
       <EditorialHeader eyebrow={f.eyebrow} title={f.title} intro={f.intro} />
@@ -90,9 +71,9 @@ function FaqScreen({ t }) {
         {f.groups.map(([g, items], gi) => (
           <div key={g}>
             <div style={{ fontFamily: 'var(--font-body)', fontSize: 11.5, letterSpacing: 'var(--tracking-wide)', textTransform: 'uppercase', fontWeight: 600, color: 'var(--text-muted)', paddingBottom: 10, borderBottom: '1px solid var(--lpm-ink-900)' }}>{g}</div>
-            {items.map(([q, a], qi) => {
-              const id = gi + '-' + qi;
-              return <FaqItem key={id} q={q} a={a} open={openId === id} onToggle={() => setOpenId(openId === id ? null : id)} />;
+            {items.map(([q, a, slug], qi) => {
+              const id = slug || gi + '-' + qi;
+              return <FaqItem key={id} id={id} q={q} a={a} open={openId === id} onToggle={() => setOpenId(openId === id ? null : id)} />;
             })}
           </div>
         ))}
@@ -107,4 +88,4 @@ function FaqScreen({ t }) {
   );
 }
 
-Object.assign(window, { MaisonScreen, GuideSommeilScreen, FaqScreen });
+Object.assign(window, { MaisonScreen, FaqScreen });
