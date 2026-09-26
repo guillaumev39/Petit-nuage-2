@@ -1,6 +1,6 @@
 # Koyumé — boutique en ligne
 
-Site e-commerce de la marque **Koyumé** : oreillers « compagnons de sommeil » pour enfants (3 tailles, 32/42/54 € — prix provisoires, pas encore décidés). Le site est encore une maquette : rien n'est vendu pour l'instant. Site statique sans build, déployé sur **https://koyume.fr** via GitHub Pages (branche `main`, racine).
+Site e-commerce de la marque **Koyumé** : oreillers « compagnons de sommeil » pour enfants (3 tailles, 32/42/54 € — prix provisoires, pas encore décidés). Le site est encore une maquette : rien n'est vendu pour l'instant. Site statique sans build. **https://koyume.fr** est servi par GitHub Pages depuis la branche **`gh-pages`**, générée par `publier.sh` : en temps normal, le public ne voit qu'une page « bientôt » et le vrai site est hors ligne (décision utilisateur). On développe le vrai site sur `main`, qui n'est plus publiée.
 
 ## Structure
 
@@ -10,14 +10,19 @@ Site e-commerce de la marque **Koyumé** : oreillers « compagnons de sommeil »
 - `ui_kits/boutique/Chrome.jsx` / `Home.jsx` / `Editorial.jsx` / `Product.jsx` : composants (header, accueil, pages éditoriales, fiche produit).
 - `ui_kits/boutique/responsive.css` : styles mobile (breakpoint 760px, overrides `!important` sur les styles inline).
 - `_ds_bundle.js` : design system généré (namespace `window.PetitNuageDesignSystem_f04838`). Ne pas modifier à la main.
-- `CNAME` (= `koyume.fr`) et `.nojekyll` : **obligatoires**, ne jamais supprimer.
+- `bientot/` : la page « bientôt » publiée sur koyume.fr (autonome : HTML + ses images dans ce dossier, FR/EN, bouton « Être prévenu du lancement » vers contact@koyume.fr).
+- `publier.sh` : choisit ce que koyume.fr affiche (voir Publication).
+- `CNAME` (= `koyume.fr`) et `.nojekyll` : **obligatoires**, ne jamais supprimer (`publier.sh` les recopie dans `gh-pages`).
 
 ## Contraintes techniques
 
 - **Aucun build, aucun npm** : React 18 + Babel standalone chargés depuis unpkg (versions production avec hashes SRI dans `index.html`). Tout doit marcher en ouvrant `index.html` tel quel.
 - **Cache-busting** : à chaque modification de `data.js`, incrémenter le `?v=N` de `<script src="data.js?v=N">` dans `index.html`.
-- **Déploiement** : push sur `main` → GitHub Pages publie automatiquement (parfois lent ou en échec : re-déclencher avec un commit vide). Vérifier ensuite que https://koyume.fr sert bien la nouvelle version (depuis une session cloud, koyume.fr est bloqué par le réseau : vérifier le run « pages build and deployment » dans GitHub Actions et demander à l'utilisateur de regarder le site).
-- **Aperçu avant mise en ligne** : l'utilisateur veut voir avant tout push sur `main`. En session cloud, unpkg est bloqué mais le registre npm ne l'est pas : on sert le dépôt en local, on fournit React/Babel depuis leurs paquets npm (hashes SRI identiques) et on fait des captures avec Playwright.
+- **Publication** : un push sur `main` ne publie rien. koyume.fr affiche la branche `gh-pages`, que seul `publier.sh` écrit :
+  - `./publier.sh bientot` : la page « bientôt » seule. C'est l'état normal, à rétablir après chaque démo.
+  - `./publier.sh site` : le vrai site tel qu'il est sur `main`, **uniquement quand l'utilisateur demande à le montrer**, puis `./publier.sh bientot` dès qu'il le demande. Lui donner un lien avec un paramètre (ex. `https://koyume.fr/?v=2`) : GitHub Pages met les pages en cache 10 min.
+  - Vérifier ensuite le run « pages build and deployment » dans GitHub Actions (depuis une session cloud, koyume.fr est bloqué par le réseau : demander à l'utilisateur de regarder le site). Si Settings → Pages publie encore `main`, demander à l'utilisateur de choisir la branche `gh-pages`.
+- **Aperçu avant mise en ligne** : l'utilisateur veut voir avant toute publication. En session cloud, unpkg est bloqué mais le registre npm ne l'est pas : on sert le dépôt en local, on fournit React/Babel depuis leurs paquets npm (hashes SRI identiques) et on fait des captures avec Playwright.
 - Apostrophes typographiques réelles (’) dans les textes français, pas de `’` littéral.
 - Shopify : le checkout construit un permalien `https://<shop>/cart/VARIANT:QTY,...`. Ne pas toucher aux IDs de variantes ni au domaine Shopify dans `data.js`.
 
@@ -38,8 +43,10 @@ Site e-commerce de la marque **Koyumé** : oreillers « compagnons de sommeil »
 
 ## Ce qu'une session cloud ne peut PAS faire
 
-L'admin OVH (domaine, DNS) et tout ce qui passe par le navigateur de l'utilisateur se gèrent depuis sa session locale sur son PC. Un connecteur Shopify peut être branché sur la session cloud : lecture libre, mais aucune modification de la boutique sans l'accord explicite de l'utilisateur. Sinon : le code et les textes, puis commit + push.
+L'admin OVH (domaine, DNS), les réglages GitHub (source de GitHub Pages, visibilité du dépôt) et tout ce qui passe par le navigateur de l'utilisateur se gèrent depuis sa session locale sur son PC ou par l'utilisateur lui-même. Un connecteur Shopify peut être branché sur la session cloud : lecture libre, mais aucune modification de la boutique sans l'accord explicite de l'utilisateur. Sinon : le code et les textes, puis commit + push.
 
 ## Git
 
 Messages de commit en français, courts, dans le style de l'historique existant.
+
+Le dépôt est **public** : tout ce qui y est écrit (code, CLAUDE.md, historique) est lisible par n'importe qui. N'y mettre ni secret, ni mot de passe, ni détail fournisseur.
