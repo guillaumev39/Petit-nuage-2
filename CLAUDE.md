@@ -1,6 +1,6 @@
 # Koyumé — boutique en ligne
 
-Site e-commerce de la marque **Koyumé** : oreillers « compagnons de sommeil » pour enfants (3 tailles, 32/42/54 € — prix provisoires, pas encore décidés). Le site est encore une maquette : rien n'est vendu pour l'instant. Site statique sans build. **https://koyume.fr** est servi par GitHub Pages depuis la branche **`gh-pages`**, générée par `publier.sh` : en temps normal, le public ne voit qu'une page « bientôt » et le vrai site est hors ligne (décision utilisateur). On développe le vrai site sur `main`, qui n'est plus publiée.
+Site e-commerce de la marque **Koyumé** : oreillers « compagnons de sommeil » pour enfants (3 tailles, 32/42/54 € — prix provisoires, pas encore décidés). Le site est encore une maquette : rien n'est vendu pour l'instant. Site statique sans build. **https://koyume.fr** est servi par GitHub Pages depuis la branche **`gh-pages`**, générée par `publier.sh` : le public ne voit qu'une page « bientôt » ; le vrai site est publié à une adresse secrète que seul l'utilisateur connaît (décision utilisateur). On développe le vrai site sur `main`, qui n'est plus publiée.
 
 ## Structure
 
@@ -19,8 +19,10 @@ Site e-commerce de la marque **Koyumé** : oreillers « compagnons de sommeil »
 - **Aucun build, aucun npm** : React 18 + Babel standalone chargés depuis unpkg (versions production avec hashes SRI dans `index.html`). Tout doit marcher en ouvrant `index.html` tel quel.
 - **Cache-busting** : à chaque modification de `data.js`, incrémenter le `?v=N` de `<script src="data.js?v=N">` dans `index.html`.
 - **Publication** : un push sur `main` ne publie rien. koyume.fr affiche la branche `gh-pages`, que seul `publier.sh` écrit :
-  - `./publier.sh bientot` : la page « bientôt » seule. C'est l'état normal, à rétablir après chaque démo.
-  - `./publier.sh site` : le vrai site tel qu'il est sur `main`, **uniquement quand l'utilisateur demande à le montrer**, puis `./publier.sh bientot` dès qu'il le demande. Lui donner un lien avec un paramètre (ex. `https://koyume.fr/?v=2`) : GitHub Pages met les pages en cache 10 min.
+  - `./publier.sh` : état normal. Page « bientôt » à la racine + vrai site (copie de `main`, en `noindex`) dans un dossier au nom aléatoire de 16 caractères : c'est l'adresse secrète de l'utilisateur. **Relancer après chaque modification validée et enregistrée sur `main`**, pour que le lien secret montre la dernière version. Le script réutilise le même dossier : le lien ne change pas.
+  - `./publier.sh bientot` : page « bientôt » seule, vrai site hors ligne (le lien secret est perdu).
+  - `./publier.sh nouveau-lien` : nouvelle adresse secrète, si l'ancienne a circulé.
+  - Ne jamais écrire l'adresse secrète dans le dépôt (il est public). Pour la retrouver : `git fetch origin gh-pages && git ls-tree -d --name-only origin/gh-pages` → `https://koyume.fr/<dossier>/`. La donner à l'utilisateur dans la conversation. GitHub Pages met les pages en cache 10 min.
   - Vérifier ensuite le run « pages build and deployment » dans GitHub Actions (depuis une session cloud, koyume.fr est bloqué par le réseau : demander à l'utilisateur de regarder le site). Si Settings → Pages publie encore `main`, demander à l'utilisateur de choisir la branche `gh-pages`.
 - **Aperçu avant mise en ligne** : l'utilisateur veut voir avant toute publication. En session cloud, unpkg est bloqué mais le registre npm ne l'est pas : on sert le dépôt en local, on fournit React/Babel depuis leurs paquets npm (hashes SRI identiques) et on fait des captures avec Playwright.
 - Apostrophes typographiques réelles (’) dans les textes français, pas de `’` littéral.
