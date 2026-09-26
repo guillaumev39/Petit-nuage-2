@@ -23,7 +23,7 @@ Site e-commerce de la marque **Koyumé** : oreillers « compagnons de sommeil »
   - `./publier.sh bientot` : page « bientôt » seule, vrai site hors ligne (le lien secret est perdu).
   - `./publier.sh nouveau-lien` : nouvelle adresse secrète, si l'ancienne a circulé.
   - Ne jamais écrire l'adresse secrète dans le dépôt (il est public). Pour la retrouver : `git fetch origin gh-pages && git ls-tree -d --name-only origin/gh-pages` → `https://koyume.fr/<dossier>/`. La donner à l'utilisateur dans la conversation. GitHub Pages met les pages en cache 10 min.
-  - Vérifier ensuite le run « pages build and deployment » dans GitHub Actions (depuis une session cloud, koyume.fr est bloqué par le réseau : demander à l'utilisateur de regarder le site). Si Settings → Pages publie encore `main`, demander à l'utilisateur de choisir la branche `gh-pages`.
+  - Vérifier ensuite le run « pages build and deployment » dans GitHub Actions (depuis une session cloud, koyume.fr est bloqué par le réseau : demander à l'utilisateur de regarder le site). Settings → Pages publie `gh-pages` depuis le 26/09/2026 ; tout changement de source (par ex. au lancement) décoche « Enforce HTTPS » : penser à le recocher.
 - **Aperçu avant mise en ligne** : l'utilisateur veut voir avant toute publication. En session cloud, unpkg est bloqué mais le registre npm ne l'est pas : on sert le dépôt en local, on fournit React/Babel depuis leurs paquets npm (hashes SRI identiques) et on fait des captures avec Playwright.
 - Apostrophes typographiques réelles (’) dans les textes français, pas de `’` littéral.
 - Shopify : le checkout construit un permalien `https://<shop>/cart/VARIANT:QTY,...`. Ne pas toucher aux IDs de variantes ni au domaine Shopify dans `data.js`.
