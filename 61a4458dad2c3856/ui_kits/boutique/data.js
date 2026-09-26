@@ -1,0 +1,211 @@
+// Koyumé — catalogue + bilingual strings (FR default, EN).
+// Brand voice: premium, sober, benefit-first. Core promise: sleep autonomy
+// (falls asleep alone, sleeps through the night). Asia = origin of the ritual,
+// mentioned once with restraint. No mascot storytelling.
+// Shopify: checkout happens on the Shopify store below via cart permalinks;
+// each product carries the numeric ID of its Shopify variant.
+// Prices are numbers in euros (32, 34.9…), formatted for display by lpmPrice.
+window.lpmShopifyDomain = 'jv1j5c-7a.myshopify.com';
+window.lpmFreeShippingFrom = 50; // € — keep in step with the « dès 50 € » texts below
+window.lpmPrice = function (amount, lang) {
+  return new Intl.NumberFormat(lang === 'en' ? 'en-IE' : 'fr-FR', { style: 'currency', currency: 'EUR', minimumFractionDigits: Number.isInteger(amount) ? 0 : 2 }).format(amount);
+};
+window.lpmProducts = [
+  {
+    id: 'petit', img: '../../assets/products/coussin-mouton.jpg', dims: '13 × 30 cm',
+    gallery: ['../../assets/products/coussin-mouton.jpg'],
+    price: 32, shopifyVariant: '43175297614033',
+    fr: { name: 'Le Petit', age: 'Premier grand lit · 2–3 ans', fabric: 'Velours doux, motif aquarelle', desc: "Le premier oreiller, pour le passage au grand lit. Un format tout doux, à la mesure des petits bras, qui rassure au coucher — et au réveil de la nuit. Garnissage hypoallergénique, housse en fibre de bambou lavable." },
+    en: { name: 'The Small', age: 'First big bed · 2–3 years', fabric: 'Soft velvet, watercolour print', desc: 'The first pillow, for the move to a big bed. A soft size made for small arms, reassuring at bedtime — and at night-time wake-ups. Hypoallergenic filling, washable bamboo-fibre cover.' },
+  },
+  {
+    id: 'moyen', img: '../../assets/products/coussin-moyen-toile.jpg', dims: '18 × 38 cm',
+    gallery: ['../../assets/products/coussin-moyen-toile.jpg', '../../assets/detail-toile.jpg', '../../assets/lifestyle-crib.jpg'],
+    price: 42, shopifyVariant: '43175297646801',
+    fr: { name: 'Le Moyen', age: 'Maternelle · 3–5 ans', fabric: 'Toile de Jouy « Bergerie »', desc: "Le format des premières grandes nuits. L’oreiller que l’enfant serre pour s’endormir — et pour se rendormir, seul. Garnissage hypoallergénique, housse en fibre de bambou lavable." },
+    en: { name: 'The Medium', age: 'Preschool · 3–5 years', fabric: '“Bergerie” toile de Jouy', desc: 'The size of the first big nights. The pillow a child holds to fall asleep — and to fall back asleep, alone. Hypoallergenic filling, washable bamboo-fibre cover.' },
+  },
+  {
+    id: 'grand', img: '../../assets/products/coussin-mouton.jpg', dims: '23 × 53 cm', imgProvisional: true,
+    gallery: ['../../assets/products/coussin-mouton.jpg'],
+    price: 54, shopifyVariant: '43175297679569',
+    fr: { name: 'Le Grand', age: 'Enfants · dès 5 ans', fabric: 'Velours doux, motif aquarelle', desc: "Le format des grands. Un repère pour les nuits entières, un appui pour les histoires du soir. Garnissage hypoallergénique, housse en fibre de bambou lavable." },
+    en: { name: 'The Large', age: 'Children · 5 years and up', fabric: 'Soft velvet, watercolour print', desc: 'The size for big kids. An anchor for full nights, a companion for bedtime stories. Hypoallergenic filling, washable bamboo-fibre cover.' },
+  },
+];
+
+window.lpmT = {
+  fr: {
+    siteTitle: 'Koyumé — L’oreiller compagnon de sommeil pour enfants',
+    announce: 'Livraison offerte dès 50 €',
+    nav: ['Les oreillers', 'Qui sommes-nous'],
+    cartLabel: 'Votre panier', langOther: 'EN',
+    qtyLess: 'Retirer un', qtyMore: 'Ajouter un', removeItem: 'Retirer du panier',
+    reassurance: ['Dessiné par nos soins', 'Housse bambou, lavable en machine', 'Garnissage hypoallergénique', '30 nuits d’essai · retours offerts'],
+    heroEyebrow: 'Le véritable compagnon de sommeil',
+    heroTitle1: 'Le sommeil,', heroTitle2: 'en toute autonomie.',
+    heroSub: 'Aux parents qui comptent les réveils : un oreiller que l’enfant serre pour trouver le sommeil — et le retrouver seul, à 3 heures du matin. Sobre, sain, pensé pour durer.',
+    heroCta: 'Découvrir les oreillers', heroCta2: 'Choisir sa taille',
+    heroCaption: 'Le Moyen — toile de Jouy « Bergerie »',
+    heroTitle: 'Le sommeil, en toute autonomie.',
+    lifestyleEyebrow: 'Dans leurs chambres', lifestyleTitle: 'Le soir devient simple', lifestyleText: 'Vous connaissez les soirées en pointillés et les réveils de 3 heures. Un rituel court, une présence rassurante — et les soirées redeviennent des soirées.',
+    collTitle: 'Trois tailles, un rituel',
+    collSub: 'Une taille pour chaque âge, dès 2 ans.',
+    nightEyebrow: 'La promesse',
+    nightTitle: 'L’autonomie, pas à pas',
+    nightValues: [
+      ['Le soir', 'Une présence douce au moment d’éteindre. Le rituel se raccourcit, la porte se referme sereinement.'],
+      ['La nuit', 'Au réveil de 3 heures, le compagnon est là. L’enfant se rendort par lui-même — sans traverser le couloir.'],
+      ['Le matin', 'Une nuit entière, faite seul. La fierté de l’enfant, le repos des parents.'],
+      ['En voyage', 'En voiture, en train ou en avion : le compagnon suit, et les longs trajets deviennent des siestes.'],
+    ],
+    guideTitle: 'Quelle taille pour votre enfant ?',
+    guideRows: [['Le Petit', '13 × 30 cm', '2–3 ans', 'Le premier grand lit'], ['Le Moyen', '18 × 38 cm', '3–5 ans', 'Les années maternelle'], ['Le Grand', '23 × 53 cm', 'dès 5 ans', 'Le format des nuits entières']],
+    guideCols: ['Modèle', 'Dimensions', 'Âge', ''],
+    addToCart: 'Ajouter au panier', qty: 'Quantité', fabricLabel: 'La matière',
+    added: 'Ajouté au panier',
+    productReassurance: ['Expédié sous 48 h — livraison offerte dès 50 €', 'Housse bambou lavable · garnissage hypoallergénique', '30 nuits d’essai, retours offerts'],
+    maison: {
+      eyebrow: 'Qui sommes-nous',
+      title: 'L’Asie nous a appris une chose : le sommeil s’apprend',
+      intro: 'Koyumé est née dans une famille française expatriée en Asie. On y découvre un rituel que l’Europe ignore : les enfants s’endorment seuls, blottis contre un oreiller — leur véritable compagnon de sommeil. Nous en avons fait un objet à notre image — épuré, sain, fait pour durer — pensé pour les chambres d’ici.',
+      blocks: [
+        ['Le rituel', 'Observé chaque soir dans des millions de chambres d’Asie : un oreiller compagnon, une routine brève, des nuits autonomes. Simple, et remarquablement efficace.'],
+        ['L’objet', 'Garnissage hypoallergénique, housse en fibre de bambou lavable en machine, coutures faites pour des années de nuits. Dessiné par nos soins.'],
+        ['La promesse', 'Des enfants qui s’endorment — et se rendorment — par eux-mêmes. Essayez 30 nuits ; les retours sont offerts.'],
+      ],
+      quote: '« Le plus beau cadeau à faire à un enfant : la fierté de ses propres nuits. »',
+    },
+    faq: {
+      eyebrow: 'Vos questions',
+      title: 'On vous répond',
+      intro: 'Les réponses aux questions qu’on nous pose le plus souvent. Il en manque une ? Écrivez-nous, on répond vite.',
+      groups: [
+        ['Général', [
+          ['D’où vient Koyumé ?', 'D’un rituel observé en Asie, où les enfants apprennent à s’endormir par eux-mêmes, blottis contre un oreiller compagnon de sommeil — ce que les anglophones appellent un « sleep buddy ». Chacun de nos modèles est dessiné par nos soins.'],
+          ['La livraison', 'Expédition sous 48 h depuis la France. Livraison offerte dès 50 €, en France métropolitaine.', 'livraison'],
+          ['Les retours', 'Vous avez 30 nuits pour essayer. Les retours sont offerts — l’oreiller doit simplement nous revenir propre et complet.'],
+        ]],
+        ['L’oreiller', [
+          ['Comment ça marche ?', 'L’oreiller donne à l’enfant un repère stable pour s’endormir sans assistance — et s’y rendormir au réveil nocturne, sans traverser le couloir. Un apprentissage en douceur, observé depuis des générations en Asie. Chaque enfant est unique : d’où les 30 nuits d’essai.'],
+          ['Quelle taille choisir ?', 'Le Petit (13 × 30 cm) pour les 2–3 ans, Le Moyen (18 × 38 cm) pour les 3–5 ans, Le Grand (23 × 53 cm) dès 5 ans. Le guide des tailles, sur la page d’accueil, les compare en un coup d’œil.'],
+          ['À partir de quel âge ?', 'Dès 2 ans. Avant, nous le déconseillons : pour les bébés, les recommandations officielles sont claires — rien dans le lit, ni oreiller, ni couette, ni peluche. En cas de doute, parlez-en à votre pédiatre.'],
+          ['En quoi est-il fait, comment l’entretenir ?', 'Garnissage 100 % polyester hypoallergénique ; housse en fibre de bambou, douce et respirante, lavable en machine à 30 °C, séchage à l’air libre. Le garnissage retrouve son gonflant en quelques heures.', 'entretien'],
+        ]],
+        ['Votre commande', [
+          ['Puis-je l’offrir ?', 'Bien sûr. Chaque commande peut partir en emballage cadeau, avec un petit mot manuscrit si vous nous le confiez.'],
+          ['Ma commande n’est pas arrivée', 'Écrivez-nous avec votre numéro de commande : nous répondons sous 24 h ouvrées et nous ne vous laissons jamais sans solution.'],
+        ]],
+      ],
+      contact: 'Une autre question ? Écrivez-nous à contact@koyume.fr — nous répondons sous 24 h.',
+    },
+    back: 'Retour aux oreillers',
+    tabs: ['Description', 'Entretien', 'Livraison'],
+    care: 'Housse en fibre de bambou, lavable en machine à 30 °C. Garnissage hypoallergénique — séchage à l’air libre, gonflant retrouvé en quelques heures.',
+    shipping: 'Expédition sous 48 h. Livraison offerte dès 50 €, retours possibles pendant 30 jours.',
+    cartEmpty: 'Votre panier est vide, pour l’instant.',
+    continueShopping: 'Poursuivre la visite', checkout: 'Passer commande',
+    subtotal: 'Sous-total', freeShipHint: 'Livraison offerte dès 50 €',
+    provisional: 'visuel provisoire',
+    footerBaseline: 'Oreillers pour enfants — véritables compagnons de sommeil. Dessinés par nos soins.',
+    footerCols: [['La boutique', ['Les oreillers']], ['L’aide', ['Livraison & retours', 'Entretien', 'Nous écrire']], ['À propos', ['Qui sommes-nous']]],
+    legal: '© 2026 Koyumé — fait avec soin',
+  },
+  en: {
+    siteTitle: 'Koyumé — The sleep companion pillow for children',
+    announce: 'Free delivery over €50',
+    nav: ['The pillows', 'About us'],
+    cartLabel: 'Your bag', langOther: 'FR',
+    qtyLess: 'Remove one', qtyMore: 'Add one', removeItem: 'Remove from bag',
+    reassurance: ['Designed in-house', 'Bamboo cover, machine washable', 'Hypoallergenic filling', '30-night trial · free returns'],
+    heroEyebrow: 'The true sleep companion',
+    heroTitle1: 'Independent sleep,', heroTitle2: 'at last.',
+    heroSub: 'For parents who count the wake-ups: a pillow a child holds to find sleep — and find it again, alone, at 3 a.m. Sober, healthy, built to last.',
+    heroCta: 'Discover the pillows', heroCta2: 'Find the right size',
+    heroCaption: 'The Medium — “Bergerie” toile de Jouy',
+    heroTitle: 'Independent sleep, at last.',
+    lifestyleEyebrow: 'In their bedrooms', lifestyleTitle: 'Evenings become simple', lifestyleText: 'You know the stop-start evenings and the 3 a.m. calls. A short ritual, a reassuring presence — and evenings belong to evenings again.',
+    collTitle: 'Three sizes, one ritual',
+    collSub: 'A size for every age, from 2 years.',
+    nightEyebrow: 'The promise',
+    nightTitle: 'Independence, step by step',
+    nightValues: [
+      ['The evening', 'A gentle presence at lights-out. The ritual gets shorter; the door closes calmly.'],
+      ['The night', 'At the 3 a.m. wake-up, the companion is right there. The child settles back to sleep alone — no trip down the hallway.'],
+      ['The morning', 'A full night, done alone. Pride for the child, rest for the parents.'],
+      ['On the road', 'Car, train or plane: the companion comes along — and long journeys become naps.'],
+    ],
+    guideTitle: 'Which size for your child?',
+    guideRows: [['The Small', '13 × 30 cm', '2–3 years', 'The first big bed'], ['The Medium', '18 × 38 cm', '3–5 years', 'The preschool years'], ['The Large', '23 × 53 cm', '5 and up', 'The size of full nights']],
+    guideCols: ['Model', 'Dimensions', 'Age', ''],
+    addToCart: 'Add to bag', qty: 'Quantity', fabricLabel: 'The fabric',
+    added: 'Added to your bag',
+    productReassurance: ['Ships within 48 h — free delivery over €50', 'Washable bamboo cover · hypoallergenic filling', '30-night trial, free returns'],
+    maison: {
+      eyebrow: 'About us',
+      title: 'Asia taught us one thing: sleep can be learned',
+      intro: 'Koyumé was born in a French family living in Asia. There, a ritual Europe has never known: children fall asleep on their own, curled against a pillow — their true sleep companion. We made it an object in our own image — understated, healthy, built to last — designed for bedrooms here.',
+      blocks: [
+        ['The ritual', 'Observed every evening in millions of bedrooms across Asia: one companion pillow, a brief routine, independent nights. Simple, and remarkably effective.'],
+        ['The object', 'Hypoallergenic filling, a machine-washable bamboo-fibre cover, seams made for years of nights. Designed in-house.'],
+        ['The promise', 'Children who fall asleep — and fall back asleep — by themselves. Try it for 30 nights; returns are free.'],
+      ],
+      quote: '“The finest gift you can give a child: pride in their own nights.”',
+    },
+    faq: {
+      eyebrow: 'Your questions',
+      title: 'We answer',
+      intro: 'Answers to the questions we hear most often. Missing one? Write to us — we reply quickly.',
+      groups: [
+        ['General', [
+          ['Where does Koyumé come from?', 'From a ritual observed across Asia, where children learn to fall asleep on their own, curled against a companion pillow — sometimes called a “sleep buddy”. Every one of our designs is our own.'],
+          ['Delivery', 'Ships within 48 h from France. Free delivery over €50 in mainland France.', 'livraison'],
+          ['Returns', 'You have 30 nights to try. Returns are free — the pillow simply needs to come back clean and complete.'],
+        ]],
+        ['The pillow', [
+          ['How does it work?', 'The pillow gives the child a stable anchor to fall asleep without assistance — and to settle back to sleep at night wake-ups, without a trip down the hallway. A gentle learning, observed for generations across Asia. Every child is unique: hence the 30-night trial.'],
+          ['Which size should I choose?', 'The Small (13 × 30 cm) for ages 2–3, The Medium (18 × 38 cm) for ages 3–5, The Large (23 × 53 cm) from age 5. The size guide on the home page compares them at a glance.'],
+          ['From what age?', 'From age 2. Before that, we advise against it: for babies, official guidance is clear — nothing in the cot, no pillow, no duvet, no soft toy. If in doubt, ask your paediatrician.'],
+          ['What is it made of, and how do I care for it?', '100% hypoallergenic polyester filling; a soft, breathable bamboo-fibre cover, machine-washable at 30 °C, air-dried. The filling regains its loft within hours.', 'entretien'],
+        ]],
+        ['Your order', [
+          ['Can I gift it?', 'Of course. Every order can leave gift-wrapped, with a handwritten note if you share one with us.'],
+          ['My order hasn’t arrived', 'Write to us with your order number: we reply within 24 working hours and never leave you without a solution.'],
+        ]],
+      ],
+      contact: 'Another question? Write to us at contact@koyume.fr — we reply within 24 h.',
+    },
+    back: 'Back to the pillows',
+    tabs: ['Description', 'Care', 'Delivery'],
+    care: 'Bamboo-fibre cover, machine-washable at 30 °C. Hypoallergenic filling — air-dry; it regains its loft within hours.',
+    shipping: 'Ships within 48 h. Free delivery over €50, returns within 30 days.',
+    cartEmpty: 'Your bag is empty, for now.',
+    continueShopping: 'Keep browsing', checkout: 'Checkout',
+    subtotal: 'Subtotal', freeShipHint: 'Free delivery over €50',
+    provisional: 'provisional visual',
+    footerBaseline: 'Children’s pillows — true sleep companions. Designed in-house.',
+    footerCols: [['The shop', ['The pillows']], ['Help', ['Delivery & returns', 'Care', 'Write to us']], ['About', ['About us']]],
+    legal: '© 2026 Koyumé — made with care',
+  },
+};
+
+// Typography, applied to every text above so it never has to be typed by hand:
+// non-breaking spaces before ? ! : ; », after «, around × and between a number and its unit.
+(function () {
+  var nb = '\u00a0';
+  function typo(text) {
+    return text
+      .replace(/ ([?!:;»])/g, nb + '$1')
+      .replace(/« /g, '«' + nb)
+      .replace(/ × /g, nb + '×' + nb)
+      .replace(/(\d) (€|cm|h|°C|ans|an)(?=$|[\s.,;:!?)»—–])/g, '$1' + nb + '$2');
+  }
+  function walk(node) {
+    Object.keys(node).forEach(function (k) {
+      if (typeof node[k] === 'string') node[k] = typo(node[k]);
+      else if (node[k] && typeof node[k] === 'object') walk(node[k]);
+    });
+  }
+  walk(window.lpmT);
+  window.lpmProducts.forEach(function (p) { p.dims = typo(p.dims); walk(p.fr); walk(p.en); });
+})();

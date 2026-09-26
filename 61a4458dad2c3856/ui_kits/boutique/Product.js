@@ -1,0 +1,249 @@
+(function () {
+// Product detail: gallery, fabric, qty, add to cart, tabs, review (only when a real one exists).
+const {
+  Button,
+  Badge,
+  Card,
+  Tabs,
+  Select
+} = window.PetitNuageDesignSystem_f04838;
+function ProductScreen({
+  product,
+  lang,
+  t,
+  onAdd
+}) {
+  const p = product;
+  const loc = p[lang];
+  const [tab, setTab] = React.useState(t.tabs[0]);
+  React.useEffect(() => {
+    setTab(t.tabs[0]);
+  }, [lang]);
+  // Each product lists only photos of itself (data.js), so a velvet model never shows the toile.
+  const gallery = p.gallery || [p.img];
+  const [mainImg, setMainImg] = React.useState(p.img);
+  const [qty, setQty] = React.useState('1');
+  React.useEffect(() => {
+    setMainImg(p.img);
+    setQty('1');
+  }, [p]);
+  const tabContent = {
+    [t.tabs[0]]: loc.desc,
+    [t.tabs[1]]: t.care,
+    [t.tabs[2]]: t.shipping
+  };
+  return /*#__PURE__*/React.createElement("main", {
+    className: "lpm-product-main",
+    style: {
+      maxWidth: 'var(--container-max)',
+      margin: '0 auto',
+      padding: '36px 32px 0'
+    }
+  }, /*#__PURE__*/React.createElement("a", {
+    href: "#/",
+    className: "lpm-product-back",
+    style: {
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: 7,
+      fontFamily: 'var(--font-body)',
+      fontSize: 13.5,
+      fontWeight: 500,
+      color: 'var(--text-muted)',
+      cursor: 'pointer',
+      marginBottom: 26,
+      textDecoration: 'none'
+    }
+  }, /*#__PURE__*/React.createElement("svg", {
+    width: "14",
+    height: "14",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "2",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "m12 19-7-7 7-7"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M19 12H5"
+  })), t.back), /*#__PURE__*/React.createElement("div", {
+    className: "lpm-product-grid",
+    style: {
+      display: 'grid',
+      gridTemplateColumns: '1.15fr 1fr',
+      gap: 56,
+      alignItems: 'start'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 12
+    }
+  }, /*#__PURE__*/React.createElement(ProductPhoto, {
+    className: "lpm-product-photo",
+    src: mainImg,
+    alt: loc.name,
+    height: 440,
+    radius: "var(--radius-xl)",
+    provisional: p.imgProvisional && mainImg === p.img,
+    provisionalLabel: t.provisional,
+    contain: mainImg === p.img
+  }), gallery.length > 1 && /*#__PURE__*/React.createElement("div", {
+    className: "lpm-product-thumbs",
+    style: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(3, 1fr)',
+      gap: 12
+    }
+  }, gallery.map((g, i) => /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    key: i,
+    onClick: () => setMainImg(g),
+    "aria-label": `${loc.name} — ${i + 1} / ${gallery.length}`,
+    "aria-pressed": mainImg === g,
+    style: {
+      padding: 0,
+      width: '100%',
+      borderRadius: 'var(--radius-md)',
+      overflow: 'hidden',
+      border: `1px solid ${mainImg === g ? 'var(--border-focus)' : 'var(--border-soft)'}`,
+      cursor: 'pointer',
+      height: 92,
+      background: '#fff'
+    }
+  }, /*#__PURE__*/React.createElement("img", {
+    src: g,
+    alt: "",
+    style: {
+      width: '100%',
+      height: '100%',
+      objectFit: 'cover',
+      display: 'block'
+    }
+  }))))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 20
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 8,
+      alignItems: 'flex-start'
+    }
+  }, p.badge && /*#__PURE__*/React.createElement(Badge, {
+    tone: p.badge.tone
+  }, p.badge[lang]), /*#__PURE__*/React.createElement("h1", {
+    className: "lpm-product-title",
+    style: {
+      margin: 0,
+      fontSize: 46
+    }
+  }, loc.name), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: 'var(--font-body)',
+      fontSize: 14.5,
+      color: 'var(--text-muted)'
+    }
+  }, p.dims, " \xB7 ", loc.age)), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: 'var(--font-body)',
+      fontWeight: 600,
+      fontSize: 26,
+      color: 'var(--text-heading)'
+    }
+  }, window.lpmPrice(p.price, lang)), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 6,
+      borderTop: '1px solid var(--border-soft)',
+      paddingTop: 18
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: 'var(--font-body)',
+      fontSize: 11.5,
+      letterSpacing: 'var(--tracking-wide)',
+      textTransform: 'uppercase',
+      fontWeight: 600,
+      color: 'var(--text-muted)'
+    }
+  }, t.fabricLabel), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: 'var(--font-display)',
+      fontSize: 19,
+      color: 'var(--text-heading)'
+    }
+  }, loc.fabric)), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      gap: 10,
+      alignItems: 'flex-end'
+    }
+  }, /*#__PURE__*/React.createElement(Select, {
+    label: t.qty,
+    options: ['1', '2', '3'],
+    value: qty,
+    onChange: e => setQty(e.target.value),
+    style: {
+      width: 100
+    }
+  }), /*#__PURE__*/React.createElement(Button, {
+    size: "lg",
+    style: {
+      flex: 1
+    },
+    onClick: () => onAdd(p, parseInt(qty, 10))
+  }, t.addToCart)), /*#__PURE__*/React.createElement(Card, {
+    variant: "soft",
+    padding: "4px 20px",
+    style: {
+      borderRadius: 'var(--radius-md)'
+    }
+  }, t.productReassurance.map((line, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    style: {
+      fontFamily: 'var(--font-body)',
+      fontSize: 13.5,
+      fontWeight: 500,
+      color: 'var(--text-body)',
+      padding: '10px 0',
+      borderTop: i > 0 ? '1px solid rgba(35,33,28,0.07)' : 'none'
+    }
+  }, line))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 14
+    }
+  }, /*#__PURE__*/React.createElement(Tabs, {
+    tabs: t.tabs,
+    active: tab,
+    onChange: setTab
+  }), /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: 0,
+      fontFamily: 'var(--font-body)',
+      fontSize: 15,
+      lineHeight: 1.7,
+      maxWidth: 470
+    }
+  }, tabContent[tab])), t.review && /*#__PURE__*/React.createElement("div", {
+    style: {
+      borderTop: '1px solid var(--border-soft)',
+      paddingTop: 18,
+      fontFamily: 'var(--font-display)',
+      fontSize: 18,
+      fontStyle: 'italic',
+      color: 'var(--text-body)',
+      lineHeight: 1.45
+    }
+  }, t.review))));
+}
+window.ProductScreen = ProductScreen;
+})();

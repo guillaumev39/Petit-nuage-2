@@ -1,0 +1,13 @@
+:root {
+  /* Shadows — barely-there, warm-tinted */
+  --shadow-card: 0 1px 2px rgba(35, 33, 28, 0.05), 0 6px 20px rgba(35, 33, 28, 0.05);
+  --shadow-lift: 0 4px 10px rgba(35, 33, 28, 0.08), 0 14px 36px rgba(35, 33, 28, 0.09);
+  --shadow-inset: inset 0 1px 2px rgba(35, 33, 28, 0.05);
+  --focus-ring: 0 0 0 3px var(--lpm-forest-100);
+
+  /* Motion — calm, unhurried */
+  --ease-drift: cubic-bezier(0.33, 1, 0.68, 1); /* @kind other */
+  --dur-fast: 150ms; /* @kind other */
+  --dur-base: 250ms; /* @kind other */
+  --dur-slow: 450ms; /* @kind other */
+}
