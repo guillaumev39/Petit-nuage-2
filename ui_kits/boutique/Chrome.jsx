@@ -81,7 +81,7 @@ function ReassuranceBar({ t }) {
 
 function Footer({ t, onNav }) {
   const a = { color: 'rgba(255,253,248,0.62)', textDecoration: 'none', cursor: 'pointer', fontSize: 14 };
-  const footerRoutes = [['home'], ['faq', 'faq', 'mailto:guillaumev39@gmail.com'], ['maison']];
+  const footerRoutes = [['home'], ['faq', 'faq', 'mailto:contact@koyume.fr'], ['maison']];
   return (
     <footer style={{ background: 'var(--surface-inverse)', marginTop: 88 }}>
       <div className="lpm-footer-grid" style={{ maxWidth: 'var(--container-max)', margin: '0 auto', padding: '56px 32px', display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 32 }}>
