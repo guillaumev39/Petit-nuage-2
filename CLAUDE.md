@@ -31,7 +31,7 @@ Site e-commerce de la marque **Koyumé** : oreillers « compagnons de sommeil »
 - Navigation : **2 entrées seulement** (« Les oreillers », « Qui sommes-nous »).
 - Les **3 cartes produits restent alignées** sur l'accueil — jamais de carte centrale décalée.
 - Le français est la langue de référence ; l'anglais suit.
-- **Âges : gamme à partir de 2 ans** — Le Petit 2–3 ans (premier grand lit), Le Moyen 3–5 ans, Le Grand dès 5 ans. Recommandations officielles de couchage : rien dans le lit de bébé. Aucun texte ni visuel ne doit suggérer un usage avant 2 ans.
+- **Âges : gamme à partir de 2 ans** — Le Petit 2–3 ans (premier grand lit), Le Moyen 3–5 ans, Le Grand dès 5 ans. Recommandations officielles de couchage : rien dans le lit de bébé. Aucun texte ne doit suggérer un usage avant 2 ans. Les deux vidéos d'accueil (dont celle de l'oreiller dans un lit à barreaux) restent tant que le site est une maquette (décision utilisateur) ; à revoir avec les vrais visuels avant le lancement.
 - **Allégations : uniquement ce qui est vrai.** Fabriqué en Chine par un fournisseur premium, dessiné par le couple fondateur → « Dessiné par nos soins » / "Designed in-house". Jamais « Dessiné en France », « nos ateliers », ni OEKO-TEX sans certificat. Pas de faux avis ni de « Le plus choisi » : témoignages et badges seulement quand ils sont réels.
 - **Site : on garde ce site sur mesure, connecté à Shopify pour le paiement** (décision utilisateur, pas de migration vers un thème Shopify).
 - Contact public : **contact@koyume.fr** (redirection OVH vers la boîte perso). Jamais l'adresse Gmail perso sur le site.
