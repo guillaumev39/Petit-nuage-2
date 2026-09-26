@@ -13,12 +13,13 @@ Site e-commerce de la marque **Koyumé** : oreillers « compagnons de sommeil »
 - `bientot/` : la page « bientôt » publiée sur koyume.fr (autonome : HTML + ses images dans ce dossier, FR/EN, bouton « Être prévenu du lancement » vers contact@koyume.fr).
 - `publier.sh` : choisit ce que koyume.fr affiche (voir Publication).
 - `outils/precompiler.cjs` : convertit le JSX en JavaScript pour la copie publiée (appelé par `publier.sh`).
-- `outils/verifier.mjs` : vérifie la boutique dans un vrai navigateur (23 contrôles : âges, allégations, liens, panier, Shopify, mobile) et fait des captures (`--captures <dossier>`).
+- `outils/verifier.mjs` : vérifie la boutique dans un vrai navigateur (24 contrôles : âges, allégations, liens, panier, Shopify, mobile, aucune requête vers un site tiers) et fait des captures (`--captures <dossier>`).
+- `vendor/` : React et ReactDOM 18.3.1 (fichiers identiques à ceux d'unpkg).
 - `CNAME` (= `koyume.fr`) et `.nojekyll` : **obligatoires**, ne jamais supprimer (`publier.sh` les recopie dans `gh-pages`).
 
 ## Contraintes techniques
 
-- **Aucun build sur `main`** : React 18 + Babel standalone chargés depuis unpkg (versions production avec hashes SRI dans `index.html`). Tout doit marcher en ouvrant `index.html` tel quel. Seule la copie publiée est convertie à l'avance (sans Babel, affichage ~8× plus rapide) par `publier.sh`, qui a besoin de node et npm.
+- **Aucun build sur `main`** : React 18 est servi par le site (`vendor/`, copie exacte du paquet npm), Babel standalone vient d'unpkg (hash SRI dans `index.html`) pour la version de travail uniquement. Les polices sont hébergées dans le dépôt (`assets/fonts/`, `bientot/fonts/`) : aucune requête vers Google Fonts ni vers un autre site tiers (RGPD, vitesse, fiabilité). Tout doit marcher en ouvrant `index.html` tel quel. Seule la copie publiée est convertie à l'avance (sans Babel, affichage ~8× plus rapide) par `publier.sh`, qui a besoin de node et npm.
 - **Cache-busting** : à chaque modification de `data.js`, incrémenter le `?v=N` de `<script src="data.js?v=N">` dans `index.html`.
 - **Publication** : un push sur `main` ne publie rien. koyume.fr affiche la branche `gh-pages`, que seul `publier.sh` écrit :
   - `./publier.sh` : état normal. Page « bientôt » à la racine + vrai site (fichiers du site seulement, JSX converti, en `noindex`) dans un dossier au nom aléatoire de 16 caractères : c'est l'adresse secrète de l'utilisateur. **Relancer après chaque modification validée et enregistrée sur `main`**, pour que le lien secret montre la dernière version. Le script réutilise le même dossier : le lien ne change pas.
@@ -26,7 +27,7 @@ Site e-commerce de la marque **Koyumé** : oreillers « compagnons de sommeil »
   - `./publier.sh nouveau-lien` : nouvelle adresse secrète, si l'ancienne a circulé.
   - Ne jamais écrire l'adresse secrète dans le dépôt (il est public). Pour la retrouver : `git fetch origin gh-pages && git ls-tree -d --name-only origin/gh-pages` → `https://koyume.fr/<dossier>/`. La donner à l'utilisateur dans la conversation. GitHub Pages met les pages en cache 10 min.
   - Vérifier ensuite le run « pages build and deployment » dans GitHub Actions (depuis une session cloud, koyume.fr est bloqué par le réseau : demander à l'utilisateur de regarder le site). Settings → Pages publie `gh-pages` depuis le 26/09/2026 ; tout changement de source (par ex. au lancement) décoche « Enforce HTTPS » : penser à le recocher.
-- **Aperçu avant mise en ligne** : l'utilisateur veut voir avant toute publication. `node outils/verifier.mjs --captures <dossier>` fait les contrôles et les captures (en session cloud, unpkg est bloqué : le script fournit React/Babel depuis leurs paquets npm, mêmes fichiers). Après une publication, le relancer sur la copie publiée : `git worktree add /tmp/ghp origin/gh-pages && node outils/verifier.mjs /tmp/ghp /<dossier-secret>/ui_kits/boutique/index.html`.
+- **Aperçu avant mise en ligne** : l'utilisateur veut voir avant toute publication. `node outils/verifier.mjs --captures <dossier>` fait les contrôles et les captures (en session cloud, unpkg est bloqué : le script fournit Babel depuis son paquet npm, même fichier). Après une publication, le relancer sur la copie publiée : `git worktree add /tmp/ghp origin/gh-pages && node outils/verifier.mjs /tmp/ghp /<dossier-secret>/ui_kits/boutique/index.html`.
 - Apostrophes typographiques réelles (’) dans les textes français, pas de `’` littéral.
 - Shopify : le checkout construit un permalien `https://<shop>/cart/VARIANT:QTY,...`. Ne pas toucher aux IDs de variantes ni au domaine Shopify dans `data.js`.
 

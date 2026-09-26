@@ -40,7 +40,7 @@ find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
 git -C "$root" archive origin/main bientot | tar -x --strip-components=1
 if [ -n "$secret" ]; then
   mkdir "$secret"
-  git -C "$root" archive origin/main index.html _ds_bundle.js styles.css tokens assets ui_kits/boutique | tar -x -C "$secret"
+  git -C "$root" archive origin/main index.html _ds_bundle.js styles.css tokens assets vendor ui_kits/boutique | tar -x -C "$secret"
   rm -f "$secret/ui_kits/boutique/README.md"
   # JSX converti à l'avance : le site s'affiche sans télécharger ni exécuter Babel.
   (cd "$tools" && npm pack --silent @babel/standalone@7.29.0 >/dev/null && tar -xzf ./*.tgz)

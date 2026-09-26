@@ -52,14 +52,17 @@ async function openPage(mobile) {
   const context = await browser.newContext(mobile ? { viewport: { width: 390, height: 844 }, isMobile: true, deviceScaleFactor: 2 } : { viewport: { width: 1280, height: 800 } });
   const page = await context.newPage();
   const errors = [];
+  const external = [];
   page.on('pageerror', (e) => errors.push(e.message));
+  // Tout doit venir du site lui-même, sauf Babel en version de travail et le paiement Shopify.
+  page.on('request', (r) => { const u = r.url(); if (!u.startsWith('http://localhost') && !u.startsWith('data:') && !u.includes('myshopify.com') && !u.includes('@babel/standalone')) external.push(u); });
   await page.route('https://unpkg.com/**', (r) => (cdn[r.request().url()] ? r.fulfill({ status: 200, contentType: 'text/javascript', body: fs.readFileSync(cdn[r.request().url()]) }) : r.abort()));
   // Polices Google : Chromium ne passe pas par le proxy des sessions cloud, curl si.
   await page.route(/https:\/\/fonts\.(googleapis|gstatic)\.com\/.*/, (r) => {
     try { return r.fulfill({ status: 200, body: execFileSync('curl', ['-sS', '-m', '20', '-A', r.request().headers()['user-agent'], r.request().url()]) }); } catch { return r.abort(); }
   });
   await page.route('https://*.myshopify.com/**', (r) => r.fulfill({ status: 200, contentType: 'text/html', body: 'shopify' }));
-  return { page, errors, context };
+  return { page, errors, external, context };
 }
 const results = [];
 const check = (name, ok, detail = '') => results.push(`${ok ? 'OK   ' : 'ÉCHEC'} ${name}${detail ? ' — ' + detail : ''}`);
@@ -68,7 +71,7 @@ const text = (page) => page.evaluate(() => document.body.innerText);
 
 // --- Parcours sur ordinateur
 {
-  const { page, errors, context } = await openPage(false);
+  const { page, errors, external, context } = await openPage(false);
   let shopify = null;
   page.on('request', (r) => { if (r.url().includes('myshopify.com/cart/')) shopify = r.url(); });
   await page.goto(base, { waitUntil: 'networkidle' });
@@ -114,6 +117,7 @@ const text = (page) => page.evaluate(() => document.body.innerText);
   await page.waitForTimeout(800);
   check('lien Shopify : Petit ×2 + Moyen ×1', shopify === 'https://jv1j5c-7a.myshopify.com/cart/43175297614033:2,43175297646801:1', shopify || 'aucun');
   check('aucune erreur JavaScript (ordinateur)', errors.length === 0, errors.join(' | '));
+  check('aucune requête vers un site tiers (polices, React…)', external.length === 0, [...new Set(external.map((u) => new URL(u).host))].join(', '));
   await context.close();
 }
 
