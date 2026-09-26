@@ -1,4 +1,4 @@
-// Product detail: gallery, fabric, qty, add to cart, tabs, review.
+// Product detail: gallery, fabric, qty, add to cart, tabs, review (only when a real one exists).
 const { Button, Badge, Card, Tabs, Select } = window.PetitNuageDesignSystem_f04838;
 
 function ProductScreen({ product, lang, t, onBack, onAdd }) {
@@ -6,9 +6,11 @@ function ProductScreen({ product, lang, t, onBack, onAdd }) {
   const loc = p[lang];
   const [tab, setTab] = React.useState(t.tabs[0]);
   React.useEffect(() => { setTab(t.tabs[0]); }, [lang]);
-  const gallery = [p.img, '../../assets/detail-toile.png', '../../assets/lifestyle-crib.png'];
+  // Each product lists only photos of itself (data.js), so a velvet model never shows the toile.
+  const gallery = p.gallery || [p.img];
   const [mainImg, setMainImg] = React.useState(p.img);
-  React.useEffect(() => { setMainImg(p.img); }, [p]);
+  const [qty, setQty] = React.useState('1');
+  React.useEffect(() => { setMainImg(p.img); setQty('1'); }, [p]);
   const tabContent = { [t.tabs[0]]: loc.desc, [t.tabs[1]]: t.care, [t.tabs[2]]: t.shipping };
   return (
     <main className="lpm-product-main" style={{ maxWidth: 'var(--container-max)', margin: '0 auto', padding: '36px 32px 0' }}>
@@ -19,13 +21,15 @@ function ProductScreen({ product, lang, t, onBack, onAdd }) {
       <div className="lpm-product-grid" style={{ display: 'grid', gridTemplateColumns: '1.15fr 1fr', gap: 56, alignItems: 'start' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           <ProductPhoto src={mainImg} alt={loc.name} height={440} radius="var(--radius-xl)" provisional={p.imgProvisional && mainImg === p.img} provisionalLabel={t.provisional} contain={mainImg === p.img} />
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
-            {gallery.map((g, i) => (
-              <div key={i} onClick={() => setMainImg(g)} style={{ borderRadius: 'var(--radius-md)', overflow: 'hidden', border: `1px solid ${mainImg === g ? 'var(--border-focus)' : 'var(--border-soft)'}`, cursor: 'pointer', height: 92, background: '#fff' }}>
-                <img src={g} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-              </div>
-            ))}
-          </div>
+          {gallery.length > 1 && (
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+              {gallery.map((g, i) => (
+                <div key={i} onClick={() => setMainImg(g)} style={{ borderRadius: 'var(--radius-md)', overflow: 'hidden', border: `1px solid ${mainImg === g ? 'var(--border-focus)' : 'var(--border-soft)'}`, cursor: 'pointer', height: 92, background: '#fff' }}>
+                  <img src={g} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'flex-start' }}>
@@ -39,8 +43,8 @@ function ProductScreen({ product, lang, t, onBack, onAdd }) {
             <span style={{ fontFamily: 'var(--font-display)', fontSize: 19, color: 'var(--text-heading)' }}>{loc.fabric}</span>
           </div>
           <div style={{ display: 'flex', gap: 10, alignItems: 'flex-end' }}>
-            <Select label={t.qty} options={['1', '2', '3']} style={{ width: 100 }} />
-            <Button size="lg" style={{ flex: 1 }} onClick={() => onAdd(p)}>{t.addToCart}</Button>
+            <Select label={t.qty} options={['1', '2', '3']} value={qty} onChange={(e) => setQty(e.target.value)} style={{ width: 100 }} />
+            <Button size="lg" style={{ flex: 1 }} onClick={() => onAdd(p, parseInt(qty, 10))}>{t.addToCart}</Button>
           </div>
           <Card variant="soft" padding="4px 20px" style={{ borderRadius: 'var(--radius-md)' }}>
             {t.productReassurance.map((line, i) => (
@@ -51,9 +55,11 @@ function ProductScreen({ product, lang, t, onBack, onAdd }) {
             <Tabs tabs={t.tabs} active={tab} onChange={setTab} />
             <p style={{ margin: 0, fontFamily: 'var(--font-body)', fontSize: 15, lineHeight: 1.7, maxWidth: 470 }}>{tabContent[tab]}</p>
           </div>
-          <div style={{ borderTop: '1px solid var(--border-soft)', paddingTop: 18, fontFamily: 'var(--font-display)', fontSize: 18, fontStyle: 'italic', color: 'var(--text-body)', lineHeight: 1.45 }}>
-            {t.review}
-          </div>
+          {t.review && (
+            <div style={{ borderTop: '1px solid var(--border-soft)', paddingTop: 18, fontFamily: 'var(--font-display)', fontSize: 18, fontStyle: 'italic', color: 'var(--text-body)', lineHeight: 1.45 }}>
+              {t.review}
+            </div>
+          )}
         </div>
       </div>
     </main>

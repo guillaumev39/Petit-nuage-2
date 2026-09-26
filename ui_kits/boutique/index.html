@@ -6,12 +6,12 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Koyumé — L'oreiller compagnon de sommeil pour enfants</title>
-<meta name="description" content="L'oreiller compagnon de sommeil inspiré d'Asie : l'enfant s'endort seul, et se rendort seul. Garnissage hypoallergénique, housse en fibre de bambou lavable. 30 nuits d'essai, livraison offerte dès 50 €.">
+<title>Koyumé — L’oreiller compagnon de sommeil pour enfants</title>
+<meta name="description" content="Le véritable compagnon de sommeil pour enfants, dès 2 ans : l’enfant s’endort seul, et se rendort seul. Housse en fibre de bambou lavable, garnissage hypoallergénique. 30 nuits d’essai, livraison offerte dès 50 €.">
 <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Koyumé — S'endormir seul. Dormir jusqu'au matin.">
-<meta property="og:description" content="L'oreiller compagnon de sommeil inspiré d'Asie. L'enfant s'endort seul, et se rendort seul. 30 nuits d'essai.">
+<meta property="og:title" content="Koyumé — Le sommeil, en toute autonomie.">
+<meta property="og:description" content="Le véritable compagnon de sommeil pour enfants, dès 2 ans. L’enfant s’endort seul, et se rendort seul. 30 nuits d’essai.">
 <meta property="og:image" content="https://koyume.fr/assets/hero-lifestyle.jpg">
 <meta property="og:url" content="https://koyume.fr/">
 <meta name="twitter:card" content="summary_large_image">
@@ -21,7 +21,7 @@
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 <script src="../../_ds_bundle.js"></script>
-<script src="data.js?v=10"></script>
+<script src="data.js?v=11"></script>
 <style>
   html, body { margin: 0; background: var(--surface-page); }
   * { box-sizing: border-box; }
@@ -42,22 +42,55 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "showFanions": true
 }/*EDITMODE-END*/;
 
+// Screens live in the URL hash (#/oreiller/moyen, #/qui-sommes-nous…) so the browser's back
+// button and shared links work; the cart survives reloads and the round trip to Shopify.
+const ROUTES = { maison: 'qui-sommes-nous', guide: 'guide-du-sommeil', faq: 'questions' };
+const screenFromHash = () => {
+  const [section, id] = window.location.hash.replace(/^#\/?/, '').split('/');
+  const product = section === 'oreiller' && window.lpmProducts.find(p => p.id === id);
+  if (product) return { name: 'product', product };
+  return { name: Object.keys(ROUTES).find(k => ROUTES[k] === section) || 'home' };
+};
+const hashFor = (name, product) => name === 'product' ? `#/oreiller/${product.id}` : ROUTES[name] ? `#/${ROUTES[name]}` : '#/';
+const loadCart = () => {
+  try { return JSON.parse(localStorage.getItem('lpm-cart') || '[]').map(id => window.lpmProducts.find(p => p.id === id)).filter(Boolean); }
+  catch (e) { return []; }
+};
+const DEFAULT_TITLE = document.title;
+
 function App() {
   const [tw, setTweak] = useTweaks(TWEAK_DEFAULTS);
   const [lang, setLang] = React.useState(localStorage.getItem('lpm-lang') || 'fr');
-  const [screen, setScreen] = React.useState({ name: 'home' });
-  const [cart, setCart] = React.useState([]);
+  const [screen, setScreen] = React.useState(screenFromHash);
+  const [cart, setCart] = React.useState(loadCart);
   const [toast, setToast] = React.useState(null);
   const [cartOpen, setCartOpen] = React.useState(false);
   const t = window.lpmT[lang];
 
   const changeLang = (l) => { setLang(l); localStorage.setItem('lpm-lang', l); };
-  const addToCart = (p) => {
-    setCart(c => [...c, p]);
+  React.useEffect(() => {
+    const onHash = () => { setScreen(screenFromHash()); window.scrollTo(0, 0); };
+    window.addEventListener('hashchange', onHash);
+    return () => window.removeEventListener('hashchange', onHash);
+  }, []);
+  React.useEffect(() => {
+    try { localStorage.setItem('lpm-cart', JSON.stringify(cart.map(p => p.id))); } catch (e) {}
+  }, [cart]);
+  React.useEffect(() => {
+    const titles = { product: screen.product && screen.product[lang].name, maison: t.maison.eyebrow, guide: t.guideSommeil.eyebrow, faq: t.faq.eyebrow };
+    document.title = titles[screen.name] ? `${titles[screen.name]} — Koyumé` : DEFAULT_TITLE;
+  }, [screen, lang]);
+
+  const addToCart = (p, qty = 1) => {
+    setCart(c => [...c, ...Array(qty > 0 ? qty : 1).fill(p)]);
     setToast(t.added);
     setTimeout(() => setToast(null), 2400);
   };
-  const nav = (name, product) => { setScreen({ name, product }); window.scrollTo(0, 0); };
+  const nav = (name, product) => {
+    const hash = hashFor(name, product);
+    if (hash === (window.location.hash || '#/')) { setScreen({ name, product }); window.scrollTo(0, 0); }
+    else window.location.hash = hash;
+  };
   const addOne = (p) => setCart(c => [...c, p]);
   const removeOne = (p) => setCart(c => { const i = c.findIndex(x => x.id === p.id); if (i < 0) return c; const n = [...c]; n.splice(i, 1); return n; });
   const removeAll = (p) => setCart(c => c.filter(x => x.id !== p.id));
