@@ -51,13 +51,15 @@ function Hero({ t, lang, variant }) {
         {variant === 'film'
           ? <video key={filmSrc} src={filmSrc} poster="../../assets/lifestyle-crib.png" autoPlay muted loop playsInline style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}></video>
           : <img src="../../assets/lifestyle-crib.png" alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />}
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(35,33,28,0.55), rgba(35,33,28,0) 55%)' }}></div>
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(35,33,28,0.62), rgba(35,33,28,0) 68%)' }}></div>
         <div className="lpm-hero-film-row" style={{ position: 'relative', width: '100%', maxWidth: 'var(--container-max)', margin: '0 auto', padding: '0 32px 56px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 32 }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
               <span style={{ ...eyebrowStyle, color: 'rgba(255,253,248,0.75)' }}>{t.heroEyebrow}</span>
             </div>
             <h1 className="lpm-hero-title" style={{ margin: 0, fontSize: 'clamp(48px, 6vw, 80px)', fontWeight: 500, lineHeight: 1.04, color: '#FFFDF8' }}>{t.heroTitle}</h1>
+            {/* The target line (« Aux parents qui comptent les réveils ») — the film hero is what visitors see. */}
+            <p className="lpm-hero-sub" style={{ margin: '18px 0 0', maxWidth: 540, fontFamily: 'var(--font-body)', fontSize: 17, lineHeight: 1.6, color: 'rgba(255,253,248,0.9)' }}>{t.heroSub}</p>
           </div>
           <Button size="lg" style={{ flexShrink: 0 }} onClick={() => window.scroll({ top: document.getElementById('collection').offsetTop - 100, behavior: 'smooth' })}>{t.heroCta}</Button>
         </div>

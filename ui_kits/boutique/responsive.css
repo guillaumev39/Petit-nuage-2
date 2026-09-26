@@ -31,6 +31,7 @@
     padding: 0 20px 32px !important;
   }
   .lpm-hero-title { font-size: 36px !important; }
+  .lpm-hero-sub { font-size: 15px !important; margin-top: 12px !important; }
 
   /* ---- Hero (packshot) ---- */
   .lpm-hero-pack { padding: 44px 20px 0 !important; }
